@@ -20,31 +20,11 @@ namespace Laba1.Atsd
         public Node Next { get; set; }
     }
 
-    public class LinkedList //: IEnumerable //односвязный список
+    public class LinkedList  //односвязный список
     {
         Node head; //головной, первый элемент
         Node tail; //последний, хвостовой элемент
         int count;
-
-
-        public void AddLast(int data)  //добавление элемента
-        {
-
-            Node node = new Node(data);
-
-            if (head == null)
-            {
-                head = node;
-            }
-            else
-            {
-                tail.Next = node;
-            }
-
-            tail = node;
-            count++;
-        }
-
         public bool Remove(int data) //удаление элемента
         {
             Node current = head;
@@ -52,7 +32,7 @@ namespace Laba1.Atsd
 
             while (current != null)
             {
-                if (current.Data.Equals(data))
+                if (current.Data == data)
                 {
                     if (previous != null) //если узел в середине или конце
                     {
@@ -85,14 +65,27 @@ namespace Laba1.Atsd
             return false;
         }
 
-        public int Count { get { return count; } }
+        public int Count { get { return count; } } // list size
         public bool IsEmpty { get { return count == 0; } }
 
-        public void clear()
+        public void clear() // make empty
         {
             head = null;
             tail = null;
             count = 0;
+        }
+
+        public bool IsFull()
+        {
+            bool result = false;
+            Node current = head;
+
+            if(current == null)
+            {
+                return true;
+            }
+
+            return result;
         }
 
         public bool Contains(int data) //проверяет наличие элемента
@@ -101,7 +94,7 @@ namespace Laba1.Atsd
             while (current != null)
             {
 
-                if (current.Data.Equals(data))
+                if (current.Data == data )
                 {
                     return true;
                 }
@@ -112,25 +105,29 @@ namespace Laba1.Atsd
             return false;
         }
 
-        //      else {
-        //	Node* previous = NULL, *following = first;
-        //	while (following != NULL && following->data<item) {
-        //		previous = following;
-        //		following = following->next;
-        //	}
-        //	if (previous == NULL)
-        //		first = new Node(item, first);
-        //	else previous->next = new Node(item, following);
-        //  count++;
-        //}
-
+        public int Retrieve(int item)
+        {
+            Node current = head;
+            while(current != null)
+            {
+                if(current.Data == item)
+                {
+                    return current.Data;
+                }
+                else
+                {
+                    current = current.Next;
+                }
+            }
+            Console.WriteLine("item was not found, was not retrieved");
+            return -10000;
+        }
+      
         public void AppendFirst(int data) //добавляет с начала списка
         {
             Node node = new Node(data);
             Node current = head;
-            var x = new object();
-            var y = new object();
-
+          
             if (head == null)
             {
                 head = node;
@@ -154,7 +151,7 @@ namespace Laba1.Atsd
                 Node before = head;
                 while (after != null)
                 {
-                    if (data.compareTo(after.data) < 0)
+                    if (data <after.Data )
                     {
                         break;
                     }
@@ -181,104 +178,96 @@ namespace Laba1.Atsd
             while (current != null)
             {
 
-                Console.WriteLine(current);
-
+                Console.Write(current.Data);
+                Console.Write(" ");
                 current = current.Next;
             }
+            Console.WriteLine();
         }
 
-
-
-
-        public void Reverse(LinkedList<int> linkedlist)
+        public void GetSplitLinked(int loc)
         {
-            if (head == null)
-            {
-                Console.WriteLine("list is empty");
-            }
-            while (head != null)
-            {
-                LinkedList<int> start = linkedlist.Head;
-
-            }
-
-        }
-
-
-
-        public void ReverseCopy(LinkedList<int> linkedlist)
-        {
-            LinkedList<int> linkedlist1 = new LinkedList<int>();
+ 
+            LinkedList linkedlistFirst = new LinkedList();
+            LinkedList linkedlistSecond = new LinkedList();
 
             if (head == null)
             {
                 Console.WriteLine("list is empty");
             }
-            while (head != null)
+
+            Node current = head;
+
+            for (int i = 0; i < loc; i++ )
             {
-                linkedlist1.AddLast()
+                linkedlistFirst.AppendFirst(current.Data);    
+                current = current.Next;
+                                
+            }
+            linkedlistFirst.PrintList();
+
+            while (current != null)
+            {
+                linkedlistSecond.AppendFirst(current.Data);
+                current = current.Next;
             }
 
+            linkedlistSecond.PrintList();
         }
 
+        public void GetCopyPartLinked(int k, int j)
+        {
+            LinkedList linkedlistСopy = new LinkedList();
+            if (head == null)
+            {
+                Console.WriteLine("list is empty");
+            }
 
+            Node current = head;
+          
+            for(int i = 0; i < j+1; i++)
+            {
+                if(i > k-1)
+                {
+                    linkedlistСopy.AppendFirst(current.Data);
+                    current = current.Next;
+                }
+                else
+                {
+                    current = current.Next;
+                }
+            }
 
-
-
-
-
-
-
-
-
-
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    return ((IEnumerable)this).GetEnumerator();
-        //}
-
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    Node current = head;
-        //    while (current != null)
-        //    {
-        //        yield return current.Data;
-        //        current = current.Next;
-        //    }
-        //}
+            linkedlistСopy.PrintList();
+        }
 
     }
+
+
     class Program
     {
         static void Main(string[] args)
         {
-            LinkedList<int> linkedlist = new LinkedList<int>();
+            LinkedList linkedlist = new LinkedList();
+           
+            linkedlist.AppendFirst(10);
+            
+            linkedlist.AppendFirst(30);
 
+            linkedlist.AppendFirst(50);
 
+            linkedlist.AppendFirst(40);
 
-
-            linkedlist.AddLast(10);
+            linkedlist.AppendFirst(20);
             linkedlist.PrintList();
-            linkedlist.AddLast(50);
 
-            linkedlist.AddLast(35);
-            linkedlist.AddLast(60);
+            linkedlist.GetSplitLinked(3);
 
+            linkedlist.GetCopyPartLinked(1, 3);
 
+            linkedlist.Remove(10);
+            linkedlist.PrintList();
             Console.ReadKey();
         }
     }
 }
-//void List::printList()
-//{
-//    cout << "List content:\n";
-//    if (count == 0)
-//        cout << "list is empty.\n";
-//    Node* p = first;
-//    while (p != NULL)
-//    {
-//        cout << p->data << ", ";
-//        p = p->next;
-//    }//while
-//    cout << endl;
-//}//printList
