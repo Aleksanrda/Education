@@ -10,52 +10,50 @@ namespace Laba1.Atsd
     public class List
     {
         public int[] data;
-       // private const int _defaultCapacity = 5;
+        int capacity = 5;
+        int counter = 0;
+        int count = 0;
+        // private const int _defaultCapacity = 5;
         public List(int capacity)
         {
-            if(capacity <= 0)
+            if (capacity <= 0)
             {
                 Console.WriteLine("Data is empty");
             }
             else
             {
-                data = new int [capacity];
+                data = new int[capacity];
             }
         }
 
         public bool IsEmpty(int capacity)
         {
-            for(int i = 0; i < capacity; i++)
+            for (int i = 0; i < capacity; i++)
             {
-                if(data[i] != 0)
+                if (count != 0)
                 {
                     return false;
-                }               
+                }
             }
             return true;
         }
 
         public bool IsFull(int capacity)
         {
-            for (int i = 0; i < capacity; i++)
+            if (count != capacity)
             {
-                if (data[i] == 0)
-                {
-                    return false;
-                }
+                return false;
             }
             return true;
         }
-        int capacity = 5;
+
         public void AddData(int value)
         {
-            for(int i = 0; i < capacity; i++)
+            if (count <= capacity)
             {
-                if(data[i] != 0)
-                {
-                    data[i] = value;
-                    break;
-                }
+                data[counter] = value;
+                counter++;
+                count++;
             }
         }
 
@@ -66,6 +64,7 @@ namespace Laba1.Atsd
                 if (data[i] == value)
                 {
                     data[i] = 0;
+                    count--;
                     break;
                 }
             }
@@ -75,7 +74,7 @@ namespace Laba1.Atsd
         {
             for (int i = 0; i < capacity; i++)
             {
-                if(data[i] == value)
+                if (data[i] == value)
                 {
                     return true;
                 }
@@ -97,99 +96,135 @@ namespace Laba1.Atsd
 
         public void MakeEmpty(int capacity)
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < count; i++)
             {
-                if (data[i] != 0)
-                {
-                    data[i] = 0;
-                }
+                data[i] = 0;
+                count--;
             }
         }
 
         public void PrintData()
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < count; i++)
             {
-                if (data[i] != 0)
+                if (count <= capacity)
                 {
                     Console.WriteLine(data[i]);
                 }
             }
         }
 
-        public void Heapify(int[] data, int i, int max)
-        {
-            int big_index, childLeft, childRight;
-            while (i < max)
-            {
-                big_index = i;
-                childLeft = 2 * i + 1;
-                childRight = childLeft + 1;
-                var left = data[childLeft];
-                if (childLeft < max && data[childLeft] > data[big_index])
-                    big_index = childLeft;
+        //public void Heapify(int[] data, int i, int max)
+        //{
+        //    int big_index, childLeft, childRight;
+        //    while (i < max)
+        //    {
+        //        big_index = i;
+        //        childLeft = 2 * i + 1;
+        //        childRight = childLeft + 1;
 
-                else if (childRight < max && data[childRight] > data[big_index])
+        //        if (childLeft < max && data[childLeft] > data[big_index])
+        //        {
+        //            big_index = childLeft;
+        //        }
+        //         if (childRight < max && data[childRight] > data[big_index])
+        //        {
+        //            big_index = childRight;
+        //        }
+        //        if (big_index == i)
+        //        {
+        //            return;
+        //        }
+
+        //        Swap(i, big_index);
+        //        i = big_index;
+        //    }
+        //}
+
+        //public void BuildHeap(int[] data)
+        //{
+        //    for (int i = capacity / 2 - 1; i >= 0; i--)
+        //    {
+        //        Heapify(data, i, capacity); //creates a max heap
+        //    }
+
+
+        //    //for (int i = count - 1; i >= 0; i--)
+        //    //{
+        //    //    Swap(linkedlist.ElementAt(0), linkedlist[i]); //swap first and last node
+        //    //    Heapify(linkedlist, i, 0);
+        //    //}
+        //}
+
+        //public int[] HeapSort()
+        //{
+        //    BuildHeap(data);
+        //    var end = capacity - 1;
+
+        //    while (end >= 0)
+        //    {
+        //        Swap(0, end);
+        //        Heapify(data, 0, end);
+        //        end -= 1;
+        //    }
+        //    return data;
+        //}
+
+      
+
+        //public void Swap(int a, int b)
+        //{
+        //    int c;
+        //    c = a;
+        //    a = b;
+        //    b = a;
+
+        //}
+
+        public static void Heapify(int[] data,int pos, int n)
+        {
+            int temp;
+            while (2 * pos + 1 < n)
+            {
+                int t = 2 * pos + 1; if (2 * pos + 2 < n && data[2 * pos + 2] >= data[t])
                 {
-                    big_index = childRight;
+                    t = 2 * pos + 2;
                 }
-                else if (big_index == i)
-                {
-                    return;
-                }
-
-                Swap(i, big_index);
-                i = big_index;
+                if (data[pos] <data[t]) { temp = data[pos]; data[pos] = data[t]; data[t] = temp; pos = t; } else break;
             }
         }
-
-        public int[] HeapSort()
+        public static void HeapMake(int[] data, int capacity)
         {
-            BuildHeap(data,capacity);
-            var end = capacity - 1;
-
-            while (end >= 0)
+            for (int i = capacity - 1; i >= 0; i--)
             {
-                Swap(0, end);
-                Heapify(data, 0, end);
-                end -= 1;
+                Heapify(data, i, capacity);
             }
-            return data;
         }
-     
-        public void BuildHeap(int[] data, int capacity)
-        {
-            for (int i = capacity / 2 - 1; i >= 0; i--)
+        public static void HeapSort(int[] data, int capaity)
+        {       
+            int temp;
+            HeapMake(data, capacity);
+            while (capaity > 0)
             {
-                Heapify(data, i, capacity); //creates a max heap
+                temp = data[0];
+                data[0] = data[capaity - 1];
+                data[capaity - 1] = temp;
+                capaity--;
+                Heapify(data, 0, capaity);
             }
-            //for (int i = count - 1; i >= 0; i--)
-            //{
-            //    Swap(linkedlist.ElementAt(0), linkedlist[i]); //swap first and last node
-            //    Heapify(linkedlist, i, 0);
-            //}
-        }
-
-        public  void Swap(int a, int b)
-        {
-            int c;
-            c = a;
-            a = b;
-            b = a;
-
         }
 
     }
 
-    class program
+    class Program
     {
-       static void main(string[] args)
+        static void Main(string[] args)
         {
             List data = new List(5);
             data.AddData(10);
             data.AddData(5);
             data.AddData(15);
-            data.AddData(24);
+            data.AddData(1);
             data.AddData(90);
             data.PrintData();
 
@@ -198,175 +233,5 @@ namespace Laba1.Atsd
             Console.ReadKey();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public class Node //класс узла, который представляет одиночный объект в списке
-    //{
-    //    public Node(int data)
-    //    {
-    //        Data = data;
-    //    }
-
-    //    public int Data { get; set; }
-
-    //    public Node Next { get; set; }
-    //}
-
-    //public class LinkedList  //односвязный список
-    //{
-    //    Node head; //головной, первый элемент
-    //    Node tail; //последний, хвостовой элемент
-    //    int count;
-
-    //   
-    //    public void Add(int data) //List unsorted: item is always inserted at the end of a list.
-    //    {
-    //        Node current = head;
-    //        Node newElement = new Node(data);
-
-    //        if (head == null)
-    //        {
-    //            head = newElement;
-    //        }
-    //        else
-    //        {
-    //            tail.Next = newElement;
-    //        }
-
-    //        tail = newElement;
-    //        count++;
-    //    }
-    //    public bool Remove(int data) //удаление элемента
-    //    {
-    //        Node current = head;
-    //        Node previous = null;
-
-    //        while (current != null)
-    //        {
-    //            if (current.Data == data)
-    //            {
-    //                if (previous != null) //если узел в середине или конце
-    //                {
-    //                    previous.Next = current.Next; //
-
-    //                    if (current.Next == null)
-    //                    {
-    //                        tail = previous;
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    head = head.Next;
-
-    //                    if (head == null)
-    //                    {
-    //                        tail = null;
-    //                    }
-
-    //                }
-    //                count--;
-    //                return true;
-    //            }
-
-    //            previous = current;
-    //            current = current.Next;
-
-    //        }
-
-    //        return false;
-    //    }
-
-    //    public int Count { get { return count; } } // list size
-    //    public bool IsEmpty { get { return count == 0; } }
-
-    //    public void clear() // make empty
-    //    {
-    //        head = null;
-    //        tail = null;
-    //        count = 0;
-    //    }
-
-    //    public bool IsFull()
-    //    {
-    //        bool result = false;
-    //        Node current = head;
-
-    //        if (current == null)
-    //        {
-    //            return true;
-    //        }
-
-    //        return result;
-    //    }
-
-    //    public bool Contains(int data) //проверяет наличие элемента
-    //    {
-    //        Node current = head;
-    //        while (current != null)
-    //        {
-
-    //            if (current.Data == data)
-    //            {
-    //                return true;
-    //            }
-
-    //            current = current.Next;
-    //        }
-
-    //        return false;
-    //    }
-
-    //    public int Retrieve(int item)
-    //    {
-    //        Node current = head;
-    //        while (current != null)
-    //        {
-    //            if (current.Data == item)
-    //            {
-    //                return current.Data;
-    //            }
-    //            else
-    //            {
-    //                current = current.Next;
-    //            }
-    //        }
-    //        Console.WriteLine("item was not found, was not retrieved");
-    //        return -10000;
-    //    }
-
-    //    public void PrintList()
-    //    {
-    //        if (count == 0)
-    //        {
-    //            Console.WriteLine("list is empty");
-    //        }
-    //        Node current = head;
-    //        while (current != null)
-    //        {
-
-    //            Console.Write(current.Data);
-    //            Console.Write(" ");
-    //            current = current.Next;
-    //        }
-    //        Console.WriteLine();
-    //    }
-    //}
-
-
 
 }
