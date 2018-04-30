@@ -9,20 +9,15 @@ namespace Laba1.Atsd
 {
     public class List
     {
-        public int[] data;
+        private readonly int[] data;
         int capacity = 5;
-        int counter = 0;
         int count = 0;
         // private const int _defaultCapacity = 5;
         public List(int capacity)
         {
             if (capacity <= 0)
             {
-                Console.WriteLine("Data is empty");
-            }
-            else
-            {
-                data = new int[capacity];
+               throw new ArgumentException("Data is empty");
             }
         }
 
@@ -51,8 +46,7 @@ namespace Laba1.Atsd
         {
             if (count <= capacity)
             {
-                data[counter] = value;
-                counter++;
+                data[count] = value;
                 count++;
             }
         }
@@ -106,80 +100,11 @@ namespace Laba1.Atsd
         public void PrintData()
         {
             for (int i = 0; i < count; i++)
-            {
-                if (count <= capacity)
-                {
-                    Console.WriteLine(data[i]);
-                }
+            {               
+                    Console.WriteLine(data[i]);                
             }
         }
 
-        //public void Heapify(int[] data, int i, int max)
-        //{
-        //    int big_index, childLeft, childRight;
-        //    while (i < max)
-        //    {
-        //        big_index = i;
-        //        childLeft = 2 * i + 1;
-        //        childRight = childLeft + 1;
-
-        //        if (childLeft < max && data[childLeft] > data[big_index])
-        //        {
-        //            big_index = childLeft;
-        //        }
-        //         if (childRight < max && data[childRight] > data[big_index])
-        //        {
-        //            big_index = childRight;
-        //        }
-        //        if (big_index == i)
-        //        {
-        //            return;
-        //        }
-
-        //        Swap(i, big_index);
-        //        i = big_index;
-        //    }
-        //}
-
-        //public void BuildHeap(int[] data)
-        //{
-        //    for (int i = capacity / 2 - 1; i >= 0; i--)
-        //    {
-        //        Heapify(data, i, capacity); //creates a max heap
-        //    }
-
-
-        //    //for (int i = count - 1; i >= 0; i--)
-        //    //{
-        //    //    Swap(linkedlist.ElementAt(0), linkedlist[i]); //swap first and last node
-        //    //    Heapify(linkedlist, i, 0);
-        //    //}
-        //}
-
-        //public int[] HeapSort()
-        //{
-        //    BuildHeap(data);
-        //    var end = capacity - 1;
-
-        //    while (end >= 0)
-        //    {
-        //        Swap(0, end);
-        //        Heapify(data, 0, end);
-        //        end -= 1;
-        //    }
-        //    return data;
-        //}
-
-      
-
-        //public void Swap(int a, int b)
-        //{
-        //    int c;
-        //    c = a;
-        //    a = b;
-        //    b = a;
-
-        //}
 
         public static void Heapify(int[] data,int pos, int n)
         {
@@ -193,17 +118,17 @@ namespace Laba1.Atsd
                 if (data[pos] <data[t]) { temp = data[pos]; data[pos] = data[t]; data[t] = temp; pos = t; } else break;
             }
         }
-        public static void HeapMake(int[] data, int capacity)
+        public static void HeapMake(int[] data, int count)
         {
-            for (int i = capacity - 1; i >= 0; i--)
+            for (int i = count - 1; i >= 0; i--)
             {
-                Heapify(data, i, capacity);
+                Heapify(data, i, count);
             }
         }
         public static void HeapSort(int[] data, int capaity)
         {       
             int temp;
-            HeapMake(data, capacity);
+            HeapMake(data, count);
             while (capaity > 0)
             {
                 temp = data[0];
@@ -235,3 +160,70 @@ namespace Laba1.Atsd
     }
 
 }
+
+//public void Heapify(int[] data, int i, int max)
+//{
+//    int big_index, childLeft, childRight;
+//    while (i < max)
+//    {
+//        big_index = i;
+//        childLeft = 2 * i + 1;
+//        childRight = childLeft + 1;
+
+//        if (childLeft < max && data[childLeft] > data[big_index])
+//        {
+//            big_index = childLeft;
+//        }
+//         if (childRight < max && data[childRight] > data[big_index])
+//        {
+//            big_index = childRight;
+//        }
+//        if (big_index == i)
+//        {
+//            return;
+//        }
+
+//        Swap(i, big_index);
+//        i = big_index;
+//    }
+//}
+
+//public void BuildHeap(int[] data)
+//{
+//    for (int i = capacity / 2 - 1; i >= 0; i--)
+//    {
+//        Heapify(data, i, capacity); //creates a max heap
+//    }
+
+
+//    //for (int i = count - 1; i >= 0; i--)
+//    //{
+//    //    Swap(linkedlist.ElementAt(0), linkedlist[i]); //swap first and last node
+//    //    Heapify(linkedlist, i, 0);
+//    //}
+//}
+
+//public int[] HeapSort()
+//{
+//    BuildHeap(data);
+//    var end = capacity - 1;
+
+//    while (end >= 0)
+//    {
+//        Swap(0, end);
+//        Heapify(data, 0, end);
+//        end -= 1;
+//    }
+//    return data;
+//}
+
+
+
+//public void Swap(int a, int b)
+//{
+//    int c;
+//    c = a;
+//    a = b;
+//    b = a;
+
+//}
