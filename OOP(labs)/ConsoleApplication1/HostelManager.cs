@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Lab1_2.Models; 
+using Lab1_2.Models;
 
 namespace Lab1_2
 {
-    public  class HostelManager
+    public class HostelManager
     {
         private HostelStorage hostelStorage;
 
@@ -16,8 +16,10 @@ namespace Lab1_2
             this.hostelStorage = new HostelStorage();
         }
 
-        public void Add(int nameRoom, string personName)
+        public bool Add(int nameRoom, string personName)
         {
+            string result = "";
+
             if (nameRoom < 0)
             {
                 throw new ArgumentException("Room can`t  be negative");
@@ -37,16 +39,19 @@ namespace Lab1_2
                     {
                         if (rooms[i].Person.Count < 5)
                         {
-                            this.hostelStorage.AddRoommate(rooms[i], personName);
-                            //Console.WriteLine("Person was added");
-                            break;
+                            this.hostelStorage.AddRoommate(rooms[i], personName);                            
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
 
                 }
-
-                Console.WriteLine("Room is full");
             }
+
+            return false;
         }
 
         public void Remove(int nameRoom, string personName)
@@ -65,18 +70,21 @@ namespace Lab1_2
             var rooms = this.hostelStorage.GetAllRooms();
 
             for (int i = 0; i < rooms.Count; i++)
+            {
+                if (nameRoom == rooms[i].NumberOfRoom)
                 {
-                    if (nameRoom == rooms[i].NumberOfRoom)
+                    for(int j = 0; j < rooms[i].Person.Count; j++)
                     {
-                        if (rooms[i].Person.Count < 5)
+                        if (personName == rooms[i].Person[j])
                         {
-                            rooms[i].Person.Remove(personName);
+                            this.hostelStorage.RemoveRoommate(rooms[i], personName);
                             break;
                         }
-                    }
-
+                    }                    
                 }
-            
+
+            }
+
             //валидация и логика
         }
 
@@ -185,7 +193,7 @@ namespace Lab1_2
                             countOfFreeRoom++;
                         }
 
-                       // countOfFreeRoomInFloor[k] = "Count of free rooms in " + (k + 2) + " floor: " + countOfFreeRoom;
+                        // countOfFreeRoomInFloor[k] = "Count of free rooms in " + (k + 2) + " floor: " + countOfFreeRoom;
                     }
                 }
 

@@ -21,7 +21,6 @@ namespace Lab1_2
             {
                 HostelUI hostelUI = new HostelUI();
 
-
                 var room = new Room[1];
 
                 Console.WriteLine("1 - Get information about number of flour and number of room");
@@ -69,7 +68,6 @@ namespace Lab1_2
                     else if (inputNumber == 2)
                     {
                         hostelUI.OutputListOfFreePlaceInRoom();
-
                     }
 
                     else if (inputNumber == 3)

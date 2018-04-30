@@ -43,6 +43,7 @@ namespace Lab1_2
                     Console.WriteLine(searchPlaceBySurname);
                 }
             }
+
             Console.ResetColor();
             Console.ReadKey();
         }
@@ -50,17 +51,21 @@ namespace Lab1_2
         public void OutputListOfFreePlaceInRoom()
         {
             var resultOutputListOfFreePlaceInRoom = hostelManager.OutputListOfFreePlaceInRoom();
+
             if (resultOutputListOfFreePlaceInRoom.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Hhere are no free places in hostel");
             }
+
             foreach (var v in resultOutputListOfFreePlaceInRoom)
             {
                 string outputListOfFreePlaceInRoom = v.Room.NumberOfRoom + " have " + v.AmountFreeBeds + " free places ";
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(outputListOfFreePlaceInRoom);
             }
 
+            Console.ResetColor();
             Console.ReadKey();
         }
 
@@ -119,9 +124,16 @@ namespace Lab1_2
                 throw new ArgumentNullException("Input Surname can`t  be empty");
                 //error message
             }
-
-            hostelManager.Add(inputNumberOfUser, inputSurname);
-
+           
+           var resultAddPerson = hostelManager.Add(inputNumberOfUser, inputSurname);
+            if(resultAddPerson == true)
+            {
+                Console.WriteLine("Person was added");
+            }
+            else
+            {
+                Console.WriteLine("Room is full, we can not add person");
+            }
             Console.ReadKey();
         }
 

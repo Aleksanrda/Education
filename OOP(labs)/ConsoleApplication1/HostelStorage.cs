@@ -141,5 +141,16 @@ namespace Lab1_2
                 }
             }
         }
+
+        public void RemoveRoommate(Room room, string name)
+        {
+            foreach (var r in rooms)
+            {
+                if (room == r)
+                {
+                    r.Person.Remove(name);
+                }
+            }
+        }
     }
 }
