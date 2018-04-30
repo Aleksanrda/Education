@@ -83,7 +83,7 @@ namespace Lab1_2
             foreach (var v in resultCountOfFreeRoomInFloor)
             {
                 //string countOfFreeRoomInFloor = v.
-     
+
             }
 
             Console.WriteLine("");
@@ -93,13 +93,13 @@ namespace Lab1_2
 
         public void PrintAllPersonsInHostel()
         {
-            List<string> resultGetAllPersonsInHostel = hostelManager.GetAllPersonsInHostel();
+           var resultAllPersonsHostel = hostelManager.GetAllPersonsInHostel();
 
-            foreach (var v in resultGetAllPersonsInHostel)
+            foreach (var v in resultAllPersonsHostel)
             {
-                if (v != null)
-                    Console.WriteLine(v);
+                Console.WriteLine(v);
             }
+
             Console.ReadKey();
         }
 
@@ -124,9 +124,9 @@ namespace Lab1_2
                 throw new ArgumentNullException("Input Surname can`t  be empty");
                 //error message
             }
-           
-           var resultAddPerson = hostelManager.Add(inputNumberOfUser, inputSurname);
-            if(resultAddPerson == true)
+
+            var resultAddPerson = hostelManager.Add(inputNumberOfUser, inputSurname);
+            if (resultAddPerson == true)
             {
                 Console.WriteLine("Person was added");
             }

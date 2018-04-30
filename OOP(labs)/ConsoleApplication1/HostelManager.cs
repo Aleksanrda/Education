@@ -96,12 +96,9 @@ namespace Lab1_2
 
             for (int i = 0; i < rooms.Count; i++)
             {
-                for (int j = 0; j < rooms[i].Person.Count; i++)
-                {
-                    if (rooms[i].Person[j] != null)
-                    {
-                        printAllPersonsInHostel.Add(rooms[i].Person[j]);
-                    }
+                for (int j = 0; j < rooms[i].Person.Count; j++)
+                {                    
+                        printAllPersonsInHostel.Add(rooms[i].Person[j]);                    
                 }
             }
 
