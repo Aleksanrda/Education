@@ -17,7 +17,7 @@ namespace Laba1.Atsd
         {
             if (capacity <= 0)
             {
-               throw new ArgumentException("Data is empty");
+                throw new ArgumentException("Data is empty");
             }
         }
 
@@ -100,13 +100,13 @@ namespace Laba1.Atsd
         public void PrintData()
         {
             for (int i = 0; i < count; i++)
-            {               
-                    Console.WriteLine(data[i]);                
+            {
+                Console.WriteLine(data[i]);
             }
         }
 
 
-        public static void Heapify(int[] data,int pos, int n)
+        public static void Heapify(int[] data, int pos, int n)
         {
             int temp;
             while (2 * pos + 1 < n)
@@ -115,7 +115,7 @@ namespace Laba1.Atsd
                 {
                     t = 2 * pos + 2;
                 }
-                if (data[pos] <data[t]) { temp = data[pos]; data[pos] = data[t]; data[t] = temp; pos = t; } else break;
+                if (data[pos] < data[t]) { temp = data[pos]; data[pos] = data[t]; data[t] = temp; pos = t; } else break;
             }
         }
         public static void HeapMake(int[] data, int count)
@@ -125,18 +125,17 @@ namespace Laba1.Atsd
                 Heapify(data, i, count);
             }
         }
-        public static void HeapSort(int[] data, int capaity)
-        {       
+        public void HeapSort()
+        {
             int temp;
-            // у тебя функция статическая, а поле count не статик.
             HeapMake(data, count);
-            while (capaity > 0)
+            while (capacity > 0)
             {
                 temp = data[0];
-                data[0] = data[capaity - 1];
-                data[capaity - 1] = temp;
-                capaity--;
-                Heapify(data, 0, capaity);
+                data[0] = data[capacity - 1];
+                data[capacity - 1] = temp;
+                capacity--;
+                Heapify(data, 0, capacity);
             }
         }
 
