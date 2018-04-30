@@ -19,27 +19,18 @@ namespace Laba1.Atsd
             {
                 throw new ArgumentException("Data is empty");
             }
+
+            data = new int[capacity];
         }
 
-        public bool IsEmpty(int capacity)
+        public bool IsEmpty()
         {
-            for (int i = 0; i < capacity; i++)
-            {
-                if (count != 0)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return count == 0;
         }
 
-        public bool IsFull(int capacity)
+        public bool IsFull()
         {
-            if (count != capacity)
-            {
-                return false;
-            }
-            return true;
+            return count == capacity;
         }
 
         public void AddData(int value)
