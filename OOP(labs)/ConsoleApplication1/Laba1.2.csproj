@@ -46,6 +46,7 @@
     <Compile Include="HostelManager.cs" />
     <Compile Include="HostelStorage.cs" />
     <Compile Include="Models\FreePlacesResult.cs" />
+    <Compile Include="Models\PercentagePopulation.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

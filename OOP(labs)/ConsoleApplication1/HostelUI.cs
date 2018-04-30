@@ -82,24 +82,28 @@ namespace Lab1_2
 
             foreach (var v in resultCountOfFreeRoomInFloor)
             {
-                //string countOfFreeRoomInFloor = v.
-
+                string countOfFreeRoomInFloor = "Count of free rooms in " + v.NumberFlour + " floor: " + v.CountFreeRoom;
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine(countOfFreeRoomInFloor);
             }
 
             Console.WriteLine("");
             Console.WriteLine(resultOutPercentageOfPopulation);
+            Console.ResetColor();
             Console.ReadKey();
         }
 
         public void PrintAllPersonsInHostel()
         {
-           var resultAllPersonsHostel = hostelManager.GetAllPersonsInHostel();
+            var resultAllPersonsHostel = hostelManager.GetAllPersonsInHostel();
 
             foreach (var v in resultAllPersonsHostel)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(v);
             }
 
+            Console.ResetColor();
             Console.ReadKey();
         }
 

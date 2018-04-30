@@ -39,7 +39,7 @@ namespace Lab1_2
                     {
                         if (rooms[i].Person.Count < 5)
                         {
-                            this.hostelStorage.AddRoommate(rooms[i], personName);                            
+                            this.hostelStorage.AddRoommate(rooms[i], personName);
                             return true;
                         }
                         else
@@ -73,14 +73,14 @@ namespace Lab1_2
             {
                 if (nameRoom == rooms[i].NumberOfRoom)
                 {
-                    for(int j = 0; j < rooms[i].Person.Count; j++)
+                    for (int j = 0; j < rooms[i].Person.Count; j++)
                     {
                         if (personName == rooms[i].Person[j])
                         {
                             this.hostelStorage.RemoveRoommate(rooms[i], personName);
                             break;
                         }
-                    }                    
+                    }
                 }
 
             }
@@ -97,8 +97,8 @@ namespace Lab1_2
             for (int i = 0; i < rooms.Count; i++)
             {
                 for (int j = 0; j < rooms[i].Person.Count; j++)
-                {                    
-                        printAllPersonsInHostel.Add(rooms[i].Person[j]);                    
+                {
+                    printAllPersonsInHostel.Add(rooms[i].Person[j]);
                 }
             }
 
@@ -162,7 +162,7 @@ namespace Lab1_2
             return freePlacesInRoom;
         }
 
-        public List<Room> OutputFreeRoomOnEveryFlourAndPercentageOfPopulation(out string outPercentageOfPopulation)
+        public List<PercentagePopulation> OutputFreeRoomOnEveryFlourAndPercentageOfPopulation(out string outPercentageOfPopulation)
         {
 
             double countOfAllPepleInHostel = 0;
@@ -171,6 +171,7 @@ namespace Lab1_2
             int numberOfFloor = 2;
             List<Room> countOfFreeRoomInFloor = new List<Room>();
             var rooms = this.hostelStorage.GetAllRooms();
+            List<PercentagePopulation> percentagePopulation = new List<PercentagePopulation>();
 
             for (int k = 0; k < 4; k++)
             {
@@ -190,10 +191,11 @@ namespace Lab1_2
                             countOfFreeRoom++;
                         }
 
-                        // countOfFreeRoomInFloor[k] = "Count of free rooms in " + (k + 2) + " floor: " + countOfFreeRoom;
                     }
                 }
 
+                PercentagePopulation result = new PercentagePopulation(countOfFreeRoom, k + 2);
+                percentagePopulation.Add(result);
                 numberOfFloor++;
             }
 
@@ -204,7 +206,7 @@ namespace Lab1_2
 
             outPercentageOfPopulation = outputPercentageOfPopulation;
 
-            return countOfFreeRoomInFloor;
+            return percentagePopulation;
         }
     }
 }
