@@ -128,6 +128,7 @@ namespace Laba1.Atsd
         public static void HeapSort(int[] data, int capaity)
         {       
             int temp;
+            // у тебя функция статическая, а поле count не статик.
             HeapMake(data, count);
             while (capaity > 0)
             {
