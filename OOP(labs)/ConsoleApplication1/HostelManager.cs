@@ -207,5 +207,13 @@ namespace Lab1_2
 
             return percentagePopulation;
         }
+
+        public void GetExit(string keyWord)
+        {
+            if (keyWord == "exit")
+       
+                return ;
+          
+        }
     }
 }

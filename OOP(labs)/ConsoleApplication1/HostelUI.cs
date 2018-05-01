@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lab1_2.Models;
+using System.IO;
 
 namespace Lab1_2
 {
@@ -164,6 +165,45 @@ namespace Lab1_2
             }
 
             hostelManager.Remove(inputNumberOfUser, inputSurname);
+        }
+
+        public void Save()
+        {
+            string path = @"OOP(labs).txt"; /* Объявляем строковую переменную "path", 
+                                         * которая описывает путь к файлу */
+            string text = "";
+
+            try
+            {
+                Console.WriteLine();
+                Console.WriteLine("******считываем построчно********");
+                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                    //sr.Close();
+                }
+
+                using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(text);
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Error");
+                Console.ReadKey();
+            }
+        }
+        public void Exit()
+        {
+            Console.WriteLine("If you are sure, you want exit: write exit");
+            string keyWord = Console.ReadLine();
+            hostelManager.GetExit(keyWord);
         }
     }
 

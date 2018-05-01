@@ -35,16 +35,17 @@ namespace Lab1_2
 
                 Console.WriteLine("6 - Input number of room, input surname and do attempt to delete person");
 
+                Console.WriteLine("7 - You can save data");
+
+                Console.WriteLine("8 - Do attempt to exit");
+
                 Console.WriteLine(" ");
 
-                Console.WriteLine("You can input number six times and choose six different methods only! ");
-
-                Console.WriteLine(" ");
-
-                for (int i = 0; i < 6; i++)
+                int inputNumber = 0;
+                while (inputNumber != 8)
                 {
                     Console.WriteLine("Input one of number to get information you want, please ");
-                    int inputNumber = 0;
+                    
                     bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
                     while (result == false)
@@ -54,7 +55,7 @@ namespace Lab1_2
                         result = int.TryParse(Console.ReadLine(), out inputNumber);
                     }
 
-                    while (inputNumber < 1 && inputNumber > 6)
+                    while (inputNumber < 1 && inputNumber > 7)
                     {
                         Console.WriteLine("You input wrong number, please enter number again");
                         result = int.TryParse(Console.ReadLine(), out inputNumber);
@@ -90,9 +91,17 @@ namespace Lab1_2
                     {
                         hostelUI.Remove();
                     }
-                }
 
-                Console.WriteLine("You use all attempts");
+                    else if(inputNumber == 7)
+                    {
+                        hostelUI.Save();
+                    }
+
+                    else if (inputNumber == 8)
+                    {
+                        hostelUI.Exit();
+                    }
+                }
 
                 Console.ReadKey();
             }
