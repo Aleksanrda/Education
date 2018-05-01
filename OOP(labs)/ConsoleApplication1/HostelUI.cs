@@ -71,7 +71,7 @@ namespace Lab1_2
 
         public void OutputFreeRoomOnEveryFlourAndPercentageOfPopulation()
         {
-            string resultOutPercentageOfPopulation = "";
+            double resultOutPercentageOfPopulation = 0;
             var resultCountOfFreeRoomInFloor = hostelManager.OutputFreeRoomOnEveryFlourAndPercentageOfPopulation(out resultOutPercentageOfPopulation);
 
             if (resultCountOfFreeRoomInFloor.Count == 0)
@@ -88,7 +88,7 @@ namespace Lab1_2
             }
 
             Console.WriteLine("");
-            Console.WriteLine(resultOutPercentageOfPopulation);
+            Console.WriteLine("percentage of population: " + resultOutPercentageOfPopulation);
             Console.ResetColor();
             Console.ReadKey();
         }

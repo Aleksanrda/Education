@@ -10,7 +10,7 @@ namespace Lab1_2
     public class HostelManager
     {
         private HostelStorage hostelStorage;
-
+        private const int maxCountPeopleInRoom = 5;
         public HostelManager()
         {
             this.hostelStorage = new HostelStorage();
@@ -31,27 +31,21 @@ namespace Lab1_2
             {
                 throw new ArgumentNullException("Room can`t  be empty");
             }
-            // блок else можно убрать (но только сам `else {}`, код оставь )
-            // если выбрасывается исключение то дальше код выполнятся не будет
-            else
-            {
-                for (int i = 0; i < rooms.Count; i++)
-                {
-                    if (nameRoom == rooms[i].NumberOfRoom)
-                    {
-                        if (rooms[i].Person.Count < 5)
-                        {
-                            this.hostelStorage.AddRoommate(rooms[i], personName);
-                            return true;
-                        }
-                        // блок else можно убрать (но только сам `else {}`, код оставь )
-                        // если выбрасывается исключение то дальше код выполнятся не будет
-                        else
-                        {
-                            return false;
-                        }
-                    }
+            // блок else можно убрать (но только сам `else {}`, код оставь )+
+            // если выбрасывается исключение то дальше код выполнятся не будет +
 
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (nameRoom == rooms[i].NumberOfRoom)
+                {
+                    if (rooms[i].Person.Count < 5)
+                    {
+                        this.hostelStorage.AddRoommate(rooms[i], personName);
+                        return true;
+                    }
+                    // блок else можно убрать (но только сам `else {}`, код оставь )
+                    // если выбрасывается исключение то дальше код выполнятся не будет    ++++                  
+                    return false;
                 }
             }
 
@@ -68,8 +62,8 @@ namespace Lab1_2
 
             if (personName == "")
             {
-                // прочти внимательно сообщение твоего ArgumentException
-                throw new ArgumentException("Room can`t  be empty");
+                // прочти внимательно сообщение твоего ArgumentException +++
+                throw new ArgumentException("Surname can`t be empty");
             }
 
             var rooms = this.hostelStorage.GetAllRooms();
@@ -89,7 +83,6 @@ namespace Lab1_2
                 }
 
             }
-
             //валидация и логика
         }
 
@@ -167,15 +160,14 @@ namespace Lab1_2
             return freePlacesInRoom;
         }
 
-        public List<PercentagePopulation> OutputFreeRoomOnEveryFlourAndPercentageOfPopulation(out string outPercentageOfPopulation)
+        public List<PercentagePopulation> OutputFreeRoomOnEveryFlourAndPercentageOfPopulation(out double outPercentageOfPopulation)
         {
 
             double countOfAllPepleInHostel = 0;
             double countOfAllPlacesInHostel = 0;
             // вот эта переменная должна быть объявлена вверху, на уровне класса
             // и она должна быть константой
-            // private const int maxCountPeopleInRoom = 5 
-            int maxCountPeopleInRoom = 5;
+            // private const int maxCountPeopleInRoom = 5 ++++++++++
             int numberOfFloor = 2;
             List<Room> countOfFreeRoomInFloor = new List<Room>();
             var rooms = this.hostelStorage.GetAllRooms();
@@ -207,12 +199,10 @@ namespace Lab1_2
                 numberOfFloor++;
             }
 
-            double percentageOfPopulation = (countOfAllPepleInHostel / countOfAllPlacesInHostel) * 100; //!нужно вернуть
+            double percentageOfPopulation = (countOfAllPepleInHostel / countOfAllPlacesInHostel) * 100;
 
-            // по-моему outputPercentageOfPopulation, outPercentageOfPopulation не используется в функции. Можно удалить
-            string outputPercentageOfPopulation = ("percentage of population: " + percentageOfPopulation);
-
-
+            // по-моему outputPercentageOfPopulation, outPercentageOfPopulation не используется в функции. Можно удалить ++++++
+            double outputPercentageOfPopulation = percentageOfPopulation;
             outPercentageOfPopulation = outputPercentageOfPopulation;
 
             return percentagePopulation;
