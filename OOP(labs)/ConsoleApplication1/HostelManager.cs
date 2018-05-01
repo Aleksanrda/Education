@@ -31,6 +31,8 @@ namespace Lab1_2
             {
                 throw new ArgumentNullException("Room can`t  be empty");
             }
+            // блок else можно убрать (но только сам `else {}`, код оставь )
+            // если выбрасывается исключение то дальше код выполнятся не будет
             else
             {
                 for (int i = 0; i < rooms.Count; i++)
@@ -42,6 +44,8 @@ namespace Lab1_2
                             this.hostelStorage.AddRoommate(rooms[i], personName);
                             return true;
                         }
+                        // блок else можно убрать (но только сам `else {}`, код оставь )
+                        // если выбрасывается исключение то дальше код выполнятся не будет
                         else
                         {
                             return false;
@@ -64,6 +68,7 @@ namespace Lab1_2
 
             if (personName == "")
             {
+                // прочти внимательно сообщение твоего ArgumentException
                 throw new ArgumentException("Room can`t  be empty");
             }
 
@@ -167,6 +172,9 @@ namespace Lab1_2
 
             double countOfAllPepleInHostel = 0;
             double countOfAllPlacesInHostel = 0;
+            // вот эта переменная должна быть объявлена вверху, на уровне класса
+            // и она должна быть константой
+            // private const int maxCountPeopleInRoom = 5 
             int maxCountPeopleInRoom = 5;
             int numberOfFloor = 2;
             List<Room> countOfFreeRoomInFloor = new List<Room>();
@@ -201,6 +209,7 @@ namespace Lab1_2
 
             double percentageOfPopulation = (countOfAllPepleInHostel / countOfAllPlacesInHostel) * 100; //!нужно вернуть
 
+            // по-моему outputPercentageOfPopulation, outPercentageOfPopulation не используется в функции. Можно удалить
             string outputPercentageOfPopulation = ("percentage of population: " + percentageOfPopulation);
 
 
