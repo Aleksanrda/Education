@@ -10,7 +10,7 @@ namespace OOP_labs_
     {
         public string Surname { get; set; }
         public string Name { get; set; }
-        public Birthday Birthday { get; set; } //????????????????
+        public Birthday Birthday { get; set; } 
         public double AverageMark { get; set; }
     }
 

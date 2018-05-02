@@ -58,7 +58,7 @@ namespace Lab1_2
             {
                 throw new ArgumentException("Room can`t  be negative");
             }
-            // проверить : такая комната есть в массиве, personName не пустая строка 
+            // проверить :  personName не пустая строка 
 
             if (personName == "")
             {
@@ -208,12 +208,12 @@ namespace Lab1_2
             return percentagePopulation;
         }
 
-        public void GetExit(string keyWord)
-        {
-            if (keyWord == "exit")
+        //public void GetExit(string keyWord)
+        //{
+        //    if (keyWord == "exit")
        
-                return ;
+        //        return ;
           
-        }
+        //}
     }
 }
