@@ -18,20 +18,18 @@ namespace Lab1_2
 
         public bool Add(int nameRoom, string personName)
         {
-            string result = "";
-
             if (nameRoom < 0)
             {
                 throw new ArgumentException("Room can`t  be negative");
             }
 
             var rooms = this.hostelStorage.GetAllRooms();
-            // проверить : такая комната есть в массиве, personName не пустая строка 
+            // проверить : personName не пустая строка 
             if (personName == "")
             {
                 throw new ArgumentNullException("Room can`t  be empty");
             }
-            // блок else можно убрать (но только сам `else {}`, код оставь )+
+           
             // если выбрасывается исключение то дальше код выполнятся не будет +
 
             for (int i = 0; i < rooms.Count; i++)
@@ -43,7 +41,7 @@ namespace Lab1_2
                         this.hostelStorage.AddRoommate(rooms[i], personName);
                         return true;
                     }
-                    // блок else можно убрать (но только сам `else {}`, код оставь )
+                  
                     // если выбрасывается исключение то дальше код выполнятся не будет    ++++                  
                     return false;
                 }
@@ -200,20 +198,11 @@ namespace Lab1_2
             }
 
             double percentageOfPopulation = (countOfAllPepleInHostel / countOfAllPlacesInHostel) * 100;
-
-            // по-моему outputPercentageOfPopulation, outPercentageOfPopulation не используется в функции. Можно удалить ++++++
             double outputPercentageOfPopulation = percentageOfPopulation;
             outPercentageOfPopulation = outputPercentageOfPopulation;
 
             return percentagePopulation;
         }
 
-        //public void GetExit(string keyWord)
-        //{
-        //    if (keyWord == "exit")
-       
-        //        return ;
-          
-        //}
     }
 }
