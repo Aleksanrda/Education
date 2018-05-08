@@ -12,7 +12,7 @@ namespace Laba1.Atsd
         private readonly int[] data;
         int capacity = 5;
         int count = 0;
-        // private const int _defaultCapacity = 5;
+
         public List(int capacity)
         {
             if (capacity <= 0)
@@ -42,20 +42,29 @@ namespace Laba1.Atsd
             }
         }
 
-        public void DeleteData(int capacity, int value)
+        public void DeleteData(int value)
         {
             for (int i = 0; i < capacity; i++)
             {
                 if (data[i] == value)
                 {
-                    data[i] = 0;
+                    if (data[i] != data[count - 1])
+                    {
+                        data[i] = data[count - 1];
+                        data[count - 1] = 0;
+                    }
+                    else
+                    {
+                        data[i] = 0;
+                    }
+
                     count--;
                     break;
                 }
             }
         }
 
-        public bool Contains(int capacity, int value)
+        public bool Search(int value)
         {
             for (int i = 0; i < capacity; i++)
             {
@@ -67,7 +76,7 @@ namespace Laba1.Atsd
             return false;
         }
 
-        public int Retrieve(int capacity, int value)
+        public int Retrieve(int value)
         {
             for (int i = 0; i < capacity; i++)
             {
@@ -79,7 +88,7 @@ namespace Laba1.Atsd
             return -100000;
         }
 
-        public void MakeEmpty(int capacity)
+        public void MakeEmpty()
         {
             for (int i = 0; i < count; i++)
             {
@@ -92,41 +101,123 @@ namespace Laba1.Atsd
         {
             for (int i = 0; i < count; i++)
             {
-                Console.WriteLine(data[i]);
+                Console.Write(data[i]);
+                Console.Write(" ");
             }
         }
 
+        public void BuildMinHeap() //начиная с позиции 0
+        {
+            for (int i = (count - 1) / 2; i >= 0; i--)
+            {
+                MinHeapify(i);
+            }
 
-        public static void Heapify(int[] data, int pos, int n)
+            return;
+        }
+
+        public void MinHeapify(int index)
+        {
+            var left = 2 * index + 1;
+            var right = left + 1;
+
+            int Min = index;
+
+            if (right < count && data[right] < data[Min])
+            {
+                Min = right;
+            }
+
+            if (left < count && data[left] < data[index])
+            {
+                Min = left;
+            }
+
+            if (Min != index)
+            {
+                int temp = data[Min];
+                data[Min] = data[index];
+                data[index] = temp;
+                MinHeapify(Min);
+            }
+
+            return;
+        }
+
+
+        public void HeapSortDescendingOrder() //?????????????
         {
             int temp;
-            while (2 * pos + 1 < n)
-            {
-                int t = 2 * pos + 1; if (2 * pos + 2 < n && data[2 * pos + 2] >= data[t])
-                {
-                    t = 2 * pos + 2;
-                }
-                if (data[pos] < data[t]) { temp = data[pos]; data[pos] = data[t]; data[t] = temp; pos = t; } else break;
-            }
-        }
-        public static void HeapMake(int[] data, int count)
-        {
-            for (int i = count - 1; i >= 0; i--)
-            {
-                Heapify(data, i, count);
-            }
-        }
-        public void HeapSort()
-        {
-            int temp;
-            HeapMake(data, count);
+            BuildMinHeap();
             while (capacity > 0)
             {
                 temp = data[0];
                 data[0] = data[capacity - 1];
                 data[capacity - 1] = temp;
                 capacity--;
-                Heapify(data, 0, capacity);
+                MinHeapify(1);
+            }
+        }
+
+        private void BuildMaxHeap() //с позиции 1
+        {
+            for (int i = count / 2; i > 0; i--)
+            {
+                MaxHeapify(i);
+            }
+
+            return;
+        }
+
+        public void MaxHeapify(int index)
+        {
+            var left = 2 * index;
+            var right = 2 * index + 1;
+
+            int max = index;
+            if (left <= count && data[left - 1] > data[index - 1])
+            {
+                max = left;
+            }
+
+            if (right <= count && data[right - 1] > data[max - 1])
+            {
+                max = right;
+            }
+
+            if (max != index)
+            {
+                int temp = data[max - 1];
+                data[max - 1] = data[index - 1];
+                data[index - 1] = temp;
+                MaxHeapify(max);
+            }
+
+            return;
+        }
+
+        public int DeleteTop()
+        {
+            BuildMaxHeap();
+            int maximum = data[0];
+
+            data[0] = data[count - 1];
+            count--;
+            MaxHeapify(1);
+            return maximum;
+        }
+
+        public void HeapSortAscendingOrder() //????????????
+        {
+            int temp;
+            BuildMaxHeap();
+            while (capacity > 0)
+            {
+                temp = data[0];
+                data[0] = data[capacity - 1];
+                data[capacity - 1] = temp;
+                capacity--;
+                MaxHeapify(1);
             }
         }
 
@@ -139,82 +230,30 @@ namespace Laba1.Atsd
             List data = new List(5);
             data.AddData(10);
             data.AddData(5);
-            data.AddData(15);
-            data.AddData(1);
-            data.AddData(90);
+            data.AddData(100);
+            data.AddData(200);
+            data.AddData(50);
             data.PrintData();
+            Console.WriteLine();
 
-            data.HeapSort();
+            data.BuildMinHeap();
+            data.PrintData();
+            Console.WriteLine();
+
+            data.HeapSortAscendingOrder();
+            data.PrintData();
+            Console.WriteLine();
+
+            data.HeapSortDescendingOrder();
+            data.PrintData();
+            Console.WriteLine();
+
+            int j = data.DeleteTop();
+            Console.WriteLine(j);
+
             data.PrintData();
             Console.ReadKey();
         }
     }
 
 }
-
-//public void Heapify(int[] data, int i, int max)
-//{
-//    int big_index, childLeft, childRight;
-//    while (i < max)
-//    {
-//        big_index = i;
-//        childLeft = 2 * i + 1;
-//        childRight = childLeft + 1;
-
-//        if (childLeft < max && data[childLeft] > data[big_index])
-//        {
-//            big_index = childLeft;
-//        }
-//         if (childRight < max && data[childRight] > data[big_index])
-//        {
-//            big_index = childRight;
-//        }
-//        if (big_index == i)
-//        {
-//            return;
-//        }
-
-//        Swap(i, big_index);
-//        i = big_index;
-//    }
-//}
-
-//public void BuildHeap(int[] data)
-//{
-//    for (int i = capacity / 2 - 1; i >= 0; i--)
-//    {
-//        Heapify(data, i, capacity); //creates a max heap
-//    }
-
-
-//    //for (int i = count - 1; i >= 0; i--)
-//    //{
-//    //    Swap(linkedlist.ElementAt(0), linkedlist[i]); //swap first and last node
-//    //    Heapify(linkedlist, i, 0);
-//    //}
-//}
-
-//public int[] HeapSort()
-//{
-//    BuildHeap(data);
-//    var end = capacity - 1;
-
-//    while (end >= 0)
-//    {
-//        Swap(0, end);
-//        Heapify(data, 0, end);
-//        end -= 1;
-//    }
-//    return data;
-//}
-
-
-
-//public void Swap(int a, int b)
-//{
-//    int c;
-//    c = a;
-//    a = b;
-//    b = a;
-
-//}
