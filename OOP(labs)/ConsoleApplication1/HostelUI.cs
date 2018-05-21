@@ -131,7 +131,7 @@ namespace Lab1_2
             }
 
             var resultAddPerson = hostelManager.Add(inputNumberOfUser, inputSurname);
-            if (resultAddPerson == true)
+            if (resultAddPerson)
             {
                 Console.WriteLine("Person was added");
             }

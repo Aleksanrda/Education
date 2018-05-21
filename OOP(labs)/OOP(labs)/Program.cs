@@ -14,7 +14,7 @@ namespace OOP_labs_
             try
             {
                 PupilsUI pupilsUI = new PupilsUI();
-                var pupil = new Pupil[1];
+               // var pupil = new Pupil[1];
                 pupilsUI.CountSameYearAndMonth();
             }
             catch

@@ -8,11 +8,18 @@ namespace Laba2._1
 {
     public class Segment
     {
-        public double X1 = 2;
-        public double Y1 = 0;
-        public double X2 = -2;
-        public double Y2 = 0;
+        public double X1;
+        public double Y1;
+        public double X2;
+        public double Y2;
 
+        public Segment ()
+        {
+            X1 = 2;
+            Y1 = 0;
+            X2 = 0;
+            Y2 = 2;
+        }
         public Segment(double x1, double y1, double x2, double y2)
         {
             X1 = x1;
@@ -47,6 +54,10 @@ namespace Laba2._1
 
         }
 
+        //public bool CheckHitPointInSquare(Square X1, Square Y1, Square X2, Square Y2, Square X3, Square Y3, Square X4, Square Y4)
+        //{
+        //    if(this.X1 )
+        //}
     }
 }
 

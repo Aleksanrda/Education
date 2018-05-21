@@ -21,8 +21,6 @@ namespace Lab1_2
             {
                 HostelUI hostelUI = new HostelUI();
 
-                var room = new Room[1];
-
                 Console.WriteLine("1 - Get information about number of flour and number of room");
 
                 Console.WriteLine("2 - Get information about count of free place in room");

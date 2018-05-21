@@ -10,7 +10,7 @@ namespace Lab1_2
     public class HostelManager
     {
         private HostelStorage hostelStorage;
-        private const int maxCountPeopleInRoom = 5;
+        private const int MaxCountPeopleInRoom = 5;
         public HostelManager()
         {
             this.hostelStorage = new HostelStorage();
@@ -58,7 +58,7 @@ namespace Lab1_2
             }
             // проверить :  personName не пустая строка 
 
-            if (personName == "")
+            if (personName == string.Empty)
             {
                 // прочти внимательно сообщение твоего ArgumentException +++
                 throw new ArgumentException("Surname can`t be empty");
@@ -105,7 +105,6 @@ namespace Lab1_2
         {
             var rooms = this.hostelStorage.GetAllRooms();
 
-            string searchPlaceBySurname = string.Empty;
             List<Room> arrayOfSearchPlaceBySurname = new List<Room>();
 
             for (int i = 0; i < rooms.Count; i++)
@@ -126,8 +125,7 @@ namespace Lab1_2
         {
             var rooms = this.hostelStorage.GetAllRooms();
             List<FreePlacesResult> freePlacesInRoom = new List<FreePlacesResult>();
-            string outputListOfFreePlaceInRoom = string.Empty;
-
+          
             for (int m = 0; m < rooms.Count; m++)
             {
                 for (int n = 0; n < rooms.Count - 1 - m; n++)
@@ -167,7 +165,7 @@ namespace Lab1_2
             // и она должна быть константой
             // private const int maxCountPeopleInRoom = 5 ++++++++++
             int numberOfFloor = 2;
-            List<Room> countOfFreeRoomInFloor = new List<Room>();
+            
             var rooms = this.hostelStorage.GetAllRooms();
             List<PercentagePopulation> percentagePopulation = new List<PercentagePopulation>();
 
@@ -179,7 +177,7 @@ namespace Lab1_2
                     if (rooms[z].NumberOfFloor == numberOfFloor)
                     {
                         int countOfPeopleInRoom = rooms[z].CountOfPeopleInRoom;
-                        int countOfFreePlaces = maxCountPeopleInRoom - countOfPeopleInRoom;
+                        int countOfFreePlaces = MaxCountPeopleInRoom - countOfPeopleInRoom;
 
                         countOfAllPepleInHostel += countOfPeopleInRoom;
                         countOfAllPlacesInHostel += 5;
