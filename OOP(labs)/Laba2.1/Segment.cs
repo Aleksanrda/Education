@@ -13,7 +13,7 @@ namespace Laba2._1
         public double X2;
         public double Y2;
 
-        public Segment ()
+        public Segment()
         {
             X1 = 2;
             Y1 = 0;
@@ -54,10 +54,18 @@ namespace Laba2._1
 
         }
 
-        //public bool CheckHitPointInSquare(Square X1, Square Y1, Square X2, Square Y2, Square X3, Square Y3, Square X4, Square Y4)
-        //{
-        //    if(this.X1 )
-        //}
+        Square firstSquare = new Square();
+
+        public bool CheckHitPointInSquare()
+        {
+            if (X1 > firstSquare.X && X1 < firstSquare.W && Y1 > firstSquare.Y && Y1 < firstSquare.W
+                && X2 > firstSquare.X && X2 < firstSquare.W && Y2 > firstSquare.Y && Y2 < firstSquare.W)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
 
