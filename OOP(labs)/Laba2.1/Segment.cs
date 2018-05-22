@@ -49,12 +49,12 @@ namespace Laba2._1
             Y2 += numberMove;
         }
 
-        public void OutputDisplaySegment()
+        public void OutputDisplaySegment() //-----------
         {
-
+            // Bitmap img = new Bitmap(100, 100);
         }
 
-        Square firstSquare = new Square();
+        Square firstSquare = new Square(); //??????????
 
         public bool CheckHitPointInSquare()
         {

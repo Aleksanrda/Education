@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 //на 4
 //Объявите класс «Окружность», с полями: x1, y1, R(координаты центра и радиус),
 //методами: вывода на экран координат центра и радиуса;- проверки, попадает ли точка в данную окружность;+
-//проверки, пересекается ли с другой окружностью;+ масштабирования;------ передвижения,+ свойствами, позволяющими получить 
+//проверки, пересекается ли с другой окружностью;+ масштабирования;++++ передвижения,+ свойствами, позволяющими получить 
 //и установить площадь и длину окружности.+Переопределить любую операцию-------
 
 //скрытые поля, конструкторы с параметрами и без параметров, методы, свойства.Методы и свойства должны обеспечивать непротиворечивый,
@@ -19,31 +20,22 @@ namespace Laba2._2
         public double Y1;
         public double R;
 
-        double squareOfCircle;
-        double circleLength;
-
         public double SquareOfCircle
         {
             get
             {
-                return squareOfCircle;
+                return Math.PI * R * R;
             }
-            set
-            {
-                squareOfCircle = Math.PI * R * R;
-            }
+
         }
 
         public double CircleLength
         {
             get
             {
-                return circleLength;
+                return 2 * Math.PI * R;
             }
-            set
-            {
-                circleLength = 2 * Math.PI * R;
-            }
+           
         }
 
         public Circle()
@@ -60,9 +52,13 @@ namespace Laba2._2
             R = r;
         }
 
-        public void OutputCircle() //--------
+        public void OutputCircleData() //+++
         {
-
+            Console.Write(X1);
+            Console.Write(" ");
+            Console.Write(Y1);
+            Console.Write(" ");
+            Console.WriteLine(R);
         }
 
         Point point = new Point();
@@ -88,6 +84,10 @@ namespace Laba2._2
             Y1 += numberMove;
         }
 
+        public void Scaling(int value)
+        {
+            R *= value;
+        }
 
     }
 }
