@@ -110,52 +110,53 @@ namespace Laba1.Atsd
         {
             for (int i = (count - 1) / 2; i >= 0; i--)
             {
-                MinHeapify(i);
+                MinHeapify(count, i);
             }
 
             return;
         }
 
-        public void MinHeapify(int index)
+        public void MinHeapify(int count, int index)
         {
             var left = 2 * index + 1;
             var right = left + 1;
 
             int Min = index;
 
-            if (right < count && data[right] < data[Min])
-            {
-                Min = right;
-            }
-
             if (left < count && data[left] < data[index])
             {
                 Min = left;
             }
+
+            if (right < count && data[right] < data[Min])
+            {
+                Min = right;
+            }  
 
             if (Min != index)
             {
                 int temp = data[Min];
                 data[Min] = data[index];
                 data[index] = temp;
-                MinHeapify(Min);
+                MinHeapify(count, Min);
             }
 
             return;
         }
 
 
-        public void HeapSortDescendingOrder() //?????????????
+        public void HeapSortDescendingOrder() //++++++++
         {
-            int temp;
             BuildMinHeap();
-            while (capacity > 0)
+
+            for (int i = count - 1; i >= 0; i--)
             {
-                temp = data[0];
-                data[0] = data[capacity - 1];
-                data[capacity - 1] = temp;
-                capacity--;
-                MinHeapify(1);
+                //Swap
+                int temp = data[i];
+                data[i] = data[0];
+                data[0] = temp;
+
+                MinHeapify(i, 0);
             }
         }
 
@@ -163,13 +164,13 @@ namespace Laba1.Atsd
         {
             for (int i = count / 2; i > 0; i--)
             {
-                MaxHeapify(i);
+                MaxHeapify(count, i);
             }
 
             return;
         }
 
-        public void MaxHeapify(int index)
+        public void MaxHeapify(int count, int index)
         {
             var left = 2 * index;
             var right = 2 * index + 1;
@@ -190,7 +191,7 @@ namespace Laba1.Atsd
                 int temp = data[max - 1];
                 data[max - 1] = data[index - 1];
                 data[index - 1] = temp;
-                MaxHeapify(max);
+                MaxHeapify(count, max);
             }
 
             return;
@@ -203,24 +204,23 @@ namespace Laba1.Atsd
 
             data[0] = data[count - 1];
             count--;
-            MaxHeapify(1);
+            MaxHeapify(count, 1);
             return maximum;
         }
 
-        public void HeapSortAscendingOrder() //????????????
+        public void HeapSortAscendingOrder() //++++++++++++
         {
-            int temp;
             BuildMaxHeap();
-            while (capacity > 0)
+            for (int i = count - 1; i >= 0; i--)
             {
-                temp = data[0];
-                data[0] = data[capacity - 1];
-                data[capacity - 1] = temp;
-                capacity--;
-                MaxHeapify(1);
+                //Swap
+                int temp = data[i];
+                data[i] = data[0];
+                data[0] = temp;
+
+                MaxHeapify(i, 1);
             }
         }
-
     }
 
     class Program
@@ -228,11 +228,11 @@ namespace Laba1.Atsd
         static void Main(string[] args)
         {
             List data = new List(5);
-            data.AddData(10);
-            data.AddData(5);
-            data.AddData(100);
-            data.AddData(200);
-            data.AddData(50);
+            data.AddData(45);
+            data.AddData(87);
+            data.AddData(90);
+            data.AddData(34);
+            data.AddData(21);
             data.PrintData();
             Console.WriteLine();
 
@@ -240,11 +240,11 @@ namespace Laba1.Atsd
             data.PrintData();
             Console.WriteLine();
 
-            data.HeapSortAscendingOrder();
+            data.HeapSortDescendingOrder();
             data.PrintData();
             Console.WriteLine();
 
-            data.HeapSortDescendingOrder();
+            data.HeapSortAscendingOrder();
             data.PrintData();
             Console.WriteLine();
 
