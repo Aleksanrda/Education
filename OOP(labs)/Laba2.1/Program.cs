@@ -13,7 +13,75 @@ using System.Threading.Tasks;
 
 namespace Laba2._1
 {
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                SegmentUI segmentUI = new SegmentUI();
 
+                Console.WriteLine("1 - Get information about length of segment ");
+
+                Console.WriteLine("2 - You can move segment");
+
+                Console.WriteLine("3 - You can check if points are in square");
+
+                Console.WriteLine("4 - You can take data of coordinates");
+
+                Console.WriteLine("5 - exit");
+
+                int inputNumber = 0;
+                while (inputNumber != 5)
+                {
+                    Console.WriteLine("Input one of number to get information you want, please ");
+
+                    bool result = int.TryParse(Console.ReadLine(), out inputNumber);
+
+                    while (result == false)
+                    {
+                        Console.WriteLine("Not valid");
+                        Console.WriteLine("You input wrong data, please try enter number again");
+                        result = int.TryParse(Console.ReadLine(), out inputNumber);
+                    }
+
+                    while (inputNumber < 1 && inputNumber > 5)
+                    {
+                        Console.WriteLine("You input wrong number, please enter number again");
+                        result = int.TryParse(Console.ReadLine(), out inputNumber);
+                    }
+
+                    if (inputNumber == 1)
+                    {
+                        segmentUI.OutputGetLengthSegment();
+                    }
+
+                    else if (inputNumber == 2)
+                    {
+                        segmentUI.OutputMoveSegment();
+                    }
+
+                    else if (inputNumber == 3)
+                    {
+
+                        segmentUI.OutputCheckHitPointInSquare();
+                    }
+
+                    else if (inputNumber == 4)
+                    {
+                        segmentUI.OutputDisplayCoordinatesOfSegment();
+                    }
+
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Error");
+                Console.Read();
+            }
+        }
+    }
 }
 
 

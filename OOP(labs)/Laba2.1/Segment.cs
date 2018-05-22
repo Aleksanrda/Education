@@ -13,13 +13,6 @@ namespace Laba2._1
         public double X2;
         public double Y2;
 
-        public Segment()
-        {
-            X1 = 2;
-            Y1 = 0;
-            X2 = 0;
-            Y2 = 2;
-        }
         public Segment(double x1, double y1, double x2, double y2)
         {
             X1 = x1;
@@ -28,17 +21,21 @@ namespace Laba2._1
             Y2 = y2;
         }
 
-        double field;
+        public Segment()
+        {
+            X1 = 2;
+            Y1 = 0;
+            X2 = 0;
+            Y2 = 2;
+        }
+
         public double GetLengthSegment
         {
             get
             {
-                return field;
+                return Math.Sqrt(Math.Pow((X1 - X2), 2) + Math.Pow((Y1 - Y2), 2));
             }
-            set
-            {
-                field = Math.Sqrt(Math.Pow((X1 - X2), 2) + Math.Pow((Y1 - Y2), 2));
-            }
+
         }
 
         public void MoveSegment(int numberMove)
@@ -49,14 +46,14 @@ namespace Laba2._1
             Y2 += numberMove;
         }
 
-        public void OutputDisplaySegment() //-----------
+        public void DisplaySegment() //-----------
         {
             // Bitmap img = new Bitmap(100, 100);
         }
 
         Square firstSquare = new Square(); //??????????
 
-        public bool CheckHitPointInSquare()
+        public bool CheckHitPointsInSquare()
         {
             if (X1 > firstSquare.X && X1 < firstSquare.W && Y1 > firstSquare.Y && Y1 < firstSquare.W
                 && X2 > firstSquare.X && X2 < firstSquare.W && Y2 > firstSquare.Y && Y2 < firstSquare.W)

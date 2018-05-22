@@ -81,7 +81,6 @@ namespace Laba2._2
 
                 }
                
-                Console.ReadKey();
             }
             catch
             {

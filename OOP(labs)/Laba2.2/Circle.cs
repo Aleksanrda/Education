@@ -52,14 +52,6 @@ namespace Laba2._2
             R = r;
         }
 
-        public void OutputCircleData() //+++
-        {
-            Console.Write(X1);
-            Console.Write(" ");
-            Console.Write(Y1);
-            Console.Write(" ");
-            Console.WriteLine(R);
-        }
 
         Point point = new Point();
         public bool CheckPointInCircle()
