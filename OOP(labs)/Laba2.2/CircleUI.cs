@@ -9,7 +9,7 @@ namespace Laba2._2
     class CircleUI
     {
         private Circle circleUI;
-        
+
         public CircleUI()
         {
             circleUI = new Circle();
@@ -73,16 +73,28 @@ namespace Laba2._2
                 circleUI.Scaling(inputNumber);
                 OutputCircleData();
             }
-           
+
         }
 
-        public void OutputCheckIsIntersect() //????????//
+        public void OutputCheckIsIntersect() 
         {
-            //bool result = circleUI.CheckIsIntersect(Circle secondCircle); -----------
-           // Console.WriteLine(result);
+            Console.Write("Input (X.Y.R), please ");
+            string[] coordinates = Console.ReadLine().Split('.');
+
+            while (coordinates[0] == "" && coordinates[1] == "" && coordinates[2] == "")
+            {
+                Console.WriteLine("Not valid");
+                Console.WriteLine("You input wrong data, please try enter number again");
+                coordinates = Console.ReadLine().Split('.');
+            }
+
+            var circle2 = new Circle(int.Parse(coordinates[0]), int.Parse(coordinates[1]), int.Parse(coordinates[2]));
+
+            bool result = circleUI.CheckIsIntersect(circle2);
+            Console.WriteLine(result);
         }
 
-        public void OutputCircleData() 
+        public void OutputCircleData()
         {
             Console.Write(circleUI.X1);
             Console.Write(" ");
