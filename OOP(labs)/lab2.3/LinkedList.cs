@@ -12,103 +12,65 @@ namespace lab2._3
         Node head; //головной, первый элемент
         Node tail; //последний, хвостовой элемент
         int count;
-        //public bool Remove(int data) //удаление элемента
-        //{
-        //    Node current = head;
-        //    Node previous = null;
+        
 
-        //    while (current != null)
-        //    {
-        //        if (current.Data == data)
-        //        {
-        //            if (previous != null) //если узел в середине или конце
-        //            {
-        //                previous.Next = current.Next; //
+        public int Count { get { return count; } } // list size
+        public bool IsEmpty { get { return count == 0; } }
 
-        //                if (current.Next == null)
-        //                {
-        //                    tail = previous;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                head = head.Next;
+        public void clear() // make empty
+        {
+            head = null;
+            tail = null;
+            count = 0;
+        }
 
-        //                if (head == null)
-        //                {
-        //                    tail = null;
-        //                }
+        public bool IsFull()
+        {
+            bool result = false;
+            Node current = head;
 
-        //            }
-        //            count--;
-        //            return true;
-        //        }
+            if (current == null)
+            {
+                return true;
+            }
 
-        //        previous = current;
-        //        current = current.Next;
+            return result;
+        }
 
-        //    }
+        public bool Contains(double data) //проверяет наличие элемента
+        {
+            Node current = head;
+            while (current != null)
+            {
 
-        //    return false;
-        //}
+                if (current.Data == data)
+                {
+                    return true;
+                }
 
-        //public int Count { get { return count; } } // list size
-        //public bool IsEmpty { get { return count == 0; } }
+                current = current.Next;
+            }
 
-        //public void clear() // make empty
-        //{
-        //    head = null;
-        //    tail = null;
-        //    count = 0;
-        //}
+            return false;
+        }
 
-        //public bool IsFull()
-        //{
-        //    bool result = false;
-        //    Node current = head;
-
-        //    if (current == null)
-        //    {
-        //        return true;
-        //    }
-
-        //    return result;
-        //}
-
-        //public bool Contains(int data) //проверяет наличие элемента
-        //{
-        //    Node current = head;
-        //    while (current != null)
-        //    {
-
-        //        if (current.Data == data)
-        //        {
-        //            return true;
-        //        }
-
-        //        current = current.Next;
-        //    }
-
-        //    return false;
-        //}
-
-        //public int Retrieve(int item)
-        //{
-        //    Node current = head;
-        //    while (current != null)
-        //    {
-        //        if (current.Data == item)
-        //        {
-        //            return current.Data;
-        //        }
-        //        else
-        //        {
-        //            current = current.Next;
-        //        }
-        //    }
-        //    Console.WriteLine("item was not found, was not retrieved");
-        //    return -10000;
-        //}
+        public double Retrieve(double item)
+        {
+            Node current = head;
+            while (current != null)
+            {
+                if (current.Data == item)
+                {
+                    return current.Data;
+                }
+                else
+                {
+                    current = current.Next;
+                }
+            }
+            Console.WriteLine("item was not found, was not retrieved");
+            return -10000;
+        }
 
         //Не рекурсивний метод додавання нового елемента останнім у список;
         public void AddLast(double data)
@@ -157,10 +119,10 @@ namespace lab2._3
                     {
                         break;
                     }
+                // insert between before & after
                     before = after;
                     after = after.Next;
                 }
-                // insert between before & after
                 node.Next = before.Next;
                 before.Next = node;
             }
@@ -207,7 +169,7 @@ namespace lab2._3
                             tail = null;
                     }
                     count--;
-             
+
                 }
 
                 previous = current;
@@ -232,7 +194,7 @@ namespace lab2._3
 
         private void PrintIntegerNumber_Rec(Node temp)
         {
-            if (temp != null )
+            if (temp != null)
             {
                 int g = (int)temp.Data;
                 if (temp.Data - g == 0)
@@ -250,7 +212,85 @@ namespace lab2._3
         }
 
         //Метод сортування елементів списку за зменшенням числових значень;
+        public void DescendingSort()
+        {
+            Node temp;
+            Node previous = null;
+            bool flag = false;
+            Node current = head;
 
+            if (head == null)
+            {
+                throw new ArgumentException("List is empty");
+            }
+
+            else
+            {
+                do
+                {
+                    flag = false;
+                    current = head;
+
+                    while (current.Next != null)
+                    {
+                        if (current.Data < current.Next.Data)
+                        {
+                            if (current == head)
+                            {
+                                temp = current;
+                                current = current.Next;
+                                temp.Next = current.Next;
+                                current.Next = temp;
+                                head = current;
+                                flag = true;
+                            }
+                            else
+                            {
+                                temp = current;
+                                current = temp.Next;
+                                temp.Next = current.Next;
+                                current.Next = temp;
+                                previous.Next = current;
+                                flag = true;
+                            }
+                        }
+                        previous = current;
+                        current = current.Next;
+                    }
+
+                }
+                while (flag);
+            }
+        }
+
+        //Індексатор з одним параметром, який дозволяє за значенням елемента знайти його порядковий номер у списку;
+        public int this [int value]
+        {
+            get
+            {
+                if(head == null)
+                {
+                    throw new ArgumentException("List is empty");
+                }
+
+                for (int i = 1; i <= count; i++)
+                {
+                    if (head.Data == value)
+                    {
+                        return i;
+                    }
+                    else
+                    {
+                        head = head.Next;
+                    }
+                   
+                }
+
+                return -1000000;
+            }
+
+        }
+        
 
         public void PrintList()
         {
