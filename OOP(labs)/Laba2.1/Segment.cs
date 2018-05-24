@@ -46,10 +46,10 @@ namespace Laba2._1
             Y2 += numberMove;
         }
 
-        public void DisplaySegment() //-----------
-        {
-            // Bitmap img = new Bitmap(100, 100);
-        }
+        //public void DisplaySegment() //-----------
+        //{
+        //    // Bitmap img = new Bitmap(100, 100);
+        //}
 
         Square firstSquare = new Square(); //??????????
 

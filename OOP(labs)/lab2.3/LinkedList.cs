@@ -132,15 +132,15 @@ namespace lab2._3
 
                 node.Next = before.Next;
                 before.Next = node;
-
-                count++;
             }
+
+            count++;
         }
 
         //Метод додавання нового елементу у список після елемента із заданим значенням;
-        public void AddAfterValue(int data, int value)
+        public void AddAfterValue(int insertData, int value)
         {
-            Node node = new Node(data);
+            Node node = new Node(insertData);
 
             if (head == null)
             {
@@ -151,18 +151,25 @@ namespace lab2._3
             {
                 Node after = head.Next;
                 Node before = head;
-                while (head.Data != value)
+                while (after != null)
                 {
+                    if (value == before.Data)
+                    {
+                        break;
+                    }
                     before = after;
                     after = after.Next;
                 }
-
+                // insert between before & after
                 node.Next = before.Next;
                 before.Next = node;
-
-                count++;
             }
+
+            count++;
         }
+
+        //Рекурсивний метод видалення n-ного за рахунком елемента;
+
 
         public void PrintList()
         {
