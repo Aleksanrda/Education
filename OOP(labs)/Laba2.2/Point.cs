@@ -8,6 +8,7 @@ namespace Laba2._2
 {
     class Point
     {
+        // Это должны быть свойства: { get; set }
         public double X;
         public double Y;
 

@@ -20,6 +20,7 @@ namespace Laba2._2
         public double Y1;
         public double R;
 
+        // public double SquareOfCircle => Math.PI * R * R;
         public double SquareOfCircle
         {
             get
@@ -29,6 +30,7 @@ namespace Laba2._2
 
         }
 
+        // тоже самое, что и выше
         public double CircleLength
         {
             get
@@ -56,6 +58,8 @@ namespace Laba2._2
         Point point = new Point();
         public bool CheckPointInCircle()
         {
+            // Можно просто вернуть:
+            // return Math.Pow(X1 - point.X, 2) + Math.Pow(Y1 - point.Y, 2) < Math.Pow(R, 2)
             if (Math.Pow(X1 - point.X, 2) + Math.Pow(Y1 - point.Y, 2) < Math.Pow(R, 2))
             {
                 return true;

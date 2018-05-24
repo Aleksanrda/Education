@@ -8,6 +8,7 @@ namespace Laba2._1
 {
     public class Square
     {
+        // Это должны быть свойства: { get; set }
         public double X;
         public double Y;
         public double W;
