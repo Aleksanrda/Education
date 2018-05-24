@@ -8,7 +8,7 @@ namespace lab2._3
 {
     public class Node
     {
-        public Node(int data) //Конструктор з одним параметром (число);
+        public Node(double data) //Конструктор з одним параметром (число);
         {
             Data = data;
         }
@@ -18,7 +18,7 @@ namespace lab2._3
             Data = data.Data;
         }
 
-        public int Data { get; set; }
+        public double Data { get; set; }
 
         public Node Next { get; set; }
     }

@@ -111,7 +111,7 @@ namespace lab2._3
         //}
 
         //Не рекурсивний метод додавання нового елемента останнім у список;
-        public void AddLast(int data) 
+        public void AddLast(int data)
         {
             Node node = new Node(data);
 
@@ -169,6 +169,54 @@ namespace lab2._3
         }
 
         //Рекурсивний метод видалення n-ного за рахунком елемента;
+        public void DeleteValue(int index) //------------------------
+        {
+
+        }
+
+        //Метод видалення всіх елементів з від'ємними значеннями;
+        public void DeleteNegativeElements()
+        {
+
+            Node current = head;
+            Node previous = null;
+
+            while (current != null)
+            {
+                if (current.Data < 0)
+                {
+                    // Если узел в середине или в конце
+                    if (previous != null)
+                    {
+                        // убираем узел current, теперь previous ссылается не на current, а на current.Next
+                        previous.Next = current.Next;
+
+                        // Если current.Next не установлен, значит узел последний,
+                        // изменяем переменную tail
+                        if (current.Next == null)
+                            tail = previous;
+                    }
+                    else
+                    {
+                        // если удаляется первый элемент
+                        // переустанавливаем значение head
+                        head = head.Next;
+
+                        // если после удаления список пуст, сбрасываем tail
+                        if (head == null)
+                            tail = null;
+                    }
+                    count--;
+             
+                }
+
+                previous = current;
+                current = current.Next;
+            }
+
+        }
+
+        //Рекурсивний метод друку всіх цілих елементів списку;
 
 
         public void PrintList()
