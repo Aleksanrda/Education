@@ -111,7 +111,7 @@ namespace lab2._3
         //}
 
         //Не рекурсивний метод додавання нового елемента останнім у список;
-        public void AddLast(int data)
+        public void AddLast(double data)
         {
             Node node = new Node(data);
 
@@ -138,7 +138,7 @@ namespace lab2._3
         }
 
         //Метод додавання нового елементу у список після елемента із заданим значенням;
-        public void AddAfterValue(int insertData, int value)
+        public void AddAfterValue(double insertData, double value)
         {
             Node node = new Node(insertData);
 
@@ -217,6 +217,39 @@ namespace lab2._3
         }
 
         //Рекурсивний метод друку всіх цілих елементів списку;
+        public void PrintIntegerNumber()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("List is empty");
+            }
+            else
+            {
+                PrintIntegerNumber_Rec(head);
+            }
+
+        }
+
+        private void PrintIntegerNumber_Rec(Node temp)
+        {
+            if (temp != null )
+            {
+                int g = (int)temp.Data;
+                if (temp.Data - g == 0)
+                {
+                    Console.Write(temp.Data);
+                    Console.Write(" ");
+                    PrintIntegerNumber_Rec(temp.Next);
+                }
+                else
+                {
+                    PrintIntegerNumber_Rec(temp.Next);
+                }
+            }
+
+        }
+
+        //Метод сортування елементів списку за зменшенням числових значень;
 
 
         public void PrintList()
