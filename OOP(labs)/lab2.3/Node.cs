@@ -13,7 +13,7 @@ namespace lab2._3
             Data = data;
         }
 
-        public Node(Node data) // конструктор копирования???????
+        public Node(Node data) // конструктор копирования
         {
             Data = data.Data;
         }

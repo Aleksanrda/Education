@@ -46,7 +46,7 @@ namespace Laba2._1
             Y2 += numberMove;
         }
 
-        //public void DisplaySegment() //-----------
+        //public void DisplaySegment() //
         //{
         //    // Bitmap img = new Bitmap(100, 100);
         //}

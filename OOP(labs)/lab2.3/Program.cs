@@ -34,21 +34,103 @@ namespace lab2._3
     {
         static void Main(string[] args)
         {
-            LinkedList list = new LinkedList();
-            list.AddLast(-4);
-            list.AddLast(5.2);
-            list.AddLast(-8);
-            list.AddLast(0);
-            list.PrintList();
-            list.AddAfterValue(10, 5);
-            list.PrintList();
-            //list.DeleteNegativeElements();
-            //list.PrintList();
-            //list.PrintIntegerNumber();
-            list.DescendingSort();
-            list.PrintList();
+            
+            //list.AddLast(-4);
+            //list.AddLast(5);
+            //list.AddLast(-8);
+            //list.AddLast(0);
 
-            Console.WriteLine(list[100]);
+            try
+            {
+                UI list = new UI();
+
+                Console.WriteLine("1 - Add element last");
+
+                Console.WriteLine("2 - Add element after some value");
+
+                Console.WriteLine("3 - Delete element");
+
+                Console.WriteLine("4 - Delete negative elements");
+
+                Console.WriteLine("5 - Print integer elements");
+
+                Console.WriteLine("6 - Sort list in descending order");
+
+                Console.WriteLine("7 - Search index using value");
+
+                Console.WriteLine("8 - Print list");
+
+                Console.WriteLine("9 - exit");
+
+                int inputNumber = 0;
+                while (inputNumber != 9)
+                {
+                    Console.WriteLine("Input one of number to get information you want, please ");
+
+                    bool result = int.TryParse(Console.ReadLine(), out inputNumber);
+
+                    while (result == false)
+                    {
+                        Console.WriteLine("Not valid");
+                        Console.WriteLine("You input wrong data, please try enter number again");
+                        result = int.TryParse(Console.ReadLine(), out inputNumber);
+                    }
+
+                    while (inputNumber < 1 && inputNumber > 9)
+                    {
+                        Console.WriteLine("You input wrong number, please enter number again");
+                        result = int.TryParse(Console.ReadLine(), out inputNumber);
+                    }
+
+                    if (inputNumber == 1)
+                    {
+                        list.OutputAddLast();
+                    }
+
+                    else if (inputNumber == 2)
+                    {
+                        list.OutputAddAfterValue();
+                    }
+
+                    else if (inputNumber == 3)
+                    {
+
+                        list.OutputDeleteValue();
+                    }
+
+                    else if (inputNumber == 4)
+                    {
+                        list.OutputDeleteNegativeElements();
+                    }
+
+                    else if (inputNumber == 5)
+                    {
+                        list.OutputPrintIntegerNumber();
+                    }
+
+                    else if (inputNumber == 6)
+                    {
+                        list.OutputDescendingSort();
+                    }
+
+                    else if(inputNumber == 7)
+                    {
+                        list.OutputIndex();
+                    }
+
+                    else if(inputNumber == 8)
+                    {
+                        list.OutputPrintList();
+                    }
+
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Error");
+                Console.Read();
+            }
             Console.ReadKey();
         }
     }

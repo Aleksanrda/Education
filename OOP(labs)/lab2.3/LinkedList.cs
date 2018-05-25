@@ -12,7 +12,7 @@ namespace lab2._3
         Node head; //головной, первый элемент
         Node tail; //последний, хвостовой элемент
         int count;
-        
+
 
         public int Count { get { return count; } } // list size
         public bool IsEmpty { get { return count == 0; } }
@@ -119,7 +119,7 @@ namespace lab2._3
                     {
                         break;
                     }
-                // insert between before & after
+                    // insert between before & after
                     before = after;
                     after = after.Next;
                 }
@@ -131,9 +131,70 @@ namespace lab2._3
         }
 
         //Рекурсивний метод видалення n-ного за рахунком елемента;
-        public void DeleteValue(int index) //------------------------
+        public void DeleteValue(double index) //------------------------
         {
+            Node current = head;
+            Node previous = null;
 
+            if (head == null)
+            {
+                Console.WriteLine("List is empty");
+            }
+
+            else
+            {
+                DeleteValue_Rec(previous, current, count, index);
+            }
+
+        }
+
+        private void DeleteValue_Rec(Node previous, Node current, int n, double i)
+        {
+            if (n >= 0)
+            {
+                while (current != null)
+                {
+                    if (i == n)
+                    {
+                        // Если узел в середине или в конце
+                        if (previous != null)
+                        {
+                            // убираем узел current, теперь previous ссылается не на current, а на current.Next
+                            previous.Next = current.Next;
+
+                            // Если current.Next не установлен, значит узел последний,
+                            // изменяем переменную tail
+                            if (current.Next == null)
+                            {
+                                tail = previous;
+                            }
+
+                        }
+                        else
+                        {
+                            // если удаляется первый элемент
+                            // переустанавливаем значение head
+                            head = head.Next;
+
+                            // если после удаления список пуст, сбрасываем tail
+                            if (head == null)
+                            {
+                                tail = null;
+                            }
+
+                        }
+
+                        count--;
+                        break;
+                    }
+                    else
+                    {
+                        DeleteValue_Rec(current, current.Next, n - 1, i);
+                    }
+                }
+                
+            }
+            
         }
 
         //Метод видалення всіх елементів з від'ємними значеннями;
@@ -156,7 +217,10 @@ namespace lab2._3
                         // Если current.Next не установлен, значит узел последний,
                         // изменяем переменную tail
                         if (current.Next == null)
+                        {
                             tail = previous;
+                        }
+
                     }
                     else
                     {
@@ -264,11 +328,11 @@ namespace lab2._3
         }
 
         //Індексатор з одним параметром, який дозволяє за значенням елемента знайти його порядковий номер у списку;
-        public int this [int value]
+        public int this[int value]
         {
             get
             {
-                if(head == null)
+                if (head == null)
                 {
                     throw new ArgumentException("List is empty");
                 }
@@ -283,14 +347,14 @@ namespace lab2._3
                     {
                         head = head.Next;
                     }
-                   
+
                 }
 
                 return -1000000;
             }
 
         }
-        
+
 
         public void PrintList()
         {
