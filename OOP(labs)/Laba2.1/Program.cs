@@ -38,6 +38,7 @@ namespace Laba2._1
 
                     bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
+                    // можно просто написать: while(!result) { ... }
                     while (result == false)
                     {
                         Console.WriteLine("Not valid");

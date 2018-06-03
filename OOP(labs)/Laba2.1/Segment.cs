@@ -29,6 +29,7 @@ namespace Laba2._1
             Y2 = 2;
         }
 
+        // Можно упростит и написать: public double GetLengthSegment => Math.Sqrt(Math.Pow((X1 - X2), 2) + Math.Pow((Y1 - Y2), 2));
         public double GetLengthSegment
         {
             get
@@ -50,7 +51,6 @@ namespace Laba2._1
         //{
         //    // Bitmap img = new Bitmap(100, 100);
         //}
-
         Square firstSquare = new Square(); //??????????
 
         public bool CheckHitPointsInSquare()

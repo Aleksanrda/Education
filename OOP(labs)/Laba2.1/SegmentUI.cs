@@ -17,6 +17,10 @@ namespace Laba2._1
 
         public void OutputGetLengthSegment()
         {
+            // можно просто написать 
+            // Console.WriteLine(segmentUI.GetLengthSegment);
+
+            // Названий свойст - существительное. Т.е. не GetLengthSegment, а LengthSegment. Лучше даже SegmentLength
             double lengthSegment = segmentUI.GetLengthSegment;
             Console.WriteLine(lengthSegment);
         }
