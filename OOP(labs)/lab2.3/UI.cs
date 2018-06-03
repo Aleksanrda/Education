@@ -21,7 +21,7 @@ namespace lab2._3
             Console.Write("Input number, please ");
             bool result = double.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false)
+            while (!result)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");
@@ -57,7 +57,7 @@ namespace lab2._3
             Console.Write("Input number, please ");
             bool result = double.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false)
+            while (!result)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");
@@ -92,7 +92,7 @@ namespace lab2._3
             Console.Write("Input number, please ");
             bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false || inputNumber < 0)
+            while (!result || inputNumber < 0)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");

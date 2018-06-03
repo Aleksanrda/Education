@@ -8,10 +8,10 @@ namespace Laba2._1
 {
     public class Segment
     {
-        public double X1;
-        public double Y1;
-        public double X2;
-        public double Y2;
+        public double X1 { get; set; }
+        public double Y1 { get; set; }
+        public double X2 { get; set; }
+        public double Y2 { get; set; }
 
         public Segment(double x1, double y1, double x2, double y2)
         {

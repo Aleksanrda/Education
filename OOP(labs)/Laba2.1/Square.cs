@@ -8,9 +8,9 @@ namespace Laba2._1
 {
     public class Square
     {
-        public double X;
-        public double Y;
-        public double W;
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double W { get; set; }
 
         public Square()
         {

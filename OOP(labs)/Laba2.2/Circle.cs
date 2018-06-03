@@ -16,9 +16,9 @@ namespace Laba2._2
 {
     class Circle
     {
-        public double X1;
-        public double Y1;
-        public double R;
+        public double X1 { get; set; }
+        public double Y1 { get; set; }
+        public double R { get; set; }
 
         public double SquareOfCircle
         {

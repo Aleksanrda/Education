@@ -27,7 +27,7 @@ namespace Laba2._1
             Console.Write("Input number, please ");
             bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false)
+            while (!result)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");

@@ -39,7 +39,7 @@ namespace Laba2._2
             Console.Write("Input number, please ");
             bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false)
+            while (!result)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");
@@ -56,7 +56,7 @@ namespace Laba2._2
             Console.Write("Input number, please ");
             bool result = int.TryParse(Console.ReadLine(), out inputNumber);
 
-            while (result == false)
+            while (!result)
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");
@@ -81,7 +81,7 @@ namespace Laba2._2
             Console.Write("Input (X.Y.R), please ");
             string[] coordinates = Console.ReadLine().Split('.');
 
-            while (coordinates[0] == "" && coordinates[1] == "" && coordinates[2] == "")
+            while (coordinates[0] == "" || coordinates[1] == "" || coordinates[2] == "")
             {
                 Console.WriteLine("Not valid");
                 Console.WriteLine("You input wrong data, please try enter number again");

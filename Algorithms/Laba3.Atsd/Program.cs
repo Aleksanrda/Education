@@ -10,7 +10,7 @@ namespace Laba1.Atsd
     public class List
     {
         private readonly int[] data;
-        int capacity = 5;
+        
         int count = 0;
 
         public List(int capacity)
@@ -30,12 +30,12 @@ namespace Laba1.Atsd
 
         public bool IsFull()
         {
-            return count == capacity;
+            return count == data.Length;
         }
 
         public void AddData(int value)
         {
-            if (count <= capacity)
+            if (count <= data.Length)
             {
                 data[count] = value;
                 count++;
@@ -44,7 +44,7 @@ namespace Laba1.Atsd
 
         public void DeleteData(int value)
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i <data.Length; i++)
             {
                 if (data[i] == value)
                 {
@@ -66,7 +66,7 @@ namespace Laba1.Atsd
 
         public bool Search(int value)
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < data.Length; i++)
             {
                 if (data[i] == value)
                 {
@@ -78,7 +78,7 @@ namespace Laba1.Atsd
 
         public int Retrieve(int value)
         {
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i <data.Length; i++)
             {
                 if (data[i] == value)
                 {
@@ -144,7 +144,6 @@ namespace Laba1.Atsd
             return;
         }
 
-
         public void HeapSortDescendingOrder() //++++++++
         {
             BuildMinHeap();
@@ -203,6 +202,7 @@ namespace Laba1.Atsd
             int maximum = data[0];
 
             data[0] = data[count - 1];
+            data[count - 1] = 0;
             count--;
             MaxHeapify(count, 1);
             return maximum;
@@ -227,26 +227,31 @@ namespace Laba1.Atsd
     {
         static void Main(string[] args)
         {
-            List data = new List(5);
-            data.AddData(45);
-            data.AddData(87);
-            data.AddData(90);
-            data.AddData(34);
-            data.AddData(21);
+            List data = new List(9);
+
+            data.AddData(20);
+            data.AddData(12);
+            data.AddData(15);
+            data.AddData(700);
+            data.AddData(9);
+            data.AddData(100);
+            //data.AddData(18);
+            //data.AddData(21);
+            //data.AddData(29);
             data.PrintData();
             Console.WriteLine();
 
-            data.BuildMinHeap();
-            data.PrintData();
-            Console.WriteLine();
+            //data.BuildMinHeap();
+            //data.PrintData();
+            //Console.WriteLine();
 
-            data.HeapSortDescendingOrder();
-            data.PrintData();
-            Console.WriteLine();
+            //data.HeapSortDescendingOrder();
+            //data.PrintData();
+            //Console.WriteLine();
 
-            data.HeapSortAscendingOrder();
-            data.PrintData();
-            Console.WriteLine();
+            //data.HeapSortAscendingOrder();
+            //data.PrintData();
+            //Console.WriteLine();
 
             int j = data.DeleteTop();
             Console.WriteLine(j);
