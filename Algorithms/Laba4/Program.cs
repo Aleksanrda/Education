@@ -6,229 +6,134 @@ using System.Threading.Tasks;
 
 namespace Laba4
 {
-    public class Graph<T>
+    /// <summary>
+    /// Реализация алгоритма Дейкстры. Содержит матрицу смежности в виде массивов вершин и ребер
+    /// </summary>
+    class Dijstra_Algoritm
     {
-        private List<Node> nodes_ = new List<Node>();
+        public Vertex[] points { get; set; }
+        public Edge[] rebra { get; set; }
+        public Vertex BeginPoint { get; set; }
+        // реализация алгоритма
 
-        public class Node
+        Dictionary<char, Dictionary<char, int>> vertices = new Dictionary<char, Dictionary<char, int>>();
+
+        public void add_vertex(char name, Dictionary<char, int> edges)
         {
-            private List<Edge> edges_ = new List<Edge>();
-            private T context_;
+            vertices[name] = edges;
+        }
 
-            public T context
+        public List<char> shortest_path(char start, char finish)
+        {
+            var previous = new Dictionary<char, char>();
+            var distances = new Dictionary<char, int>();
+            var nodes = new List<char>();
+
+            List<char> path = null;
+
+            foreach (var vertex in vertices)
             {
-                get
+                if (vertex.Key == start)
                 {
-                    return context_;
+                    distances[vertex.Key] = 0;
                 }
-            }
-
-            public List<Edge> edges
-            {
-                get
+                else
                 {
-                    return edges_;
+                    distances[vertex.Key] = int.MaxValue;
                 }
+
+                nodes.Add(vertex.Key);
             }
 
-            public Node(T context)
+            while (nodes.Count != 0)
             {
-                context_ = context;
-            }
-        }
+                nodes.Sort((x, y) => distances[x] - distances[y]);
 
-        public class Edge
-        {
-            Node to_;
-            int weight_;
+                var smallest = nodes[0];
+                nodes.Remove(smallest);
 
-            public Node to
-            {
-                get
+                if (smallest == finish)
                 {
-                    return to_;
-                }
-            }
-            public int weight
-            {
-                get
-                {
-                    return weight_;
-                }
-            }
-
-            public Edge(Node to, int weight)
-            {
-                to_ = to;
-                weight_ = weight;
-            }
-        }
-
-        public int n
-        {
-            get
-            {
-                return nodes_.Count;
-            }
-        }
-
-        public List<Node> nodes
-        {
-            get
-            {
-                return nodes_;
-            }
-        }
-
-        public Graph(IEnumerable<T> initialize_list)
-        {
-            foreach (var i in initialize_list)
-            {
-                AddVertex(i);
-            }
-        }
-
-        public Graph(Graph<T> othr)
-        {
-            CopyFrom(othr);
-        }
-
-        public Node AddVertex(T context)
-        {
-            Node a = new Node(context);
-            nodes_.Add(a);
-            return a;
-        }
-
-        public Node FindVertex(T context)
-        {
-            return nodes_.Find(n => n.context.Equals(context));
-        }
-
-        public void CopyFrom(Graph<T> othr)
-        {
-            nodes_.Clear();
-            nodes_.AddRange(othr.nodes_);
-        }
-
-        public bool Contains(Node node)
-        {
-            return nodes_.Find(n => n.Equals(node)) != null;
-        }
-
-        public void Remove(Node node)
-        {
-            nodes_.Remove(node);
-        }
-    }
-
-    public static class Controller
-    {
-        public static void SetEdge<T>(this Graph<T> self, T a, T b, int weight)
-        {
-            var a_node = self.FindVertex(a);
-            var b_node = self.FindVertex(b);
-            a_node.AddEdge(b_node, weight);
-            b_node.AddEdge(a_node, weight);
-        }
-
-        public static void AddEdge<T>(this Graph<T>.Node self, Graph<T>.Node to, int weight)
-        {
-            self.edges.Add(new Graph<T>.Edge(to, weight));
-        }
-
-        public static List<Graph<T>.Node> GetNeighbors<T>(this Graph<T>.Node self)
-        {
-            return self.edges.ConvertAll(e => e.to);
-        }
-
-        public static int GetWeight<T>(this Graph<T>.Node self, Graph<T>.Node b)
-        {
-            foreach (var e in self.edges)
-            {
-                if (e.to == b)
-                {
-                    return e.weight;
-                }
-            }
-            return int.MaxValue - 1;
-        }
-    }
-
-    class Prim<T>
-    {
-        readonly int kInfinite = int.MaxValue - 1;
-
-        public void prim(Graph<T> g, Graph<T>.Node r, ref Dictionary<Graph<T>.Node, Graph<T>.Node> tree)
-        {
-            Graph<T> Q = new Graph<T>(g);
-            var d = new Dictionary<Graph<T>.Node, int>();
-            foreach (var u in Q.nodes)
-            {
-                d[u] = kInfinite;
-            }
-            d[r] = 0;
-
-            while (Q.n > 0)
-            {
-                var u = deleteMin(Q, d);
-                foreach (var v in u.GetNeighbors())
-                {
-                    if (Q.Contains(v) && (u.GetWeight(v) < d[v]))
+                    path = new List<char>();
+                    while (previous.ContainsKey(smallest))
                     {
-                        d[v] = u.GetWeight(v);
-                        tree[v] = u;
+                        path.Add(smallest);
+                        smallest = previous[smallest];
+                    }
+
+                    break;
+                }
+
+                if (distances[smallest] == int.MaxValue)
+                {
+                    break;
+                }
+
+                foreach (var neighbor in vertices[smallest])
+                {
+                    var alt = distances[smallest] + neighbor.Value;
+                    if (alt < distances[neighbor.Key])
+                    {
+                        distances[neighbor.Key] = alt;
+                        previous[neighbor.Key] = smallest;
                     }
                 }
             }
 
+            return path;
         }
 
-        private Graph<T>.Node deleteMin(Graph<T> Q, Dictionary<Graph<T>.Node, int> d)
+    }
+    class Vertex
+    {
+        //поле реализующее имя вершины
+        public string Name { get; set; }
+        //сумарная стоимость перехода
+        public int TotalPathSum { get; set; }
+        //проверка пройдена вершина или нет
+        public bool IsChecked { get; set; }
+        //предидущая вершина
+        public Vertex predVertex { get; set; }
+
+        public Vertex(int pathsum, bool isCheck, string name)
         {
-            Graph<T>.Node min_node = null;
-            int min_weight = kInfinite;
-            foreach (var n in Q.nodes)
-            {
-                if (d[n] <= min_weight)
-                {
-                    min_weight = d[n];
-                    min_node = n;
-                }
-            }
-            Q.Remove(min_node);
-            return min_node;
+            TotalPathSum = pathsum;
+            IsChecked = isCheck;
+            Name = name;
         }
+
+
     }
 
+    class Edge
+    {
+        public Vertex StartVertex { get; set; }// начальная вершина
+        public Vertex EndVertex { get; set; }// конечная вершина
+        public float Weight { get; set; }// расстояние(вес) ребра
 
+        public Edge(Vertex first, Vertex second, float ValueWeight)
+        {
+            StartVertex = first;
+            EndVertex = second;
+            Weight = ValueWeight;
+        }
+    }
     class Program
     {
         static void Main(string[] args)
         {
-            Graph<int> W = new Graph<int>(Enumerable.Range(0, 8));
 
-            W.SetEdge(0, 1, 8);
-            W.SetEdge(0, 2, 9);
-            W.SetEdge(0, 3, 11);
+            Dijstra_Algoritm g = new Dijstra_Algoritm();
+            g.add_vertex('A', new Dictionary<char, int>() { { 'B', 7 }, { 'C', 8 } });
+            g.add_vertex('B', new Dictionary<char, int>() { { 'A', 7 }, { 'F', 2 } });
+            g.add_vertex('C', new Dictionary<char, int>() { { 'A', 8 }, { 'F', 6 }, { 'G', 4 } });
+            g.add_vertex('D', new Dictionary<char, int>() { { 'F', 8 } });
+            g.add_vertex('E', new Dictionary<char, int>() { { 'H', 1 } });
+            g.add_vertex('F', new Dictionary<char, int>() { { 'B', 2 }, { 'C', 6 }, { 'D', 8 }, { 'G', 9 }, { 'H', 3 } });
+            g.add_vertex('G', new Dictionary<char, int>() { { 'C', 4 }, { 'F', 9 } });
+            g.add_vertex('H', new Dictionary<char, int>() { { 'E', 1 }, { 'F', 3 } });
 
-            W.SetEdge(1, 4, 10);
-
-            W.SetEdge(2, 3, 13);
-            W.SetEdge(2, 4, 5);
-            W.SetEdge(2, 5, 12);
-
-            W.SetEdge(3, 6, 8);
-            W.SetEdge(5, 6, 7);
-
-            Prim<int> prim = new Prim<int>();
-            Dictionary<Graph<int>.Node, Graph<int>.Node> tree = new Dictionary<Graph<int>.Node, Graph<int>.Node>();
-            prim.prim(W, W.FindVertex(0), ref tree);
-
-            foreach (var kv in tree)
-            {
-                Console.WriteLine("{0} => {1}", kv.Key.context, kv.Value.context);
-            }
+            g.shortest_path('A', 'H').ForEach(x => Console.WriteLine(x));
 
             Console.ReadKey();
         }
