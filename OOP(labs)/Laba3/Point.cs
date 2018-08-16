@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Laba3
 {
@@ -13,7 +14,7 @@ namespace Laba3
 
         public override string ToString()
         {
-            return MessageBox.Show($"Class: point \na={X} \nb={Y}");
+            return ($"Class: point \na={X} \nb={Y}");
         }
 
     }

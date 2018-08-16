@@ -37,41 +37,55 @@ namespace Laba3
             penSh = new Pen(Color.Black);
             penSh.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             point = new Point(150, 30);
-            polygon = new Polygon(250, 130); //массив точкек
-            polygonColor = new PolygonColor(30, 90, "red"); //массив точкек
-            polygonRegular = new PolygonRegular(10, 20, );//массив точкек
+            Point[] points = { new Point(0, 0), new Point(50, 30), new Point(40, 60) };
+            polygon = new Polygon(250, 130, points); 
+            polygonColor = new PolygonColor(30, 90, "red", points); 
+            polygonRegular = new PolygonRegular(new Point(300, 500), 5, 5, 10, 200, points);
             pyramid = new Pyramid(330, 90, 430, 90, 300, 120, 400, 120);
             prism = new Prism(30, 90, 120, 90, 10, 120, 100, 120);
+            
         }
 
         public virtual void Draw()
         {
+            PointF[] pointsF = { new PointF(0, 0), new PointF(50, 30), new PointF(30, 60) };
+            graph.DrawPolygon(penSh, pointsF);
+            PointF[] pointsF2 = { new PointF(190, 200), new PointF(76, 30), new PointF(56, 89) };
+            graph.DrawPolygon(pen, pointsF2);
+            graph.FillPolygon(Brushes.GreenYellow, pointsF2);
             if (comboBox1.Text == "Point")
             {
-                graph.DrawRectangle(pen, point.X, point.Y, 0, 0);
+                graph.DrawRectangle(penSh, point.X, point.Y, 0, 0);
             }
 
             else if (comboBox1.Text == "Polygon")
-                graph.DrawRectangle(pen, polygon.X, polygon.Y)
+        {
+            graph.DrawPolygon(penSh, pointsF);
+        }
             else if (comboBox1.Text == "PolygonRegular")
-                graph.DrawRectangle(pen, polygonRegular.X, polygonRegular.Y); //
-            else if (comboBox1.Text == "PolygonColor")//////
-                graph.DrawRectangle(pen, polygonColor.X, polygonColor.Y);
-            else if (comboBox1.Text == "Piramid")
+                polygonRegular.Draw(graph, pen);
+            else if (comboBox1.Text == "PolygonColor")
             {
-                graph.DrawLine(penSh, pyramid.X, pyramid.Y, pyramid.x2, pyramid.y2);
-                graph.DrawLine(penSh, pyramid.X, pyramid.Y, pyramid.x3, pyramid.y3);
-                graph.DrawLine(penSh, pyramid.x3, pyramid.y3, pyramid.x4, pyramid.y4);
-                graph.DrawLine(penSh, pyramid.x4, pyramid.y4, pyramid.x2, pyramid.y2);
+                graph.DrawPolygon(pen, pointsF);
+                graph.FillPolygon(Brushes.Red, pointsF);
+
+            }
+
+            else if (comboBox1.Text == "Pyramid")
+            {
+                graph.DrawLine(penSh, pyramid.X, pyramid.Y, pyramid.X2, pyramid.Y2);
+                graph.DrawLine(penSh, pyramid.X, pyramid.Y, pyramid.X3, pyramid.Y3);
+                graph.DrawLine(penSh, pyramid.X3, pyramid.Y3, pyramid.X4, pyramid.Y4);
+                graph.DrawLine(penSh, pyramid.X4, pyramid.Y4, pyramid.X2, pyramid.Y2);
             }
 
 
             else if (comboBox1.Text == "Prism")
             {
-                graph.DrawLine(pen, prism.X, prism.Y, prism.x2, prism.y2);
-                graph.DrawLine(pen, prism.X, prism.Y, prism.x3, prism.y3);
-                graph.DrawLine(pen, prism.x3, prism.y3, prism.x4, prism.y4);
-                graph.DrawLine(pen, prism.x4, prism.y4, prism.x2, prism.y2);
+                graph.DrawLine(pen, prism.X, prism.Y, prism.X2, prism.Y2);
+                graph.DrawLine(pen, prism.X, prism.Y, prism.X3, prism.Y3);
+                graph.DrawLine(pen, prism.X3, prism.Y3, prism.X4, prism.Y4);
+                graph.DrawLine(pen, prism.X4, prism.Y4, prism.X2, prism.Y2);
             }
 
             else
@@ -134,7 +148,7 @@ namespace Laba3
                 polygonColor.Move();
                 Draw();
             }
-            else if (comboBox1.Text == "PolygonRegulaar")
+            else if (comboBox1.Text == "PolygonRegular")
             {
                 graph.Clear(Color.White);
                 polygonRegular.Move();
@@ -152,7 +166,7 @@ namespace Laba3
                 prism.Move();
                 Draw();
             }
-            else if (comboBox1.Text == "All")
+            else if (comboBox1.Text == "Figure")
             {
                 var figure = new List<Figure>
         {
@@ -171,7 +185,7 @@ namespace Laba3
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+       
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -245,17 +259,17 @@ namespace Laba3
         private void button5_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text == "Point")
-                point.ToString();
+               MessageBox.Show(point.ToString());
             else if (comboBox1.Text == "Polygon")
-                polygon.ToString();
+                MessageBox.Show(polygon.ToString());
             else if (comboBox1.Text == "PolygonColor")
-                polygonColor.ToString();
+                MessageBox.Show(polygonColor.ToString());
             else if (comboBox1.Text == "PolygonRegular")
-                polygonRegular.ToString();
+                MessageBox.Show(polygonRegular.ToString());
             else if (comboBox1.Text == "Pyramid")
-                pyramid.ToString();
+                MessageBox.Show(pyramid.ToString());
             else if (comboBox1.Text == "Prism")
-                prism.ToString();
+                MessageBox.Show(prism.ToString());
             else if (comboBox1.Text == "Figure")
             {
                 MessageBox.Show("Picture consist of point, polygon, polygonColor and polygonRegular");

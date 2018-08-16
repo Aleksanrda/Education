@@ -3,49 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Laba3
 {
     public class Pyramid : Figure
     {
-        public int x2 { get; set; }
-        public int y2 { get; set; }
-        public int x3 { get; set; }
-        public int y3 { get; set; }
-        public int x4 { get; set; }
-        public int y4 { get; set; }
+        public int X2 { get; set; }
+        public int Y2 { get; set; }
+        public int X3 { get; set; }
+        public int Y3 { get; set; }
+        public int X4 { get; set; }
+        public int Y4 { get; set; }
         public Pyramid(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4): base ( x1, y1)
         {
-            this.x2 = x2;
-            this.y2 = y2;
-            this.x3 = x3;
-            this.y3 = y3;
-            this.x4 = x4;
-            this.y4 = y4;
+            this.X2 = x2;
+            this.Y2 = y2;
+            this.X3 = x3;
+            this.Y3 = y3;
+            this.X4 = x4;
+            this.Y4 = y4;
 
         }
         public override void Draw(Graphics graph, Pen pen)
         {
-            graph.DrawLine(pen, X, Y, x2, y2);
-            graph.DrawLine(pen, X, Y, x3, y3);
-            graph.DrawLine(pen, x3, y3, x4, y4);
-            graph.DrawLine(pen, x4, y4, x2, y2);
+            graph.DrawLine(pen, X, Y, X2, Y2);
+            graph.DrawLine(pen, X, Y, X3, Y3);
+            graph.DrawLine(pen, X3, Y3, X4, Y4);
+            graph.DrawLine(pen, X4, Y4, X2, Y2);
 
             base.Draw(graph, pen);
         }
         public override void Scale()
         {
-            if (x4 <= 200)
+            if (X4 <= 200)
             {
-                int z = 2;
-                this.X *= z;
-                this.Y *= z;
-                this.x2 *= z;
-                this.x3 *= z;
-                this.y2 *= z;
-                this.y3 *= z;
-                this.x4 *= z;
-                this.y4 *= z;
+                int scale = 2;
+                this.X *= scale;
+                this.Y *= scale;
+                this.X2 *= scale;
+                this.X3 *= scale;
+                this.Y2 *= scale;
+                this.Y3 *= scale;
+                this.X4 *= scale;
+                this.Y4 *= scale;
             }
             else
                 MessageBox.Show("Stop increasing");
@@ -53,18 +55,18 @@ namespace Laba3
         }
         public override void Move()
         {
-            if (y4 < 360)
+            if (Y4 < 360)
             {
-                int z = 20;
-                int m = 20;
-                this.X = X + z;
-                this.Y = Y + m;
-                this.x2 = x2 + z;
-                this.y2 = y2 + m;
-                this.x3 = x3 + z;
-                this.y3 = y3 + m;
-                this.x4 = x4 + z;
-                this.y4 = y4 + m;
+                int move1 = 20;
+                int move2 = 20;
+                this.X = X + move1;
+                this.Y = Y + move2;
+                this.X2 = X2 + move1;
+                this.Y2 = Y2 + move2;
+                this.X3 = X3 + move1;
+                this.Y3 = Y3 + move2;
+                this.X4 = X4 + move1;
+                this.Y4 = Y4 + move2;
             }
             else
                 MessageBox.Show("Stop removing");
@@ -72,17 +74,17 @@ namespace Laba3
 
         public override double Square()
         {
-            double num = 1900;
-            return num;
+            double square = 1900;
+            return square;
         }
         public override string ToString()
         {
-           return MessageBox.Show($"Class: pyramid \na={Math.Sqrt(Math.Pow((x2 - X), 2) + Math.Pow((y2 - Y), 2)) } \nb={Math.Sqrt(Math.Pow((X - x3), 2) + Math.Pow((Y - y3), 2))}");
+            return ($"Class: piramid \nPerimetr={Perimeter()} \nsquare={Square()} ");
         }
         public override double Perimeter()
         {
-            double num = 600;
-            return num;
+            double perimetr = 600;
+            return perimetr;
         }
 
 

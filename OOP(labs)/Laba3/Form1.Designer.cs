@@ -100,6 +100,13 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Point",
+            "Polygon",
+            "PolygonColor",
+            "PolygonRegular",
+            "Pyramid",
+            "Prism"});
             this.comboBox1.Location = new System.Drawing.Point(32, 228);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -119,7 +126,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "3 лаба, почти на пятерочку";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
