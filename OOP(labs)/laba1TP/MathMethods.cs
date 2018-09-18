@@ -26,13 +26,13 @@ namespace laba1TP
         {
             double selectiveDispersion = 0;
             double m = AverageVariance(arrayOfNumbers); //m is average variance
-           
-            for(int i = 0; i < arrayOfNumbers.Length; i++)
+
+            for (int i = 0; i < arrayOfNumbers.Length; i++)
             {
                 selectiveDispersion += Math.Pow((arrayOfNumbers[i] - m), 2);
             }
 
-            if(arrayOfNumbers.Length > 1)
+            if (arrayOfNumbers.Length > 1)
             {
                 selectiveDispersion /= arrayOfNumbers.Length - 1;
             }
@@ -49,6 +49,24 @@ namespace laba1TP
             double selectiveDispersion = SelectiveDispersion(arrayOfNumbers);
             double standardDeviation = Math.Sqrt(selectiveDispersion);
             return standardDeviation;
+        }
+
+        public double GetMedian(double[] arrayOfNumbers)
+        {
+            double median = 0;
+
+            Array.Sort(arrayOfNumbers);
+
+            if (arrayOfNumbers.Length % 2 == 0)
+            {
+                median = arrayOfNumbers[(arrayOfNumbers.Length / 2 + arrayOfNumbers.Length / (2 + 1)) / 2];
+            }
+            else
+            {
+                median = arrayOfNumbers[(arrayOfNumbers.Length - 1) / 2];
+            }
+
+            return median;
         }
     }
 }

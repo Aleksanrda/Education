@@ -32,6 +32,8 @@ namespace laba1TP
             double standardDeviation = mathmethods.StandardDeviation(arr);
             Console.WriteLine("Standard deviation is " + standardDeviation);
 
+            double median = mathmethods.GetMedian(arr);
+            Console.WriteLine("Median is " + median);
 
             Console.ReadKey();
         }
