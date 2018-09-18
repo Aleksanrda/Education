@@ -43,5 +43,12 @@ namespace laba1TP
 
             return selectiveDispersion;
         }
+
+        public double StandardDeviation(double[] arrayOfNumbers) //Стандартне відхилення
+        {
+            double selectiveDispersion = SelectiveDispersion(arrayOfNumbers);
+            double standardDeviation = Math.Sqrt(selectiveDispersion);
+            return standardDeviation;
+        }
     }
 }

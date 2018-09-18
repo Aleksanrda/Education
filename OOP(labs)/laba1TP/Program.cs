@@ -29,6 +29,8 @@ namespace laba1TP
             double selectiveDispersion = mathmethods.SelectiveDispersion(arr);
             Console.WriteLine("Selective dispersion is " + selectiveDispersion);
 
+            double standardDeviation = mathmethods.StandardDeviation(arr);
+            Console.WriteLine("Standard deviation is " + standardDeviation);
 
 
             Console.ReadKey();
