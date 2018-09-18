@@ -10,9 +10,9 @@ namespace laba1TP
     {
         static void Main(string[] args)
         {
-            double[] arr = new double[] { 3, 3, 2, 1, 3, 4, 5, 5, 3};
+            double[] arr = new double[] { 3, 3, 2, 1, 3, 4, 5, 5, 3, 7};
 
-            Console.WriteLine("Original array : ");
+            Console.WriteLine("Array : ");
 
             foreach (var item in arr)
             {
@@ -37,6 +37,15 @@ namespace laba1TP
 
             double mode = mathmethods.GetMode(arr);
             Console.WriteLine("Mode is " + mode);
+
+            double max = mathmethods.GetMax(arr);
+            Console.WriteLine("Max is " + max);
+
+            double min = mathmethods.GetMin(arr);
+            Console.WriteLine("Min is " + min);
+
+            double scope = mathmethods.GetScope(arr);
+            Console.WriteLine("Scope is " + scope);
 
             Console.ReadKey();
         }

@@ -56,7 +56,7 @@ namespace laba1TP
             double median = 0;
             double[] sortArr = new double[arrayOfNumbers.Length];
 
-            for(int i = 0; i < arrayOfNumbers.Length; i++)
+            for (int i = 0; i < arrayOfNumbers.Length; i++)
             {
                 sortArr[i] = arrayOfNumbers[i];
             }
@@ -100,6 +100,43 @@ namespace laba1TP
             }
 
             return mode;
+        }
+
+        public double GetMax(double[] arrayOfNumbers)
+        {
+            double max = arrayOfNumbers[0];
+
+            for (int i = 1; i < arrayOfNumbers.Length; i++)
+            {
+                if (max < arrayOfNumbers[i])
+                {
+                    max = arrayOfNumbers[i];
+                }
+            }
+
+            return max;
+        }
+
+        public double GetMin(double[] arrayOfNumbers)
+        {
+            double min = arrayOfNumbers[0];
+
+            for (int i = 1; i < arrayOfNumbers.Length; i++)
+            {
+                if (min > arrayOfNumbers[i])
+                {
+                    min = arrayOfNumbers[i];
+                }
+            }
+
+            return min;
+        }
+
+        public double GetScope(double[] arrayOfNumbers) // розмах
+        {
+            double scope = 0;
+            scope = GetMax(arrayOfNumbers) - GetMin(arrayOfNumbers);
+            return scope;
         }
     }
 }
