@@ -54,19 +54,52 @@ namespace laba1TP
         public double GetMedian(double[] arrayOfNumbers)
         {
             double median = 0;
+            double[] sortArr = new double[arrayOfNumbers.Length];
 
-            Array.Sort(arrayOfNumbers);
-
-            if (arrayOfNumbers.Length % 2 == 0)
+            for(int i = 0; i < arrayOfNumbers.Length; i++)
             {
-                median = arrayOfNumbers[(arrayOfNumbers.Length / 2 + arrayOfNumbers.Length / (2 + 1)) / 2];
+                sortArr[i] = arrayOfNumbers[i];
+            }
+
+            Array.Sort(sortArr);
+
+            if (sortArr.Length % 2 == 0)
+            {
+                median = sortArr[(sortArr.Length / 2 + sortArr.Length / (2 + 1)) / 2];
             }
             else
             {
-                median = arrayOfNumbers[(arrayOfNumbers.Length - 1) / 2];
+                median = sortArr[(sortArr.Length - 1) / 2];
             }
 
             return median;
+        }
+
+        public double GetMode(double[] arrayOfNumbers)
+        {
+            double mode = 0;
+            int check = 0;
+            int k = 0;
+
+            for (int i = 0; i < arrayOfNumbers.Length; i++)
+            {
+                for (int j = i + 1; j < arrayOfNumbers.Length; j++)
+                {
+
+                    if (arrayOfNumbers[i] == arrayOfNumbers[j])
+                    {
+                        k++;
+                        if (k > check)
+                        {
+                            check = k;
+                            mode = arrayOfNumbers[i];
+                        }
+                    }
+                }
+                k = 0;
+            }
+
+            return mode;
         }
     }
 }

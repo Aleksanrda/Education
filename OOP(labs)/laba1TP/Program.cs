@@ -10,7 +10,7 @@ namespace laba1TP
     {
         static void Main(string[] args)
         {
-            double[] arr = new double[] { 2, 5, -4, 11, 0, 18, 22, 67, 51, 6 };
+            double[] arr = new double[] { 3, 3, 2, 1, 3, 4, 5, 5, 3};
 
             Console.WriteLine("Original array : ");
 
@@ -34,6 +34,9 @@ namespace laba1TP
 
             double median = mathmethods.GetMedian(arr);
             Console.WriteLine("Median is " + median);
+
+            double mode = mathmethods.GetMode(arr);
+            Console.WriteLine("Mode is " + mode);
 
             Console.ReadKey();
         }
