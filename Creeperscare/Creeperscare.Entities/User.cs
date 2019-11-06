@@ -22,7 +22,7 @@ namespace Creeperscare.Entities
 
         public User()
         {
-            this.Devices = new List<Device>();
+            Devices = new List<Device>();
         }
     }
 }
