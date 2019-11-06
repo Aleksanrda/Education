@@ -18,7 +18,7 @@ namespace Creeperscare.Entities
 
         public Subscription()
         {
-            this.Subscribers = new List<User>();
+            Subscribers = new List<User>();
         }
     }
 }

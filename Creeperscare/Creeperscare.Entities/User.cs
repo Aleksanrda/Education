@@ -18,6 +18,10 @@ namespace Creeperscare.Entities
 
         public string Password { get; set; }
 
+        public int? SubscriptionId { get; set; }
+
+        public Subscription Subscription { get; set; }
+
         public List<Device> Devices { get; set; }
 
         public User()
