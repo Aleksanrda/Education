@@ -15,5 +15,14 @@ namespace Creeperscare.Entities
         public string Role { get; set; }
 
         public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public List<Device> Devices { get; set; }
+
+        public User()
+        {
+            this.Devices = new List<Device>();
+        }
     }
 }
