@@ -12,6 +12,8 @@ using Creeperscare.Entities;
 using Creeperscare.API.Models;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Creeperscare.API.Options;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -78,7 +80,6 @@ namespace Creeperscare.API.Controllers
                         new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
                         new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
 
-                        // 
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                     };
 
