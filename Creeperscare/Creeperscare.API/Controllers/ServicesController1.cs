@@ -7,6 +7,7 @@ using Creeperscare.DAL.Services;
 using Creeperscare.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,11 +46,38 @@ namespace Creeperscare.API.Controllers
             return serviceModels;
         }
 
-        // GET api/<controller>/5
+        // GET api/Services/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(ServiceModel), StatusCodes.Status201Created)]
+        public async Task<IActionResult> GetService([FromRoute] int id)
         {
-            return "value";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var service = await _context.Services.FindAsync(id);
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            var cleaningModel = new ServiceModel()
+            {
+                ServiceId = service.ServiceId,
+                Date = service.Date,
+                ServiceType = service.ServiceType,
+                DeviceId = service.DeviceId,
+                GardenPlot = new GardenPlotModel()
+                {
+                    GardenPlotId = service.GardenPlot.GardenPlotId,
+                    Width = service.GardenPlot.Width,
+                    Length = service.GardenPlot.Length
+                }
+            };
+
+            return Ok(cleaningModel);
         }
 
         // POST api/<controller>
@@ -58,16 +86,57 @@ namespace Creeperscare.API.Controllers
         {
         }
 
-        // PUT api/<controller>/5
+        // PUT api/Services/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> PutService([FromRoute] int id, [FromBody] ServiceModel serviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != serviceModel.ServiceId)
+            {
+                return BadRequest();
+            }
+
+            var service = await _context.Services.FindAsync(serviceModel.ServiceId);
+
+            service.Date = serviceModel.Date;
+            service.ServiceType = serviceModel.ServiceType;           
+            service.DeviceId = serviceModel.DeviceId;
+            service.GardenPlotId = serviceModel.GardenPlot.GardenPlotId;
+
+            _context.Entry(service).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ServiceExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        private bool ServiceExists(int id)
+        {
+            return _context.Services.Any(e => e.ServiceId == id);
         }
     }
 }
