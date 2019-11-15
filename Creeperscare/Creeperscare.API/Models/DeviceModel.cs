@@ -16,6 +16,6 @@ namespace Creeperscare.API.Models
 
         public double Temperature { get; set; }
 
-        public User Owner { get; set; }
+        public UserModel Owner { get; set; }
     }
 }

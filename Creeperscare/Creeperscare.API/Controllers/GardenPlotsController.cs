@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Creeperscare.API.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class GardenPlotsController : ControllerBase
     {
         private readonly CreeperscareDbContext _context;
