@@ -162,8 +162,24 @@ namespace Creeperscare.API.Controllers
 
         // DELETE api/Devices/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteDevice([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var device = await _context.Devices.FindAsync(id);
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            _context.Devices.Remove(device);
+            await _context.SaveChangesAsync();
+
+            return Ok(device);
         }
 
         private bool DeviceExists(int id)
