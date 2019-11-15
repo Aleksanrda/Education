@@ -113,11 +113,54 @@ namespace Creeperscare.API.Controllers
 
         // PUT api/Devices/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> PutDevice([FromRoute] int id, [FromBody] DeviceModel deviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != deviceModel.DeviceId)
+            {
+                return BadRequest();
+            }
+            var device = await _context.Devices.FindAsync(deviceModel.DeviceId);
+            device.Humidity = deviceModel.Humidity;
+            device.ActionRange = deviceModel.ActionRange;
+            device.Temperature = deviceModel.Temperature;
+            if (deviceModel.Owner != null && this.UserExists(deviceModel.Owner.UserId))
+            {
+                device.OwnerId = deviceModel.Owner.UserId;
+                device.Owner = await _context.ProgramUsers.FindAsync(deviceModel.Owner.UserId);
+            }
+            else
+            {
+                device.Owner = await _context.ProgramUsers.Where(x => x.Role == "admin").FirstOrDefaultAsync();
+                device.OwnerId = device.Owner.Id;
+            }
+
+            _context.Entry(device).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DeviceExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/Devices/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
