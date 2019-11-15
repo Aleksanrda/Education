@@ -80,10 +80,27 @@ namespace Creeperscare.API.Controllers
             return Ok(cleaningModel);
         }
 
-        // POST api/<controller>
+        // POST api/Services
         [HttpPost]
-        public void Post([FromBody]string value)
+        [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
+        public async Task<IActionResult> PostService([FromBody] ServiceModel serviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var service = new Service()
+            {
+                Date = serviceModel.Date,
+                ServiceType = serviceModel.ServiceType,
+                DeviceId = serviceModel.DeviceId,
+                GardenPlotId = serviceModel.GardenPlot.GardenPlotId
+            };
+
+            _context.Services.Add(service);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetService", new { id = serviceModel.ServiceId }, service);
         }
 
         // PUT api/Services/5
