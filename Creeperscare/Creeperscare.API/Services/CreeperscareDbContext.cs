@@ -20,7 +20,7 @@ namespace Creeperscare.DAL.Services
 
         public DbSet<Subscription> Subscriptions { get; set; }
 
-        public DbSet<User> ProgramsUsers { get; set; }
+        public DbSet<User> ProgramUsers { get; set; }
 
         public CreeperscareDbContext(DbContextOptions<CreeperscareDbContext> options) : base(options) { }
 

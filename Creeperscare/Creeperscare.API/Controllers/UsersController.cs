@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Creeperscare.API.Models;
 using Creeperscare.DAL.Services;
+using Creeperscare.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +29,7 @@ namespace Creeperscare.API.Controllers
         [ProducesResponseType(typeof(UserModel[]), StatusCodes.Status200OK)]
         public IEnumerable<UserModel> GetUsers()
         {
-            var userModels = _context.SystemUsers.Select(x =>
+            var userModels = _context.ProgramUsers.Select(x =>
             new UserModel()
             {
                 UserId = x.Id,
@@ -47,7 +51,7 @@ namespace Creeperscare.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.SystemUsers.FindAsync(id);
+            var user = await _context.ProgramUsers.FindAsync(id);
 
             if (user == null)
             {
@@ -79,7 +83,7 @@ namespace Creeperscare.API.Controllers
                 return BadRequest();
             }
 
-            var user = await _context.SystemUsers.FindAsync(userModel.UserId);
+            var user = await _context.ProgramUsers.FindAsync(userModel.UserId);
             user.UserName = userModel.Name;
             user.Email = userModel.Email;
             user.Role = userModel.Role;
@@ -121,7 +125,7 @@ namespace Creeperscare.API.Controllers
                 Role = userModel.Role
             };
 
-            _context.SystemUsers.Add(user);
+            _context.ProgramUsers.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = Convert.ToInt32(user.Id) }, user);
@@ -137,13 +141,13 @@ namespace Creeperscare.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.SystemUsers.FindAsync(id);
+            var user = await _context.ProgramUsers.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.SystemUsers.Remove(user);
+            _context.ProgramUsers.Remove(user);
             await _context.SaveChangesAsync();
 
             return Ok(user);
@@ -159,7 +163,7 @@ namespace Creeperscare.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.SystemUsers.Include(x => x.Subscription).Where(x => x.Id == id).FirstOrDefaultAsync();
+            var user = await _context.ProgramUsers.Include(x => x.Subscription).Where(x => x.Id == id).FirstOrDefaultAsync();
             SubscriptionModel subscriptionModel = null;
 
             if (user.Subscription != null)
@@ -189,7 +193,7 @@ namespace Creeperscare.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.SystemUsers.FindAsync(id);
+            var user = await _context.ProgramUsers.FindAsync(id);
             var subscription = await _context.Subscriptions.FindAsync(subscriptionModel.SubscriptionId);
 
             if (user != null && subscription != null)
@@ -226,7 +230,7 @@ namespace Creeperscare.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.SystemUsers.FindAsync(id);
+            var user = await _context.ProgramUsers.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -257,7 +261,7 @@ namespace Creeperscare.API.Controllers
 
         private bool UserExists(string id)
         {
-            return _context.SystemUsers.Any(e => e.Id == id);
+            return _context.ProgramUsers.Any(e => e.Id == id);
         }
 
         private bool SubscriptionExists(int id)
