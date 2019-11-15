@@ -145,10 +145,26 @@ namespace Creeperscare.API.Controllers
             return NoContent();
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/Services/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(typeof(Service), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteService([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
+
+            return Ok(service);
         }
 
         private bool ServiceExists(int id)
