@@ -20,6 +20,6 @@ namespace Creeperscare.Entities
 
         public int GardenPlotId { get; set; }
 
-        public GardenPlot GetGardenPlot { get; set; }
+        public GardenPlot GardenPlot { get; set; }
     }
 }

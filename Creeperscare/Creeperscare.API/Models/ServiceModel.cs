@@ -16,6 +16,6 @@ namespace Creeperscare.API.Models
 
         public int DeviceId { get; set; }
 
-        public GardenPlot GetGardenPlot { get; set; }
+        public GardenPlotModel GardenPlot { get; set; }
     }
 }
