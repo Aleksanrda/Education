@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Creeperscare.API.Models;
 using Creeperscare.DAL.Services;
+using Creeperscare.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,20 +48,70 @@ namespace Creeperscare.API.Controllers
             return deviceModels;
         }
 
-        // GET api/<controller>/5
+        // GET api/Devices/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(DeviceModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetDevice([FromRoute] int id)
         {
-            return "value";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var device = await _context.Devices.Include(x => x.Owner).Where(x => x.DeviceId == id).FirstOrDefaultAsync();
+
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            var deviceModel = new DeviceModel()
+            {
+                DeviceId = device.DeviceId,
+                ActionRange = device.ActionRange,
+                Humidity = device.Humidity,
+                Temperature = device.Temperature,
+                Owner = new UserModel()
+                {
+                    UserId = device.Owner.Id,
+                    Email = device.Owner.Email,
+                    Name = device.Owner.UserName,
+                    Role = device.Owner.Role
+                }
+            };
+
+            return Ok(deviceModel);
         }
 
-        // POST api/<controller>
+        // POST api/Devices
         [HttpPost]
-        public void Post([FromBody]string value)
+        [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
+        public async Task<IActionResult> PostDevice([FromBody] DeviceModel deviceModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var device = new Device()
+            {
+                ActionRange = deviceModel.ActionRange,
+                Humidity = deviceModel.Humidity,
+                Temperature = deviceModel.Temperature
+            };
+
+            if (deviceModel.Owner != null && this.UserExists(deviceModel.Owner.UserId))
+            {
+                device.OwnerId = deviceModel.Owner.UserId;
+                device.Owner = await _context.ProgramUsers.FindAsync(deviceModel.Owner.UserId);
+            }
+
+            _context.Devices.Add(device);
+            await _context.SaveChangesAsync();
+            deviceModel.DeviceId = device.DeviceId;
+            return CreatedAtAction("GetDevice", new { id = device.DeviceId }, deviceModel);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/Devices/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
@@ -69,6 +121,16 @@ namespace Creeperscare.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        private bool DeviceExists(int id)
+        {
+            return _context.Devices.Any(e => e.DeviceId == id);
+        }
+
+        private bool UserExists(string id)
+        {
+            return _context.ProgramUsers.Any(e => e.Id == id);
         }
     }
 }
