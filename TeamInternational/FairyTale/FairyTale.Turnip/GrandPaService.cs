@@ -8,6 +8,9 @@ namespace FairyTale.Turnip
 {
     class GrandPaService : CharacterService
     {
-
+        public string Plant()
+        {
+            return "Turnip is planted";
+        }
     }
 }

@@ -9,5 +9,9 @@ namespace FairyTale.Turnip
     public interface ICharacterService
     {
         void PullTurnip(string userWord, string codeWord);
+
+        string TellWord(string character);
+
+        string CallCharacter(string currentCharacter, string expectedCharacter);
     }
 }

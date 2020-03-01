@@ -8,14 +8,19 @@ namespace FairyTale.Turnip
 {
     class CharacterService : ICharacterService
     {
-        public void PullTurnip(string userWord, string codeWord)
+        public string CallCharacter(string currentCharacter, string expectedCharacter)
         {
-            if(userWord == null)
+            return currentCharacter + " is calling " + expectedCharacter;
+        }
+
+        public void PullTurnip(string characterWord, string codeWord)
+        {
+            if (characterWord == null)
             {
-                throw new ArgumentNullException(nameof(userWord));
+                throw new ArgumentNullException(nameof(characterWord));
             }
 
-            if(userWord == codeWord)
+            if (characterWord == codeWord)
             {
 
             }
@@ -23,6 +28,27 @@ namespace FairyTale.Turnip
             {
 
             }
+        }
+
+        public string TellWord(string character)
+        {
+            string characterWord = String.Empty;
+
+            if (character == null)
+            {
+                throw new ArgumentNullException(nameof(character));
+            }
+
+            if (character == "mouse")
+            {
+                characterWord = "mouseTurnip";
+            }
+            else
+            {
+                characterWord = "notMouseTurnip";
+            }
+
+            return characterWord;
         }
     }
 }
