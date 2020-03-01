@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FairyTale.Turnip
+namespace FairyTale.Turnip.Services
 {
     public interface ICharacterService
     {
-        void PullTurnip(string userWord, string codeWord);
+        string PullTurnip(string characterWord);
+
+        string DragTurnip(string characterWord);
 
         string TellWord(string character);
 

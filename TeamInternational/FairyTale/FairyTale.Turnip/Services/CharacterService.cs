@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FairyTale.Turnip
+namespace FairyTale.Turnip.Services
 {
     class CharacterService : ICharacterService
     {
@@ -13,21 +13,24 @@ namespace FairyTale.Turnip
             return currentCharacter + " is calling " + expectedCharacter;
         }
 
-        public void PullTurnip(string characterWord, string codeWord)
+        public string DragTurnip(string characterWord)
         {
             if (characterWord == null)
             {
                 throw new ArgumentNullException(nameof(characterWord));
             }
 
-            if (characterWord == codeWord)
-            {
+            return "Turnip is not pulled out";
+        }
 
-            }
-            else
+        public string PullTurnip(string characterWord)
+        {
+            if (characterWord == null)
             {
-
+                throw new ArgumentNullException(nameof(characterWord));
             }
+
+            return "Turnip is pulled out";
         }
 
         public string TellWord(string character)
