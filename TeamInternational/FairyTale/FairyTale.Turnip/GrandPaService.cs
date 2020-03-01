@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FairyTale.Turnip
 {
-    public interface ICharacterService
+    class GrandPaService : CharacterService
     {
-        void PullTurnip(string userWord, string codeWord);
+
     }
 }
