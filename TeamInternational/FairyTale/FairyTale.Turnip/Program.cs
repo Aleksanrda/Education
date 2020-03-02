@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FairyTale.Turnip.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +12,10 @@ namespace FairyTale.Turnip
     {
         static void Main(string[] args)
         {
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton<ICharacterService, CharacterService>()
+                .BuildServiceProvider();
+
         }
     }
 }
