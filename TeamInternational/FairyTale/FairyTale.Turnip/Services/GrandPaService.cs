@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FairyTale.Turnip.Services
 {
-    class GrandPaService : CharacterService
+    class GrandPaService : CharacterService, ICharacterService
     {
         public string Plant()
         {

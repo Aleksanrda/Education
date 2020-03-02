@@ -1,4 +1,5 @@
 ﻿using FairyTale.Entities;
+using FairyTale.Turnip.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +10,54 @@ namespace FairyTale.Turnip
 {
     class TurnipManager
     {
-        private readonly Person _grandPa;
-        private readonly Person _grandMa;
-        private readonly Person _grandDaughter;
-        private readonly Animal _dog;
-        private readonly Animal _cat;
-        private readonly Animal _mouse;
+        private readonly ICharacterService _characterService;
+        GrandPaService grandPaService;
+        string codeWord = String.Empty;
 
-        public TurnipManager(
-            Person grandPa,
-            Person grandMa,
-            Person grandDaughter,
-            Animal dog,
-            Animal cat,
-            Animal mouse)
+        public delegate string TurnipHandler(string str);
+        public event TurnipHandler onTurnipIsPulled = null;
+        public event TurnipHandler onTurnipIsNotPulled = null;
+
+        public TurnipManager(ICharacterService characterService)
         {
-            _grandPa = grandPa;
-            _grandMa = grandMa;
-            _grandDaughter = grandDaughter,
-            _dog = dog;
-            _cat = cat;
-            _mouse = mouse;
+            _characterService = characterService;
+        }
+
+        private void IsTurnipPulledOut(string codeWord)
+        {
+            string result = String.Empty;
+
+            if (codeWord == "mouseTurnip")
+            {
+                if (onTurnipIsPulled != null)
+                {
+                    result = onTurnipIsPulled(codeWord);
+                }
+            }
+            else
+            {
+                if (onTurnipIsNotPulled != null)
+                {
+                    result = onTurnipIsNotPulled(codeWord);
+                }
+            }
         }
 
         public void Run()
         {
             try
             {
+                Console.WriteLine("Welkom to the fairy tale of a turnip");
+
+                grandPaService = (GrandPaService)_characterService;
+
+                grandPaService.Plant();
+
+                Console.WriteLine("Atter a while garndpa began to grab turnip");
+
+                codeWord = grandPaService.TellWord("grandPa");
+
+
 
             }
             catch (Exception m)
