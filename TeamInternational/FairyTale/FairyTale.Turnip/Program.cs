@@ -14,8 +14,20 @@ namespace FairyTale.Turnip
         {
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<ICharacterService, CharacterService>()
+                .AddSingleton<ICharacterService, GrandPaService>()
                 .BuildServiceProvider();
 
+            var characterService = serviceProvider.GetService<ICharacterService>();
+
+            var turnipManager = new TurnipManager(characterService);
+
+            turnipManager.onTurnipIsPulled += characterService.PullTurnip;
+                
+            turnipManager.onTurnipIsNotPulled += characterService.DragTurnip;
+
+            turnipManager.Run();
+
+            Console.ReadKey();
         }
     }
 }

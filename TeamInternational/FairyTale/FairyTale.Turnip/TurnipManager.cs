@@ -50,6 +50,7 @@ namespace FairyTale.Turnip
             try
             {
                 string isPulledOut = String.Empty;
+                string memberCaller = String.Empty;
                 string grandPa = "GrandPa";
                 string grandMa = "GrandMa";
                 string daughter = "Daughter";
@@ -61,7 +62,9 @@ namespace FairyTale.Turnip
 
                 grandPaService = (GrandPaService)_characterService;
 
-                grandPaService.Plant();
+                string plant = grandPaService.Plant();
+
+                Console.WriteLine(plant);
 
                 Console.WriteLine("Atter a while garndpa began to grab turnip");
 
@@ -71,7 +74,9 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine(isPulledOut);
 
-                grandPaService.CallCharacter(grandPa, grandMa);
+                memberCaller = grandPaService.CallCharacter(grandPa, grandMa);
+
+                Console.WriteLine(memberCaller);
 
                 codeWord = _characterService.TellWord(grandMa);
 
@@ -79,7 +84,9 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine(isPulledOut);
 
-                _characterService.CallCharacter(grandMa, daughter);
+                memberCaller = _characterService.CallCharacter(grandMa, daughter);
+
+                Console.WriteLine(memberCaller);
 
                 codeWord = _characterService.TellWord(daughter);
 
@@ -87,7 +94,9 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine(isPulledOut);
 
-                _characterService.CallCharacter(daughter, dog);
+                memberCaller = _characterService.CallCharacter(daughter, dog);
+
+                Console.WriteLine(memberCaller);
 
                 codeWord = _characterService.TellWord(dog);
 
@@ -95,7 +104,9 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine(isPulledOut);
 
-                _characterService.CallCharacter(dog, cat);
+                memberCaller = _characterService.CallCharacter(dog, cat);
+
+                Console.WriteLine(memberCaller);
 
                 codeWord = _characterService.TellWord(cat);
 
@@ -103,13 +114,17 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine(isPulledOut);
 
-                _characterService.CallCharacter(cat, mouse);
+                memberCaller = _characterService.CallCharacter(cat, mouse);
+
+                Console.WriteLine(memberCaller);
 
                 codeWord = _characterService.TellWord(mouse);
 
                 isPulledOut = IsTurnipPulledOut(codeWord);
 
                 Console.WriteLine(isPulledOut);
+
+                Console.WriteLine("Yraaaa, the end is smile :)))");
 
             }
             catch (Exception m)
