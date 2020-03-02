@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FairyTale.Turnip.Services
 {
-    internal class CharacterService : ICharacterService
+    public class CharacterService : ICharacterService
     {
         public string CallCharacter(string currentCharacter, string expectedCharacter)
         {

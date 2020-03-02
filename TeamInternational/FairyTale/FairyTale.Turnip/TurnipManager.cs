@@ -23,7 +23,7 @@ namespace FairyTale.Turnip
             _characterService = characterService;
         }
 
-        private void IsTurnipPulledOut(string codeWord)
+        private string IsTurnipPulledOut(string codeWord)
         {
             string result = String.Empty;
 
@@ -41,12 +41,22 @@ namespace FairyTale.Turnip
                     result = onTurnipIsNotPulled(codeWord);
                 }
             }
+
+            return result;
         }
 
         public void Run()
         {
             try
             {
+                string isPulledOut = String.Empty;
+                string grandPa = "GrandPa";
+                string grandMa = "GrandMa";
+                string daughter = "Daughter";
+                string dog = "Dog";
+                string cat = "Cat";
+                string mouse = "mouse";
+
                 Console.WriteLine("Welkom to the fairy tale of a turnip");
 
                 grandPaService = (GrandPaService)_characterService;
@@ -55,9 +65,51 @@ namespace FairyTale.Turnip
 
                 Console.WriteLine("Atter a while garndpa began to grab turnip");
 
-                codeWord = grandPaService.TellWord("grandPa");
+                codeWord = grandPaService.TellWord(grandPa);
 
+                isPulledOut = IsTurnipPulledOut(codeWord);
 
+                Console.WriteLine(isPulledOut);
+
+                grandPaService.CallCharacter(grandPa, grandMa);
+
+                codeWord = _characterService.TellWord(grandMa);
+
+                isPulledOut = IsTurnipPulledOut(codeWord);
+
+                Console.WriteLine(isPulledOut);
+
+                _characterService.CallCharacter(grandMa, daughter);
+
+                codeWord = _characterService.TellWord(daughter);
+
+                isPulledOut = IsTurnipPulledOut(codeWord);
+
+                Console.WriteLine(isPulledOut);
+
+                _characterService.CallCharacter(daughter, dog);
+
+                codeWord = _characterService.TellWord(dog);
+
+                isPulledOut = IsTurnipPulledOut(codeWord);
+
+                Console.WriteLine(isPulledOut);
+
+                _characterService.CallCharacter(dog, cat);
+
+                codeWord = _characterService.TellWord(cat);
+
+                isPulledOut = IsTurnipPulledOut(codeWord);
+
+                Console.WriteLine(isPulledOut);
+
+                _characterService.CallCharacter(cat, mouse);
+
+                codeWord = _characterService.TellWord(mouse);
+
+                isPulledOut = IsTurnipPulledOut(codeWord);
+
+                Console.WriteLine(isPulledOut);
 
             }
             catch (Exception m)
