@@ -1,4 +1,5 @@
 ﻿using FairyTale.Entities;
+using FairyTale.Turnip.Collections;
 using FairyTale.Turnip.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -89,6 +90,35 @@ namespace FairyTale.Turnip
                 Type = AnimalType.Mouse,
                 Strength = 200000
             };
+
+            TurnipCollection<Character> characters = new TurnipCollection<Character>();
+
+            characters.Add(grandPa);
+            characters.Add(grandMa);
+            characters.Add(grandDaughter);
+            characters.Add(dog);
+            characters.Add(cat);
+            characters.Add(mouse);
+
+            foreach (var c in characters)
+            {
+                Person person;
+                Animal animal;
+
+                if (c is Person)
+                {
+                    person = (Person)c;
+                    Console.WriteLine(c.Name + '\n' + c.Age + '\n' + c.CountLikes +
+                        '\n' + c.Personality + '\n' + person.Position + '\n' + person.Salary + '\n');
+                }
+                else if (c is Animal)
+                {
+                    animal = (Animal)c;
+                    Console.WriteLine(c.Name + '\n' + c.Age + '\n' + c.CountLikes +
+                        '\n' + c.Personality + '\n' + animal.Type + '\n' + animal.Strength + '\n');
+                }
+
+            }
 
             Console.ReadKey();
         }

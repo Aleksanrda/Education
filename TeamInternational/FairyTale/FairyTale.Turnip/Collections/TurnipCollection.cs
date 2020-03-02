@@ -25,7 +25,7 @@ namespace FairyTale.Turnip.Collections
         {
             T[] arr = new T[array.Length + 1];
             array.CopyTo(arr, 0);
-            arr[arr.Length] = elem;
+            arr[array.Length] = elem;
             array = arr;
         }
 
@@ -45,7 +45,7 @@ namespace FairyTale.Turnip.Collections
         {
             while (true)
             {
-                if (position< array.Length - 1)
+                if (position < array.Length - 1)
                 {
                     position++;
                     yield return array[position];
@@ -62,6 +62,5 @@ namespace FairyTale.Turnip.Collections
         {
             return GetEnumerator();
         }
-
     }
 }
