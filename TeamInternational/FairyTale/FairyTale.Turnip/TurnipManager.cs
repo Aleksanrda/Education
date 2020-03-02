@@ -209,8 +209,8 @@ namespace FairyTale.Turnip
                         Console.WriteLine(c.Name + '\n' + c.Age + '\n' + c.CountLikes +
                             '\n' + c.Personality + '\n' + animal.Type + '\n' + animal.Strength + '\n');
                     }
-
                 }
+
             }
             catch (Exception m)
             {

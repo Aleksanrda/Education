@@ -23,9 +23,9 @@ namespace FairyTale.Turnip
 
             var turnipManager = new TurnipManager(characterService);
 
-            turnipManager.onTurnipIsPulled += characterService.PullTurnip;
+            turnipManager.OnTurnipIsPulled += characterService.PullTurnip;
 
-            turnipManager.onTurnipIsNotPulled += characterService.DragTurnip;
+            turnipManager.OnTurnipIsNotPulled += characterService.DragTurnip;
 
             turnipManager.Run();
 
