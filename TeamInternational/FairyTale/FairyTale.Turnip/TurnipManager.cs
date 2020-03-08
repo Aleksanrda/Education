@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace FairyTale.Turnip
 {
-    class TurnipManager
+    sealed class TurnipManager
     {
         private readonly ICharacterService _characterService;
         GrandPaService grandPaService;
         string codeWord = String.Empty;
 
         public delegate string TurnipHandler(string str);
-        public event TurnipHandler onTurnipIsPulled = null;
-        public event TurnipHandler onTurnipIsNotPulled = null;
+        public event TurnipHandler OnTurnipIsPulled = null;
+        public event TurnipHandler OnTurnipIsNotPulled = null;
 
         public TurnipManager(ICharacterService characterService)
         {
@@ -30,16 +30,16 @@ namespace FairyTale.Turnip
 
             if (codeWord == "mouseTurnip")
             {
-                if (onTurnipIsPulled != null)
+                if (OnTurnipIsPulled != null)
                 {
-                    result = onTurnipIsPulled(codeWord);
+                    result = OnTurnipIsPulled(codeWord);
                 }
             }
             else
             {
-                if (onTurnipIsNotPulled != null)
+                if (OnTurnipIsNotPulled != null)
                 {
-                    result = onTurnipIsNotPulled(codeWord);
+                    result = OnTurnipIsNotPulled(codeWord);
                 }
             }
 
