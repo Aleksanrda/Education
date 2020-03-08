@@ -211,6 +211,13 @@ namespace FairyTale.Turnip
                     }
                 }
 
+                var sortedCharacters = characters.OrderBy(c => c.Personality);
+
+                foreach (var c in sortedCharacters)
+                {
+                    Console.WriteLine(c.Personality);
+                }
+
             }
             catch (Exception m)
             {
