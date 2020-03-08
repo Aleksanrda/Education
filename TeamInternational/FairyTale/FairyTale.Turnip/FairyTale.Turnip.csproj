@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\TurnipCollection.cs" />
+    <Compile Include="Exceptions\TurnipException.cs" />
     <Compile Include="Services\CharacterService.cs" />
     <Compile Include="Services\GrandPaService.cs" />
     <Compile Include="Services\ICharacterService.cs" />

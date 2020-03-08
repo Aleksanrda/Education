@@ -1,5 +1,6 @@
 ﻿using FairyTale.Entities;
 using FairyTale.Turnip.Collections;
+using FairyTale.Turnip.Exceptions;
 using FairyTale.Turnip.Services;
 using System;
 using System.Collections.Generic;
@@ -219,7 +220,7 @@ namespace FairyTale.Turnip
                 }
 
             }
-            catch (Exception m)
+            catch (TurnipException m)
             {
                 Console.WriteLine(m);
             }
