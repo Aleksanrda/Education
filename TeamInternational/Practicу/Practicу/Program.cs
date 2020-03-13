@@ -1,4 +1,6 @@
-﻿using Practicу.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Practicу.Models;
+using Practicу.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,15 @@ namespace Practicу
     {
         static void Main(string[] args)
         {
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton<IFibonacci, Fibonacci>()
+                .AddSingleton<IFactorial, Factorial>()
+                .BuildServiceProvider();
+
+            var fibonacciService = serviceProvider.GetService<IFibonacci>();
+            var factorialService = serviceProvider.GetService<IFactorial>();
+
+
             List<Animal> animals = new List<Animal>()
         {
             new Animal()
@@ -43,6 +54,9 @@ namespace Practicу
             }
         };
 
+            var manager = new Manager(fibonacciService, factorialService, animals);
+
+            manager.Run();
 
             Console.ReadKey();
         }

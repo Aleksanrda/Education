@@ -1,4 +1,5 @@
 ﻿using Practicу.Models;
+using Practicу.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,56 +10,51 @@ namespace Practicу
 {
     class Manager
     {
-        public List<long> Fibonacci()
+        private readonly IFibonacci _fibonacci;
+        private readonly IFactorial _factorial;
+        private readonly Linq _linq = new Linq();
+        private readonly List<Animal> _animals;
+
+        public Manager(IFibonacci fibonacci, IFactorial factorial, List<Animal> animals)
         {
-            //var sum = 1;
-            //List<int> fibonacci = new List<int>();
-            //fibonacci = fibonacci.Select(f => f > n).
-
-            //return sum;
-            Func<long, long, long, IEnumerable<long>> fib = null;
-            fib = (n, m, cap) => n + m > cap ? Enumerable.Empty<long>()
-                : Enumerable.Repeat(n + m, 1).Concat(fib(m, n + m, cap));
-
-            var list = fib(0, 1, 10).ToList();
-
-            foreach (var v in list)
-            {
-                Console.WriteLine(v);
-            }
-            return list;
+            _fibonacci = fibonacci;
+            _factorial = factorial;
+            _animals = animals;
         }
 
-
-
-        public int Factorial(int n)
+        public void Run()
         {
-            if (n == 0)
-            {
-                return 1;
-            }
-            else
-            {
-                return n * Factorial(n - 1);
-            }
-        }
+            var fibonacciResult = _fibonacci.GetMemberFibonacci(3);
+            var factorialResult = _factorial.GetFactorial(4);
 
-        public IEnumerable<IGrouping<Meal, Animal>> GroupAnimalsByMeal(List<Animal> animals)
-        {
-            var query = animals.GroupBy(a => a.FavouriteMeal).ToList();
+            Console.WriteLine(fibonacciResult);
+            Console.WriteLine(factorialResult);
 
-            var animalGroups = from animal in animals
-                               group animal by animal.FavouriteMeal;
+            int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-            foreach (IGrouping<Meal, Animal> g in animalGroups)
+            var divisionResult = _linq.DivideNumbersIntoEvenAndOdd(numbers);
+
+            foreach (var group in divisionResult)
             {
-                Console.WriteLine(g.Key);
-                foreach (var t in g)
-                    Console.WriteLine(t.Name);
-                Console.WriteLine();
+                Console.WriteLine("Group key {0} ", group.Key);
+
+                foreach (var number in group)
+                {
+                    Console.WriteLine("{0}", number);
+                }
             }
 
-            return animalGroups;
+            var groupByMeal = _linq.GroupAnimalByFavouriteMeal(_animals);
+
+            foreach (var group in groupByMeal)
+            {
+                Console.WriteLine("Favourite meal {0} ", group.Key);
+
+                foreach (var animal in group)
+                {
+                    Console.WriteLine("{0}", animal.Name);
+                }
+            }
         }
     }
 }
