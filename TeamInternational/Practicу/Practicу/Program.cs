@@ -21,7 +21,6 @@ namespace Practicу
             var fibonacciService = serviceProvider.GetService<IFibonacci>();
             var factorialService = serviceProvider.GetService<IFactorial>();
 
-
             List<Animal> animals = new List<Animal>()
         {
             new Animal()
