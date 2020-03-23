@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Babylife.Core", "Babylife.Core\Babylife.Core.csproj", "{2F7484B1-F104-4A21-A052-04B2AF8C34A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Babylife.Core", "Babylife.Core\Babylife.Core.csproj", "{2F7484B1-F104-4A21-A052-04B2AF8C34A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.Api", "BabyLife.Api\BabyLife.Api.csproj", "{C141A0F6-C6FE-472D-8380-F23557B1DD28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabyLife.DataAccess", "BabyLife.DataAccess\BabyLife.DataAccess.csproj", "{C264A239-879B-4481-A314-E767D77975E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2F7484B1-F104-4A21-A052-04B2AF8C34A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F7484B1-F104-4A21-A052-04B2AF8C34A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F7484B1-F104-4A21-A052-04B2AF8C34A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C141A0F6-C6FE-472D-8380-F23557B1DD28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C141A0F6-C6FE-472D-8380-F23557B1DD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C141A0F6-C6FE-472D-8380-F23557B1DD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C141A0F6-C6FE-472D-8380-F23557B1DD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C264A239-879B-4481-A314-E767D77975E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C264A239-879B-4481-A314-E767D77975E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C264A239-879B-4481-A314-E767D77975E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C264A239-879B-4481-A314-E767D77975E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
