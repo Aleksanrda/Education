@@ -2,7 +2,7 @@
 
 namespace BabyLife.DataAccess.Migrations
 {
-    public partial class MigrationName : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

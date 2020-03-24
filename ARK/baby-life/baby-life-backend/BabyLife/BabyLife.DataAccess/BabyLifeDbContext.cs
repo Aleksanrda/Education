@@ -15,6 +15,7 @@ namespace BabyLife.DataAccess
 
         public BabyLifeDbContext()
         {
+            Database.EnsureCreated();
         }
 
         public BabyLifeDbContext(DbContextOptions<BabyLifeDbContext> options)
@@ -22,7 +23,7 @@ namespace BabyLife.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BabyLifeDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BabyLifeDbContext;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

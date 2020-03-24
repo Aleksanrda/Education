@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BabyLife.Api.Users
 {
+    [ApiController]
+    [Route("api/[controller]")]
+
     public class UsersController : ControllerBase
     {
         private readonly IUsersService usersService;

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyLife.DataAccess.Migrations
 {
     [DbContext(typeof(BabyLifeDbContext))]
-    [Migration("20200320165944_MigrationName")]
-    partial class MigrationName
+    [Migration("20200324121030_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -29,6 +29,8 @@ namespace BabyLife.Api
         {
             services.AddControllers();
             services.AddDbContext<BabyLifeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("BabyLife.DataAccess")));
+            //services.AddDbContext<BabyLifeDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.RegisterBabyLifeServices(Configuration);
         }
 
@@ -40,7 +42,7 @@ namespace BabyLife.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection(); ////
+            //app.UseHttpsRedirection(); ////
 
             app.UseRouting();
 
