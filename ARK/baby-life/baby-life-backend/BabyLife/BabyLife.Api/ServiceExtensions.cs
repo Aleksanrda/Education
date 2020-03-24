@@ -1,5 +1,6 @@
 ﻿using Babylife.Core.Entities;
 using Babylife.Core.Repositories;
+using BabyLife.Api.Babies;
 using BabyLife.Api.Users;
 using BabyLife.DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace BabyLife.Api
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IBabiesService, BabiesService>();
 
             services.AddTransient<IRepositoryBase<User>, RepositoryBase<User>>();
             services.AddTransient<IRepositoryBase<Baby>, RepositoryBase<Baby>>();
