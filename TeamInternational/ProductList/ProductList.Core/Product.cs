@@ -10,6 +10,6 @@ namespace ProductList.Core
 
         public int Count { get; set; }
 
-        public Value Value { get; set; }
+        public Value Value { get; set; }  
     }
 }
