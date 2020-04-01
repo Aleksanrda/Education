@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductList.Core
+namespace ProductList.DAL.Models
 {
-    public enum Value
+    public enum MeasureType
     {
         Pieces,
         Liter,

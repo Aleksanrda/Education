@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductList.DAL.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,16 @@ namespace ProductList.Web.Controllers
 {
     public class HomeController : Controller
     {
+        IProductsService productData;
+
+        public HomeController(IProductsService productData)
+        {
+            this.productData = productData;
+        }
         public ActionResult Index()
         {
-            return View();
+            var model = Session["Products"];
+            return View(model);
         }
 
         public ActionResult About()
