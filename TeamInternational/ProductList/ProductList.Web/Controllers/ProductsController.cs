@@ -27,12 +27,56 @@ namespace ProductList.Web.Controllers
                   Id = 1,
                   Name = "Bread",
                   Count = 2,
-                  Measure = MeasureType.Pieces 
-                } };
+                  Measure = MeasureType.Pieces
+                },
+                new Product
+                {
+                  Id = 2,
+                  Name = "Tortoise shell",
+                  Count = 4,
+                  Measure = MeasureType.Pieces
+                },
+                new Product
+                {
+                  Id = 3,
+                  Name = "Dragon claw",
+                  Count = 6,
+                  Measure = MeasureType.Pieces
+                },
+                new Product
+                {
+                  Id = 4,
+                  Name = "Eggs",
+                  Count = 2,
+                  Measure = MeasureType.Pieces
+                },
+                new Product
+                {
+                  Id = 5,
+                  Name = "Dracula blood",
+                  Count = 5,
+                  Measure = MeasureType.Liter
+                },
+                new Product
+                {
+                  Id = 6,
+                  Name = "Magic beans",
+                  Count = 3000,
+                  Measure = MeasureType.Gram
+                },
+                new Product
+                {
+                  Id = 7,
+                  Name = "Pearl",
+                  Count = 1,
+                  Measure = MeasureType.Pieces
+                }
+                };
                 Session["Products"] = list;
                 Session["Count"] = 1;
                 model = (List<Product>)Session["Products"];
             }
+
             return View(model);
         }
 
@@ -40,10 +84,12 @@ namespace ProductList.Web.Controllers
         public ActionResult Details(int id)
         {
             var model = productData.Get(id, (List<Product>)Session["Products"]);
+
             if (model == null)
             {
                 return View("NotFound");
             }
+
             return View(model);
         }
 
@@ -58,7 +104,6 @@ namespace ProductList.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (Session["Products"] == null)
                 {
                     List<Product> products = new List<Product>();
@@ -134,6 +179,7 @@ namespace ProductList.Web.Controllers
             list.RemoveAll(l => l.Id == id);
             Session["Products"] = list;
             Session["Count"] = Convert.ToInt32(Session["Count"]) - 1;
+
             return RedirectToAction("Index");
         }
     }

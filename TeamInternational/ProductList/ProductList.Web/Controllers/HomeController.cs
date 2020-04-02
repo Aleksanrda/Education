@@ -9,16 +9,9 @@ namespace ProductList.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IProductsService productData;
-
-        public HomeController(IProductsService productData)
-        {
-            this.productData = productData;
-        }
         public ActionResult Index()
         {
-            var model = Session["Products"];
-            return View(model);
+            return View();
         }
 
         public ActionResult About()

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<ProductList.DAL.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List of products";
 }
 
-<h2>Index</h2>
+    <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create new product", "Create")
 </p>
 <table class="table">
     <tr>
@@ -21,14 +21,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id })
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "viewDialog", data_dialog_title = "DELETE PRODUCT" })
             </td>
         </tr>
