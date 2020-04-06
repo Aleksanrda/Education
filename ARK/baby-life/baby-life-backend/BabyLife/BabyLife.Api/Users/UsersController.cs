@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Babylife.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace BabyLife.Api.Users
             this.usersService = usersService;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(typeof(User[]), StatusCodes.Status200OK)]
         public IActionResult GetUsers(int skip = 0, int take = 10)
@@ -34,8 +36,6 @@ namespace BabyLife.Api.Users
                     id = u.Id,
                     email = u.Email,
                     name = u.Name,
-                    password = u.Password,
-                    confirmPassword = u.ConfirmPassword,
                     personType = u.PersonType,
                     phoneNumber = u.PhoneNumber
                 }),
@@ -43,6 +43,23 @@ namespace BabyLife.Api.Users
             };
 
             return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUserById(int id)
+        {
+            //// only allow admins to access other user records
+            //var currentUserId = int.Parse(User.Identity.Name);
+
+            //if (id != currentUserId && !User.IsInRole(Role.Admin.ToString()))
+            //    return Forbid();
+
+            var user = usersService.GetUserById(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Babylife.Core.Entities
 {
-    public enum PersonType
+    public enum Role
     {
         Admin,
         User,

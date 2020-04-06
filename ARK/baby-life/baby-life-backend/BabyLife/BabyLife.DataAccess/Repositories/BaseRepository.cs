@@ -8,14 +8,14 @@ using System.Text;
 
 namespace BabyLife.DataAccess.Repositories
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
+    public class BaseRepository<TEntity> : IRepositoryBase<TEntity>
         where TEntity : class
     {
         private readonly DbSet<TEntity> babyLifeDbSet;
 
         private BabyLifeDbContext babyLifeRepositoryContext;
 
-        public RepositoryBase(BabyLifeDbContext babyLifeRepositoryContext)
+        public BaseRepository(BabyLifeDbContext babyLifeRepositoryContext)
         {
             this.babyLifeRepositoryContext = babyLifeRepositoryContext;
             this.babyLifeDbSet = babyLifeRepositoryContext.Set<TEntity>();

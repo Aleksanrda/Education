@@ -10,13 +10,15 @@ namespace Babylife.Core.Entities
 
         public string Name { get; set; }
 
-        public string Password { get; set; }
-
-        public string ConfirmPassword { get; set; }
-
-        public PersonType PersonType { get; set; }
+        public Role PersonType { get; set; }
 
         public int PhoneNumber { get; set; }
+
+        public string Token { get; set; }
+
+        public byte[] PasswordHash { get; set; }
+
+        public byte[] PasswordSalt { get; set; }
 
         public List<Baby> Babies { get; set; }
     }

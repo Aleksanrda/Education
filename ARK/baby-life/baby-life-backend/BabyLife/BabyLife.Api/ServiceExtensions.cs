@@ -1,5 +1,6 @@
 ﻿using Babylife.Core.Entities;
 using Babylife.Core.Repositories;
+using BabyLife.Api.Accounts;
 using BabyLife.Api.Babies;
 using BabyLife.Api.Users;
 using BabyLife.DataAccess.Repositories;
@@ -24,9 +25,10 @@ namespace BabyLife.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IBabiesService, BabiesService>();
+            services.AddScoped<IAccountsService, AccountsService>();
 
-            services.AddTransient<IRepositoryBase<User>, RepositoryBase<User>>();
-            services.AddTransient<IRepositoryBase<Baby>, RepositoryBase<Baby>>();
+            services.AddTransient<IRepositoryBase<User>, BaseRepository<User>>();
+            services.AddTransient<IRepositoryBase<Baby>, BaseRepository<Baby>>();
 
             return services;
         }

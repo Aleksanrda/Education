@@ -23,7 +23,7 @@ namespace BabyLife.DataAccess.Repositories
             get
             {
                 return _users ??
-                    (_users = new RepositoryBase<User>(_babyLifeDbContext));
+                    (_users = new BaseRepository<User>(_babyLifeDbContext));
             }
         }
 
@@ -32,7 +32,7 @@ namespace BabyLife.DataAccess.Repositories
             get
             {
                 return _babies ??
-                    (_babies = new RepositoryBase<Baby>(_babyLifeDbContext));
+                    (_babies = new BaseRepository<Baby>(_babyLifeDbContext));
             }
         }
 
