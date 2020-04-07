@@ -86,10 +86,24 @@
     >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <router-link to="/" tag="span" style="cursor:pointer">
-     <v-toolbar-title v-text="'Baby Life'"></v-toolbar-title>
+     <v-toolbar-title v-text="$t('login')"></v-toolbar-title>
      </router-link>
      <v-spacer></v-spacer>
      <v-toolbar-items>
+       <div class="switch">
+         <label>
+           English
+           <input type="checkbox">
+           <span class="lever"></span>
+           Український
+         </label>
+       </div>
+       <a href="#" @click="setLocale('en')">
+        English
+      </a>
+      <a href="#" @click="setLocale('uk')">
+        Ukrain
+      </a>
        <v-btn color="blue" v-for="(item, i) in menuItems" :key="`menuitem${i}`" :to="item.route"> 
          <!-- <v-icon left v-html="item.icon"></v-icon> -->
          {{item.title}}
@@ -123,8 +137,14 @@ export default {
         },
         showProfile: function() {
             console.log('show profile clicked!')
-        }
-    },
+        },
+        setLocale(locale) {
+           import(`../langs/${locale}.json`).then((msgs) => {
+             this.$i18n.setLocaleMessage(locale, msgs)
+             this.$i18n.locale = locale
+           })
+  }
+},
   computed: {
     menuItems() {
       return [
@@ -145,7 +165,7 @@ export default {
         },
         {
           icon: 'input',
-          title: 'Sign In',
+          title: 'login',
           route: '/Login'
         },
         {
