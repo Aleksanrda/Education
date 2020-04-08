@@ -10,7 +10,7 @@ import FlagIcon from 'vue-flag-icon'
 
 Vue.config.productionTip = false
 Vue.axios = Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:62899/api'
+  baseURL: 'https://localhost:44383/api'
 })
 
 Vue.use(FlagIcon)
@@ -27,3 +27,16 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+// import Vue from 'vue';
+
+// import { store } from './store';
+// import { router } from './router';
+// import App from './app/App';
+
+// new Vue({
+//     el: '#app',
+//     router,
+//     store,
+//     render: h => h(App)
+// });

@@ -1,92 +1,93 @@
 <template>
-   <v-container>
-     <v-layout row wrap>
-         <v-flex xs12>
-             <h2>{{$t('login')}}</h2>
-         </v-flex>
-         <v-spacer></v-spacer>
-        <v-flex xs12 sm6 offset-sm3>
-            <v-text-field
-            label="E-mail"
-            v-model="email"
-            v-bind:rules="emailRules"
-            required>
-            </v-text-field>
-        </v-flex>
-            <v-flex xs12 sm6 offset-sm3>
-            <v-text-field
-            label="Password"
-            v-model="password"
-            v-bind:rules="passwordRules"
-            v-bind:type="'password'"
-            required>
-            </v-text-field>
-        </v-flex>
-        <v-flex>
-            <v-btn v-on:click="cancel">Cancel</v-btn>
-            <v-btn color="primary" v-on:click="login">Login</v-btn>
-        </v-flex>
-     </v-layout>
-    <v-snackbar
-        :timeout="6000"
-        :top="true"
-        v-model="showAlert"
-    >
-    {{ loginError }}
-    </v-snackbar>
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="6">
+        <v-card class="elevation-12">
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>Sign in</v-toolbar-title>
+            <v-spacer />
+          </v-toolbar>
+          <v-card-text>
+            <v-alert :value="error" type="warning">
+              {{ error }}
+            </v-alert>
+            <v-form>
+              <v-text-field
+                label="Email"
+                name="email"
+                type="email"
+                required
+                v-model="email"
+              />
+              <v-text-field
+                id="password"
+                label="Password"
+                name="password"
+                type="password"
+                required
+                v-model="password"
+              />
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="primary"
+              @click.prevent="signin"
+              :disabled="processing"
+              > Sign in</v-btn
+            >
+            
+            <router-link to="/signup" class="btn btn-link"><v-btn>Sign Up</v-btn></router-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
-<script>
-debugger;
+<script>      
 export default {
-    data() {
-        return {
-            showAlert: false,
-            message: '',
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-            ],
-            password: '',
-            passwordRules: [
-                v => !!v || 'Password is required'
-            ]
-        }
+  data() {
+    return {
+      email: "",
+    //   emailRules: [
+    //     (v) => !!v || "E-mail is required",
+    //     (v) =>
+    //       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+    //       "E-mail must be valid",
+    //   ],
+      password: "",
+    //   passwordRules: [(v) => !!v || "Password is required"],
+    };
+  },
+  computed: {
+    error() {
+      return this.$store.getters.getError;
     },
-    methods: {
-        login: function() {
-            const vm = this
-            const payload = {
-                email: this.email,
-                password: this.password
-            }
-            console.log(payload);
-            this.$store.dispatch('logInUser', payload)
-            .then(() => {
-                if(vm.isLoggedIn) {
-                    this.$router.push({ path: '/Profile'})
-                } else {
-                    vm.showAlert = true
-                }
-            })
-        },
-        cancel: function () {
-            console.log('The user does not want to login!')
-        }
+    processing() {
+      return this.$store.getters.getProcessing;
     },
-    computed: {
-        isLoggedIn () {
-            return this.$store.getters.isLoggedIn
-        },
-        loginError () {
-            return this.$store.getters.loginError
-        }
-    }
-}
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated;
+    },
+  },
+  watch: {
+    isUserAuthenticated(val) {
+      if (val === true) {
+        this.$router.push("/Profile");
+      }
+    },
+  },
+  methods: {
+    signin() {
+      this.$store.dispatch("signin", {
+        email: this.email,
+        password: this.password
+      });
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

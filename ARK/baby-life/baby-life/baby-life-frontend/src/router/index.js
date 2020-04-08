@@ -6,6 +6,7 @@ import Signup from '@/views/Signup'
 import Profile from '@/views/Profile'
 import About from '@/views/About'
 import Baby from '@/views/Baby'
+import Logout from '@/views/Logout'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
   path: '/baby',
   name: 'Baby',
   component: Baby
+ },
+ {
+  path: '/logout',
+  name: 'Logout',
+  component: Logout
  },
  {
    path: '*',
