@@ -1,0 +1,1 @@
+ALTER TABLE [Flowers] ADD [LatinDescription] NVARCHAR(50) NULL;

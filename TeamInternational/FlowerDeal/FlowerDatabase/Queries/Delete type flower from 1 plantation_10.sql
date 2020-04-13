@@ -1,0 +1,1 @@
+DELETE FROM PlantationFlowers WHERE [PlantationId] = 4 AND [FlowerId] = 2

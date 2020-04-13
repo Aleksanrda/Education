@@ -1,0 +1,1 @@
+INSERT INTO Flowers VALUES (11, 'Lily');
