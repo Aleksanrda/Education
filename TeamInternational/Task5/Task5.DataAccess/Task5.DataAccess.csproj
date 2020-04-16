@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202004161436496_AddNewField.cs" />
+    <Compile Include="Migrations\202004161436496_AddNewField.designer.cs">
+      <DependentUpon>202004161436496_AddNewField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
@@ -66,6 +70,11 @@
       <Project>{FFEE0006-D415-48B9-88D5-7AB3DEF37C2C}</Project>
       <Name>Task5.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004161436496_AddNewField.resx">
+      <DependentUpon>202004161436496_AddNewField.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
