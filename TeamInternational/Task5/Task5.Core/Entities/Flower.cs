@@ -8,6 +8,8 @@ namespace Task5.Core.Entities
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public IList<WarehouseFlower> WarehouseFlowers { get; set; }
 
         public IList<PlantationFlower> PlantationFlowers { get; set; }
