@@ -45,6 +45,11 @@
     <Compile Include="Services\FlowersService.cs" />
     <Compile Include="Services\IFlowersService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Task5.Core\Task5.Core.csproj">
+      <Project>{FFEE0006-D415-48B9-88D5-7AB3DEF37C2C}</Project>
+      <Name>Task5.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
