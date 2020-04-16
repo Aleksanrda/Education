@@ -8,5 +8,6 @@ namespace Task5.Api.Services
 {
     public interface IFlowersService
     {
+
     }
 }
