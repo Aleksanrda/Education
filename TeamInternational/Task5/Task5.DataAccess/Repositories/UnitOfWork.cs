@@ -87,9 +87,9 @@ namespace Task5.DataAccess.Repositories
             }
         }
 
-        public async Task SaveChangesAsync()
+        public void SaveChanges()
         {
-            await _task5DbContext.SaveChangesAsync();
+            _task5DbContext.SaveChanges();
         }
     }
 }

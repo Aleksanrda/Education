@@ -1,0 +1,42 @@
+﻿@model Task5.Core.Entities.WarehouseFlower
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WarehouseFlower</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FlowerAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlowerAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WarehouseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WarehouseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlowerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlowerId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -159,6 +159,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FlowersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlantationFlowersController.cs" />
+    <Compile Include="Controllers\PlantationsController.cs" />
+    <Compile Include="Controllers\SuppliesController.cs" />
+    <Compile Include="Controllers\SupplyFlowersController.cs" />
+    <Compile Include="Controllers\WarehouseFlowersController.cs" />
+    <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,10 +207,46 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Flowers\Index.cshtml" />
+    <Content Include="Views\Flowers\NotFound.cshtml" />
+    <Content Include="Views\Flowers\Details.cshtml" />
+    <Content Include="Views\Flowers\Create.cshtml" />
+    <Content Include="Views\Flowers\Edit.cshtml" />
+    <Content Include="Views\Flowers\Delete.cshtml" />
+    <Content Include="Views\Plantations\Index.cshtml" />
+    <Content Include="Views\Plantations\Details.cshtml" />
+    <Content Include="Views\Plantations\Create.cshtml" />
+    <Content Include="Views\Plantations\Edit.cshtml" />
+    <Content Include="Views\Plantations\Delete.cshtml" />
+    <Content Include="Views\Plantations\NotFound.cshtml" />
+    <Content Include="Views\Warehouses\Index.cshtml" />
+    <Content Include="Views\Warehouses\Details.cshtml" />
+    <Content Include="Views\Warehouses\Create.cshtml" />
+    <Content Include="Views\Warehouses\Edit.cshtml" />
+    <Content Include="Views\Warehouses\Delete.cshtml" />
+    <Content Include="Views\PlantationFlowers\Index.cshtml" />
+    <Content Include="Views\PlantationFlowers\Details.cshtml" />
+    <Content Include="Views\PlantationFlowers\Create.cshtml" />
+    <Content Include="Views\PlantationFlowers\Edit.cshtml" />
+    <Content Include="Views\PlantationFlowers\NotFound.cshtml" />
+    <Content Include="Views\PlantationFlowers\Delete.cshtml" />
+    <Content Include="Views\WarehouseFlowers\Index.cshtml" />
+    <Content Include="Views\WarehouseFlowers\Details.cshtml" />
+    <Content Include="Views\WarehouseFlowers\Create.cshtml" />
+    <Content Include="Views\WarehouseFlowers\Edit.cshtml" />
+    <Content Include="Views\WarehouseFlowers\Delete.cshtml" />
+    <Content Include="Views\Supplies\Index.cshtml" />
+    <Content Include="Views\Supplies\Details.cshtml" />
+    <Content Include="Views\Supplies\Create.cshtml" />
+    <Content Include="Views\Supplies\Edit.cshtml" />
+    <Content Include="Views\Supplies\Delete.cshtml" />
+    <Content Include="Views\SupplyFlowers\Index.cshtml" />
+    <Content Include="Views\SupplyFlowers\Details.cshtml" />
+    <Content Include="Views\SupplyFlowers\Create.cshtml" />
+    <Content Include="Views\SupplyFlowers\Edit.cshtml" />
+    <Content Include="Views\SupplyFlowers\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

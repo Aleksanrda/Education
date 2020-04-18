@@ -29,6 +29,18 @@ namespace Task5.Web.App_Start
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
+            builder.RegisterType<PlantationsService>().As<IPlantationsService>().InstancePerRequest();
+
+            builder.RegisterType<WarehousesService>().As<IWarehousesService>().InstancePerRequest();
+
+            builder.RegisterType<PlantationFlowersService>().As<IPlantationFlowersService>().InstancePerRequest();
+
+            builder.RegisterType<WarehouseFlowersService>().As<IWarehouseFlowersService>().InstancePerRequest();
+
+            builder.RegisterType<SuppliesService>().As<ISuppliesService>().InstancePerRequest();
+
+            builder.RegisterType<SupplyFlowersService>().As<ISupplyFlowersService>().InstancePerRequest();
+
             builder.RegisterType(typeof(Repository<Flower>))
                 .As(typeof(IRepository<Flower>))
                 .InstancePerRequest();

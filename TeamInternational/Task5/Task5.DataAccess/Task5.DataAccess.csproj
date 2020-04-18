@@ -55,6 +55,14 @@
     <Compile Include="Migrations\202004161436496_AddNewField.designer.cs">
       <DependentUpon>202004161436496_AddNewField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004171135426_Migration.cs" />
+    <Compile Include="Migrations\202004171135426_Migration.designer.cs">
+      <DependentUpon>202004171135426_Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004181946005_ModifyEntities.cs" />
+    <Compile Include="Migrations\202004181946005_ModifyEntities.designer.cs">
+      <DependentUpon>202004181946005_ModifyEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
@@ -74,6 +82,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004161436496_AddNewField.resx">
       <DependentUpon>202004161436496_AddNewField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004171135426_Migration.resx">
+      <DependentUpon>202004171135426_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004181946005_ModifyEntities.resx">
+      <DependentUpon>202004181946005_ModifyEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

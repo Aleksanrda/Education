@@ -43,7 +43,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FlowersService.cs" />
+    <Compile Include="Services\SupplyFlowersService.cs" />
     <Compile Include="Services\IFlowersService.cs" />
+    <Compile Include="Services\ISupplyFlowersService.cs" />
+    <Compile Include="Services\IPlantationFlowersService.cs" />
+    <Compile Include="Services\IPlantationsService.cs" />
+    <Compile Include="Services\ISuppliesService.cs" />
+    <Compile Include="Services\IWarehouseFlowersService.cs" />
+    <Compile Include="Services\IWarehousesService.cs" />
+    <Compile Include="Services\PlantationFlowersService.cs" />
+    <Compile Include="Services\PlantationsService.cs" />
+    <Compile Include="Services\SuppliesService.cs" />
+    <Compile Include="Services\WarehouseFlowersService.cs" />
+    <Compile Include="Services\WarehousesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Task5.Core\Task5.Core.csproj">

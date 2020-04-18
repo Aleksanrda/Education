@@ -1,0 +1,59 @@
+﻿@model Task5.Core.Entities.Supply
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Supply</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlantationId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlantationId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WarehouseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WarehouseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduledData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScheduledData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosedData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosedData)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

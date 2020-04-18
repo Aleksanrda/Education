@@ -22,6 +22,6 @@ namespace Task5.Core.Repositories
 
         IRepository<SupplyFlower> SupplyFlowers { get; }
 
-        Task SaveChangesAsync();
+        void SaveChanges();
     }
 }

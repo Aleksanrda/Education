@@ -35,7 +35,7 @@ namespace Task5.Api.Services
 
             unitOfWork.Flowers.Create(newFlower);
 
-            unitOfWork.SaveChangesAsync();
+            unitOfWork.SaveChanges();
         }
 
         public void Delete(int id)
@@ -45,7 +45,7 @@ namespace Task5.Api.Services
             if (flower != null)
             {
                 unitOfWork.Flowers.Delete(flower);
-                unitOfWork.SaveChangesAsync();
+                unitOfWork.SaveChanges();
             }
         }
 
@@ -70,8 +70,11 @@ namespace Task5.Api.Services
                 throw new ArgumentException("Flower not found");
             }
 
+            flower.Name = flowerParam.Name;
+            flower.Description = flowerParam.Description;
+
             unitOfWork.Flowers.Update(flower);
-            unitOfWork.SaveChangesAsync();
+            unitOfWork.SaveChanges();
         }
     }
 }
