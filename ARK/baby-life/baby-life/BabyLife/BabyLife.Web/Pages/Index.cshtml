@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@*@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+
+    <form method="post" asp-page="/Accounts/Logout" asp-route-returnUrl="@Url.Page("/Login")">
+        <input type="submit" value="Выйти" />
+    </form>
+}
+else
+{
+    <a asp-page="/Accounts/Register">Register</a>
+    <a asp-page="/Accounts/Login">Login</a>
+}*@

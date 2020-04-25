@@ -1,0 +1,60 @@
+﻿@page
+@model BabyLife.Web.RegisterModel
+
+@{
+    ViewData["Title"] = "Регистрация пользователя";
+    Layout = "~/Pages/Shared/_RegisterLayout.cshtml";
+}
+
+<div class="container main-block">
+    <div class="d-flex justify-content-end h-75">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="display-4">Welcome to BabyLife!</h1>
+            </div>
+            <div class="card-body">
+                <label class="pb-3">Sign up</label>
+                <form method="POST">
+                    <div class="input-group form-group pb-3 mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text icons"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input asp-for="Model.Email" type="email" class="form-control inp" placeholder="email">
+                        <span asp-validation-for="Model.Email" class="text-danger"></span>
+
+                    </div>
+                    <div class="input-group form-group pb-3 mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text icons"><i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="date" asp-for="Model.Year" class="form-control inp" placeholder="date">
+                        <span asp-validation-for="Model.Year" class="text-danger"></span>
+                    </div>
+                        <div class="input-group form-group pb-3 mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text icons"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" asp-for="Model.Password" class="form-control inp" placeholder="password">
+                            <span asp-validation-for="Model.Password" class="text-danger"></span>
+                        </div>
+                        <div class="input-group form-group pb-3 mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text icons"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" asp-for="Model.PasswordConfirm" class="form-control inp" placeholder="confirm password">
+                            <span asp-validation-for="Model.PasswordConfirm" class="text-danger"></span>
+                        </div>
+
+                    <div class="form-group ">
+                        <input type="submit" value="Register" id="btn_lgn" class="btn login_btn mt-3">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links mt-1">
+                    Are you already have an account? <a asp-page="/Accounts/Login">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

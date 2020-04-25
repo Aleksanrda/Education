@@ -1,0 +1,21 @@
+﻿@page
+@model BabyLife.Web.UserListModel
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Pages/Shared/_ManagerLayout.cshtml";
+}
+
+<h1>Список пользователей</h1>
+
+<table class="table">
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-page="EditRoles" asp-route-id="@user.Id">Права доступа</a>
+            </td>
+        </tr>
+    }
+</table>
+

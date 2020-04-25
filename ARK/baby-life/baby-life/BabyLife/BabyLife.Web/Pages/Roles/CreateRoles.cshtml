@@ -1,0 +1,19 @@
+﻿@page
+@model BabyLife.Web.CreateRolesModel
+@{
+    ViewData["Title"] = "CreateRoles";
+    Layout = "~/Pages/Shared/_ManagerLayout.cshtml";
+}
+
+<h1>Create Roles</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-page="CreateRoles" method="post">
+    <div class="form-group">
+        <label for="name">Новая роль</label>
+        <input name="name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+

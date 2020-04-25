@@ -1,0 +1,26 @@
+﻿@page
+@model BabyLife.Web.RolesIndexModel
+@{
+    ViewData["Title"] = "RolesIndex";
+    Layout = "~/Pages/Shared/_ManagerLayout.cshtml";
+}
+
+<h1>Список ролей</h1>
+
+<a asp-page="CreateRoles">Добавить роль</a>
+<table class="table">
+    @foreach (var role in Model.Roles)
+    {
+        <tr>
+            <td>@role.Name</td>
+            <td>
+                <form asp-page="DeleteRoles" asp-route-id="@role.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,26 @@
+﻿@page
+@model BabyLife.Web.EditRolesModel
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "EditRoles";
+    Layout = "~/Pages/Shared/_ManagerLayout.cshtml";
+}
+
+<h1>Изменение ролей для пользователя @Model.RequestUser.UserEmail</h1>
+
+<form method="post">
+    <input type="hidden" name="RequestUser.UserId" value="@Model.RequestUser.UserId" />
+    <div class="form-group">
+        @foreach (IdentityRole role in Model.RequestUser.AllRoles)
+        {
+            <input name="RequestUser.UserRoles"
+                   type="checkbox"
+                   value="@role.Name"
+                   @(Model.RequestUser.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+            @role.Name <br />
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+

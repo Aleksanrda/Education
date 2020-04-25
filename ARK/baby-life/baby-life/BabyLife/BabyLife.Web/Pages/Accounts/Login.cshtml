@@ -1,0 +1,46 @@
+﻿@page
+@using Microsoft.AspNetCore.Localization
+@model BabyLife.Web.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/Shared/_LoginLayout.cshtml";
+}
+
+<div class="container main-block">
+    <div class="d-flex justify-content-end h-100">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="display-4">Welcome to BabyLife!</h1>
+            </div>
+            <div class="card-body">
+                <label class="pb-3">Sign in</label>
+                <form method="POST">
+                    <div class="input-group form-group pb-3 mt-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text icons"><i class="fas fa-user icon"></i></span>
+                        </div>
+                        <input asp-for="LoginUser.Email" type="text" class="form-control inp" placeholder="e-mail" ]>
+                        <span asp-validation-for="LoginUser.Email" class="text-danger"></span>
+                    </div>
+                    <div class="input-group form-group pb-4 mt-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text icons"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" asp-for="LoginUser.Password" class="form-control inp" placeholder="password">
+                        <span asp-validation-for="LoginUser.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group ">
+                        <input type="submit" value="Login" id="btn_lgn" class="btn login_btn mt-3">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links mt-3">
+                    No account?<a asp-page="/Accounts/Register">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

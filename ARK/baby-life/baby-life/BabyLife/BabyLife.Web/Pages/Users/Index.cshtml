@@ -1,0 +1,29 @@
+﻿@page
+@model BabyLife.Web.IndexModel
+
+@{
+    ViewData["Title"] = "Список пользователей";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+<h2>@ViewData["Title"]</h2>
+
+<p><a asp-page="Create">Добавить пользователя</a></p>
+<table class="table">
+    <tr><th>Email</th><th>Год</th><th></th></tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>@user.Birthdate</td>
+            <td>
+                <form asp-page="Delete" asp-route-id="@user.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="Edit" asp-route-id="@user.Id">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@user.Id">           
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+

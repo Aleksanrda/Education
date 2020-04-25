@@ -1,0 +1,30 @@
+﻿@page
+@model BabyLife.Web.EditModel
+@{
+    ViewData["Title"] = "Редактирование пользователя";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditUser.Id" type="hidden" />
+    <div>
+        <label>Имя</label>
+        <div>
+            <input asp-for="EditUser.Email" />
+            <span asp-validation-for="EditUser.Email"></span>
+        </div>
+    </div>
+    <div>
+        <label>Возраст</label>
+        <div>
+            <input asp-for="EditUser.Year" type="datetime" />
+            <span asp-validation-for="EditUser.Year"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>
+

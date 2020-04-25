@@ -1,0 +1,14 @@
+﻿@page
+@model BabyLife.Web.CreateModel
+@{
+    ViewData["Title"] = "Добавление нового пользователя";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div><label>Имя</label><br /><input asp-for="NewUser.Email" type="text"/></div>
+    <div><label>Возраст:</label><br /><input asp-for="NewUser.Year" type="datetime"/></div>
+    <div><label>Пароль:</label><br /><input asp-for="NewUser.Password" type="password"/></div>
+    <input type="submit" value="Отправить" />
+</form>
