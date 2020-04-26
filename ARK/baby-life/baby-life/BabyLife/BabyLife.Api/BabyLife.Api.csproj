@@ -15,9 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Devices\" />
-    <Folder Include="Bathings\" />
     <Folder Include="Feedings\" />
-    <Folder Include="DiaperChanges\" />
   </ItemGroup>
 
 </Project>

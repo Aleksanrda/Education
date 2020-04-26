@@ -1,7 +1,10 @@
 ﻿using BabyLife.Api.Accounts;
 using BabyLife.Api.Babies;
+using BabyLife.Api.Bathings;
+using BabyLife.Api.DiaperChanges;
 using BabyLife.Api.Reminders;
 using BabyLife.Api.Roles;
+using BabyLife.Api.Sleepings;
 using BabyLife.Api.Users;
 using BabyLife.Core.Entities;
 using BabyLife.Core.Repositories;
@@ -30,6 +33,9 @@ namespace BabyLife.Mobile
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IBabiesService, BabiesService>();
             services.AddScoped<IRemindersService, RemindersService>();
+            services.AddScoped<IBathingsService, BathingsService>();
+            services.AddScoped<ISleepingsService, SleepingsService>();
+            services.AddScoped<IDiaperChangesService, DiaperChangesService>();
 
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Baby>, Repository<Baby>>();
