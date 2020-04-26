@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Devices\" />
     <Folder Include="Feedings\" />
   </ItemGroup>
 
