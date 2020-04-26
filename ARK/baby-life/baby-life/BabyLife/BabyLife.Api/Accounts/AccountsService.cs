@@ -35,7 +35,6 @@ namespace BabyLife.Api.Accounts
 
             if (result.Succeeded)
             {
-                // установка куки
                 await signInManager.SignInAsync(user, false);
                 return user;
             }

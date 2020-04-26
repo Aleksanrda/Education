@@ -13,8 +13,4 @@
     <ProjectReference Include="..\BabyLife.Core\BabyLife.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Feedings\" />
-  </ItemGroup>
-
 </Project>
