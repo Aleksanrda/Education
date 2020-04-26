@@ -55,7 +55,7 @@ namespace BabyLife.Mobile.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction("GetBaby", new { id = result.Id }, postReminderDTO);
+            return CreatedAtAction("GetReminder", new { id = result.Id }, postReminderDTO);
         }
 
         [HttpPut("{id}")]
