@@ -19,7 +19,6 @@
     <Folder Include="Feedings\" />
     <Folder Include="DiaperChanges\" />
     <Folder Include="Sleepings\" />
-    <Folder Include="Reminders\" />
   </ItemGroup>
 
 </Project>

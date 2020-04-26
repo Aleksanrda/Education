@@ -9,9 +9,9 @@ namespace BabyLife.Api.Babies
 {
     public interface IBabiesService
     {
-        IEnumerable<Baby> GetBabies();
+        IEnumerable<PostBabyDTO> GetBabies();
 
-        Baby GetBaby(int id);
+        PostBabyDTO GetBaby(int id);
 
         Task<Baby> CreateBaby(PostBabyDTO baby);
 

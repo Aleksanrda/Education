@@ -21,9 +21,5 @@
         <ProjectReference Include="..\BabyLife.DAL\BabyLife.DAL.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Controllers\" />
-    </ItemGroup>
-
 
 </Project>

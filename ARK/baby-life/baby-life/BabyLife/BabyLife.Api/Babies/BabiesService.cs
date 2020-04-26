@@ -1,6 +1,7 @@
 ﻿using BabyLife.Api.Babies.DTO;
 using BabyLife.Core.Entities;
 using BabyLife.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,43 @@ namespace BabyLife.Api.Babies
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Baby> GetBabies()
+        public IEnumerable<PostBabyDTO> GetBabies()
         {
-            var result = unitOfWork.Babies.GetAll();
+            var result = unitOfWork.Babies.GetAll().Select(x =>
+           new PostBabyDTO()
+           {
+               Name = x.Name,
+               GenderType = x.GenderType.ToString(),
+               BloodType = x.BloodType,
+               Allergies = x.Allergies,
+               Notes = x.Notes,
+               User = new User()
+               {
+                   Id = x.UserId
+               }
+           }).ToList();
 
             return result;
         }
 
-        public Baby GetBaby(int id)
+        public PostBabyDTO GetBaby(int id)
         {
-            var result = unitOfWork.Babies.GetByID(id);
+            var result = unitOfWork.Babies.GetAllLazyLoad(b => b.Id == id, b => b.User).AsNoTracking().First();
 
-            return result;
+            var baby = new PostBabyDTO()
+            {
+                Name = result.Name,
+                GenderType = result.GenderType.ToString(),
+                BloodType = result.BloodType,
+                Allergies = result.Allergies,
+                Notes = result.Notes,
+                User = new User()
+                {
+                    Id = result.UserId
+                }
+            };
+
+            return baby;
         }
 
         public async Task<Baby> CreateBaby(PostBabyDTO baby)
@@ -106,11 +132,11 @@ namespace BabyLife.Api.Babies
 
         public async Task<string> DeleteBaby(int id)
         {
-            var device = unitOfWork.Babies.GetByID(id);
+            var baby = unitOfWork.Babies.GetByID(id);
 
-            if (device != null)
+            if (baby != null)
             {
-                unitOfWork.Babies.Delete(device);
+                unitOfWork.Babies.Delete(baby);
                 await unitOfWork.SaveChangesAsync();
                 return "Ok";
             }

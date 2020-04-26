@@ -1,5 +1,6 @@
 ﻿using BabyLife.Api.Accounts;
 using BabyLife.Api.Babies;
+using BabyLife.Api.Reminders;
 using BabyLife.Api.Roles;
 using BabyLife.Api.Users;
 using BabyLife.Core.Entities;
@@ -28,6 +29,7 @@ namespace BabyLife.Mobile
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IBabiesService, BabiesService>();
+            services.AddScoped<IRemindersService, RemindersService>();
 
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Baby>, Repository<Baby>>();
