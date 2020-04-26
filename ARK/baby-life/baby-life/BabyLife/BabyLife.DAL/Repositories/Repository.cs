@@ -13,7 +13,7 @@ namespace BabyLife.DAL.Repositories
     {
         private readonly DbSet<TEntity> babyLifeDbSet;
 
-        private BabyLifeDbContext babyLifeRepositoryContext;
+        private readonly BabyLifeDbContext babyLifeRepositoryContext;
 
         public Repository(BabyLifeDbContext babyLifeRepositoryContext)
         {

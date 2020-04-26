@@ -12,6 +12,18 @@ namespace BabyLife.Core.Repositories
 
         IRepository<Baby> Babies { get; }
 
+        IRepository<Reminder> Reminders { get; }
+
+        IRepository<Sleeping> Sleepings { get; }
+
+        IRepository<DiaperChange> DiaperChanges { get; }
+
+        IRepository<Feeding> Feedings { get; }
+
+        IRepository<Bathing> Bathings { get; }
+
+        IRepository<Device> Devices { get; }
+
         Task SaveChangesAsync();
     }
 }

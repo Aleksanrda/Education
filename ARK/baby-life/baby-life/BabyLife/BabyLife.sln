@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.DAL", "BabyLife.DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.Api", "BabyLife.Api\BabyLife.Api.csproj", "{13B79303-B387-46B9-86C7-541FFA47EBCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabyLife.Web", "BabyLife.Web\BabyLife.Web.csproj", "{71FCF584-8F2B-4ADC-A2ED-04F75A14A5AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.Web", "BabyLife.Web\BabyLife.Web.csproj", "{71FCF584-8F2B-4ADC-A2ED-04F75A14A5AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabyLife.Mobile", "BabyLife.Mobile\BabyLife.Mobile.csproj", "{5F2FC98D-820E-44A4-B986-B70F075F943B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{71FCF584-8F2B-4ADC-A2ED-04F75A14A5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71FCF584-8F2B-4ADC-A2ED-04F75A14A5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71FCF584-8F2B-4ADC-A2ED-04F75A14A5AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F2FC98D-820E-44A4-B986-B70F075F943B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F2FC98D-820E-44A4-B986-B70F075F943B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F2FC98D-820E-44A4-B986-B70F075F943B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F2FC98D-820E-44A4-B986-B70F075F943B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,5 +19,13 @@ namespace BabyLife.Core.Entities
         public int UserId { get; set; }
 
         public User User { get; set; }
+
+        public List<Bathing> Bathings { get; set; }
+
+        public List<DiaperChange> DiaperChanges { get; set; }
+
+        public List<Sleeping> Sleepings { get; set; }
+
+        public List<Feeding> Feedings { get; set; }
     }
 }

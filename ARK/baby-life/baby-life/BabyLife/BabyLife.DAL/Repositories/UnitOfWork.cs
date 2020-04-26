@@ -9,9 +9,15 @@ namespace BabyLife.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private BabyLifeDbContext _babyLifeDbContext;
+        private readonly BabyLifeDbContext _babyLifeDbContext;
         private IRepository<User> _users;
         private IRepository<Baby> _babies;
+        private IRepository<Reminder> _reminders;
+        private IRepository<Sleeping> _sleepings;
+        private IRepository<Feeding> _feedings;
+        private IRepository<Bathing> _bathings;
+        private IRepository<DiaperChange> _diaperChanges;
+        private IRepository<Device> _devices;
 
         public UnitOfWork(BabyLifeDbContext babyLifeDbContext)
         {
@@ -33,6 +39,60 @@ namespace BabyLife.DAL.Repositories
             {
                 return _babies ??
                     (_babies = new Repository<Baby>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<Reminder> Reminders
+        {
+            get
+            {
+                return _reminders ??
+                    (_reminders = new Repository<Reminder>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<Sleeping> Sleepings
+        {
+            get
+            {
+                return _sleepings ??
+                    (_sleepings = new Repository<Sleeping>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<Bathing> Bathings
+        {
+            get
+            {
+                return _bathings ??
+                    (_bathings = new Repository<Bathing>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<Feeding> Feedings
+        {
+            get
+            {
+                return _feedings ??
+                    (_feedings = new Repository<Feeding>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<DiaperChange> DiaperChanges
+        {
+            get
+            {
+                return _diaperChanges ??
+                    (_diaperChanges = new Repository<DiaperChange>(_babyLifeDbContext));
+            }
+        }
+
+        public IRepository<Device> Devices
+        {
+            get
+            {
+                return _devices ??
+                    (_devices = new Repository<Device>(_babyLifeDbContext));
             }
         }
 
