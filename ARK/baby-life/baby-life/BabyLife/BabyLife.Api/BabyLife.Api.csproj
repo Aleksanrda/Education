@@ -13,4 +13,13 @@
     <ProjectReference Include="..\BabyLife.Core\BabyLife.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Devices\" />
+    <Folder Include="Bathings\" />
+    <Folder Include="Feedings\" />
+    <Folder Include="DiaperChanges\" />
+    <Folder Include="Sleepings\" />
+    <Folder Include="Reminders\" />
+  </ItemGroup>
+
 </Project>
