@@ -95,5 +95,11 @@ namespace BabyLife.Mobile.Controllers
                 await Response.WriteAsync("Wrong credentials!");
             }
         }
+
+        [HttpPost("logout")]
+        public async Task LogOff()
+        {
+            await accountsService.Logout();
+        }
     }
 }
