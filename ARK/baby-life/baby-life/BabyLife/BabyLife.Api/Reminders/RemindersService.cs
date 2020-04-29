@@ -74,7 +74,7 @@ namespace BabyLife.Api.Reminders
 
             if (user != null)
             {
-                reminder.UserId = reminder.User.Id;
+                reminder.UserId = reminderDTO.User.Id;
                 reminder.User = user;
 
                 unitOfWork.Reminders.Create(reminder);

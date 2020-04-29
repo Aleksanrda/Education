@@ -6,6 +6,7 @@ using BabyLife.Core.Repositories;
 using BabyLife.DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,15 @@ namespace BabyLife.Web
             }
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
 
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Baby>, Repository<Baby>>();
+
+            services.AddHostedService<BabyHostedService>();
 
             return services;
         }

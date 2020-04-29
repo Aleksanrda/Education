@@ -96,6 +96,50 @@ namespace BabyLife.Mobile.Controllers
             }
         }
 
+        [HttpPost("loginCarePerson")]
+        [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
+        public async Task LoginCarePerson([FromBody] LoginCarePersonViewModel loginCarePerson)
+        {
+            var result = await accountsService.LoginCarePerson(loginCarePerson);
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(result.Email);
+
+                if (user != null)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    };
+
+                    var jwtSecurityToken = new JwtSecurityToken(
+                        issuer: AuthOptions.Issuer,
+                        audience: AuthOptions.Audience,
+                        claims: claims,
+                        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
+                        signingCredentials: new SigningCredentials(
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthOptions.Key)),
+                            SecurityAlgorithms.HmacSha256));
+                    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+
+                    var response = new
+                    {
+                        access_token = encodedJwt,
+                        userid = user.Id
+                    };
+
+                    Response.ContentType = "application/json";
+                    await Response.WriteAsync(JsonConvert.SerializeObject(response,
+                        new JsonSerializerSettings { Formatting = Formatting.Indented }));
+                    return;
+                }
+
+                await Response.WriteAsync("Wrong credentials!");
+            }
+        }
+
         [HttpPost("logout")]
         public async Task LogOff()
         {

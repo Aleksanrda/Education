@@ -12,11 +12,11 @@ namespace BabyLife.Mobile.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedingController : ControllerBase
+    public class FeedingsController : ControllerBase
     {
         private readonly IFeedingsService feedingsService;
 
-        public FeedingController(IFeedingsService feedingsService)
+        public FeedingsController(IFeedingsService feedingsService)
         {
             this.feedingsService = feedingsService;
         }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BabyLife.Web
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class IndexModel : PageModel
     {
         private readonly IUsersService usersService;

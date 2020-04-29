@@ -16,6 +16,10 @@ namespace BabyLife.Core.Entities
 
         public string Notes { get; set; }
 
+        public int Longtitude { get; set; }
+
+        public int Latitude { get; set; }
+
         public string UserId { get; set; }
 
         public User User { get; set; }

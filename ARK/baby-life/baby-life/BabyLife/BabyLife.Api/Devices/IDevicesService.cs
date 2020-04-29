@@ -17,5 +17,7 @@ namespace BabyLife.Api.Devices
         Task<Device> UpdateDevice(int id, Device device);
 
         Task<string> DeleteDevice(int id);
+
+        bool IsFeedingBaby(Feeding feeding);
     }
 }

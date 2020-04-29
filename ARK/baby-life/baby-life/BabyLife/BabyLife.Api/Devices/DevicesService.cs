@@ -92,5 +92,35 @@ namespace BabyLife.Api.Devices
 
             return "Error";
         }
+
+        private double GetDistance(double long1, double latt1, double long2, double latt2)
+        {
+            var theta = Math.Abs(long1 - long2);
+            latt1 = GetRads(latt1);
+            latt2 = GetRads(latt2);
+            theta = GetRads(theta);
+            var centralangle = Math.Acos(Math.Sin(latt1) * Math.Sin(latt2) + Math.Cos(latt1) * Math.Cos(latt2) * Math.Cos(theta));
+            return 40000.0 * centralangle / (2 * Math.PI);
+        }
+
+        private double GetRads(double angle)
+        {
+            return angle * Math.PI / 180.0;
+        }
+
+        public bool IsFeedingBaby(Feeding feeding)
+        {
+            var baby = unitOfWork.Babies.GetByID(feeding.BabyId);
+            var device = unitOfWork.Devices.GetByID(feeding.DeviceId);
+
+            var distance = GetDistance(baby.Longtitude, baby.Latitude, device.Longtitude, device.Latitude);
+
+            if (distance <= device.ActionRange)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -9,9 +9,19 @@ namespace BabyLife.Web
 {
     public class ProfileModel : PageModel
     {
-        public void OnGet()
+        public async Task OnGet()
         {
+            string[] data = new string[] {
+            "Hello",
+            "How are you"
+            };
 
+            Response.Headers.Add("Content-Type", "text/event-stream");
+
+            for (int i =0; i < data.Length; i++)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(4));
+            }
         }
     }
 }

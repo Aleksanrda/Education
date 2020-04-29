@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using BabyLife.Api.Reminders;
 using BabyLife.Api.Reminders.DTO;
@@ -80,6 +82,30 @@ namespace BabyLife.Mobile.Controllers
             if (result == "Error")
             {
                 return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("send")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult SendReminder()
+        {
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("oleksandra.kryvko@nure.ua");
+                mail.To.Add("kryvkoalexandra05@gmail.com");
+                mail.Subject = "Hello World";
+                mail.Body = "<h1>Hello</h1>";
+                mail.IsBodyHtml = true;
+               
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential("oleksandra.kryvko@nure.ua", "23Dfnhei5");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
             }
 
             return Ok();
