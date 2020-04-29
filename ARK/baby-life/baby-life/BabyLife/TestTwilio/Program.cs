@@ -30,7 +30,7 @@ namespace TestTwilio
             //    from: new Twilio.Types.PhoneNumber("+12563715007")
             //);
 
-            Console.WriteLine(call.Sid);
+            //Console.WriteLine(call.Sid);
         }
     }
 }
