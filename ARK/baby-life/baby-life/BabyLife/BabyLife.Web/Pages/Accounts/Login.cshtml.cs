@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 
 namespace BabyLife.Web
 {
@@ -19,14 +20,17 @@ namespace BabyLife.Web
     public class LoginModel : PageModel
     {
         private readonly IAccountsService accountsService;
-       
+        private readonly IStringLocalizer<LoginModel> localizer;
+        private readonly IStringLocalizer<SharedResource> sharedLocalizer;
 
         [BindProperty]
         public LoginViewModel LoginUser { get; set; }
 
-        public LoginModel(IAccountsService accountsService)
+        public LoginModel(IAccountsService accountsService,
+            IStringLocalizer<LoginModel> localizer)
         {
             this.accountsService = accountsService;
+            this.localizer = localizer;
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -41,7 +45,8 @@ namespace BabyLife.Web
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError(String.Empty, localizer["InvalidLoginAttempt"]);
+                    return Page();
                 }
             }
             return Page();

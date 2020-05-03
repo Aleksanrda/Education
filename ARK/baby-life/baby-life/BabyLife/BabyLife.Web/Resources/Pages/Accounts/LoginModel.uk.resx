@@ -117,10 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="login" xml:space="preserve">
-    <value>Увійти</value>
-  </data>
-  <data name="register" xml:space="preserve">
-    <value>Зареєструватися</value>
+  <data name="Invalid login attempt" xml:space="preserve">
+    <value>Некоректні дані для авторизації</value>
   </data>
 </root>

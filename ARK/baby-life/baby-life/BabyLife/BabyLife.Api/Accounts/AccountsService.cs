@@ -44,7 +44,7 @@ namespace BabyLife.Api.Accounts
                 return user;
             }
 
-            return user;
+            return null;
         }
 
         public async Task<LoginViewModel> Login(LoginViewModel model)
@@ -57,7 +57,7 @@ namespace BabyLife.Api.Accounts
             var result = await
                     signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-            if (result != null)
+            if (result.Succeeded)
             {
                 return model;
             }

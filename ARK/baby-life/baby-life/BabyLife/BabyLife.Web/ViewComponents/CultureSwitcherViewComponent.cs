@@ -13,6 +13,7 @@ namespace BabyLife.Web.ViewComponents
     public class CultureSwitcherViewComponent : ViewComponent
     {
         private readonly IOptions<RequestLocalizationOptions> localizationOptions;
+
         public CultureSwitcherViewComponent(IOptions<RequestLocalizationOptions> localizationOptions) =>
             this.localizationOptions = localizationOptions;
 

@@ -1,11 +1,13 @@
 ﻿@page
 @using Microsoft.AspNetCore.Localization
 @model BabyLife.Web.LoginModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Pages/Shared/_LoginLayout.cshtml";
+    var requestCultureFeature = HttpContext.Features.Get<IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
 }
-
 <div class="container main-block">
     <div class="d-flex justify-content-end h-100">
         <div class="card">
@@ -37,10 +39,9 @@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-center links mt-3">
-                    No account?<a asp-page="/Accounts/Register">Register</a>
+                    No account?<a asp-page="/Accounts/Register">@Localizer["register"]</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

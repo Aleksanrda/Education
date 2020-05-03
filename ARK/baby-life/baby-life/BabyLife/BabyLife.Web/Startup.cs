@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,12 @@ namespace BabyLife.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services
+                .AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
+
             services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
                 {
@@ -40,6 +47,7 @@ namespace BabyLife.Web
                     options.Conventions.AuthorizeFolder("/Roles");
                     options.Conventions.AuthorizeFolder("/Users");
                 });
+
             services.AddDbContext<BabyLifeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("BabyLife.DAL")));
 
             services.AddIdentity<User, IdentityRole>()
@@ -53,8 +61,8 @@ namespace BabyLife.Web
                  {
                     new CultureInfo("en"),
                     new CultureInfo("uk")
-                 };
-                options.DefaultRequestCulture = new RequestCulture("en-GB");
+                };
+                options.DefaultRequestCulture = new RequestCulture("en");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
@@ -85,13 +93,13 @@ namespace BabyLife.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
+            app.UseRequestLocalization(localizationOptions);
+
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
-            app.UseRequestLocalization(localizationOptions);
 
             app.UseAuthentication();
             app.UseAuthorization();
