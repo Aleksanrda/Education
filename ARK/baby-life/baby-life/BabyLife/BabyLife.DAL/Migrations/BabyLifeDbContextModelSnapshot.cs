@@ -35,6 +35,12 @@ namespace BabyLife.DAL.Migrations
                     b.Property<int>("GenderType")
                         .HasColumnType("int");
 
+                    b.Property<int>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Longtitude")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -87,7 +93,22 @@ namespace BabyLife.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ActionRange")
+                        .HasColumnType("int");
+
                     b.Property<int>("Indicator")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Longtitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxVolume")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxWeight")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

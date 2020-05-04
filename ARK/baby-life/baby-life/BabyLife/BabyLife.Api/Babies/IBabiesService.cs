@@ -9,13 +9,15 @@ namespace BabyLife.Api.Babies
 {
     public interface IBabiesService
     {
-        IEnumerable<PostBabyDTO> GetBabies();
+        IEnumerable<Baby> GetBabies();
 
-        PostBabyDTO GetBaby(int id);
+        IEnumerable<Baby> GetUserBabies(string userId);
 
-        Task<Baby> CreateBaby(PostBabyDTO baby);
+        Baby GetBaby(int id, string userId);
 
-        Task<Baby> UpdateBaby(int id, PostBabyDTO baby);
+        Task<Baby> CreateBaby(PostBabyDTO baby, string userId);
+
+        Task<Baby> UpdateBaby(Baby baby, string userEmail);
 
         Task<string> DeleteBaby(int id);
     }

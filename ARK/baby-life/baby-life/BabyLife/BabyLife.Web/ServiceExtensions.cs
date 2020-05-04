@@ -1,4 +1,5 @@
 ﻿using BabyLife.Api.Accounts;
+using BabyLife.Api.Babies;
 using BabyLife.Api.Roles;
 using BabyLife.Api.Users;
 using BabyLife.Core.Entities;
@@ -28,6 +29,7 @@ namespace BabyLife.Web
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IBabiesService, BabiesService>();
 
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IRepository<Baby>, Repository<Baby>>();

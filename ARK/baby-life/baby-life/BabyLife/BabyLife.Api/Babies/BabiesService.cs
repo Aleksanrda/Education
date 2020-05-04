@@ -19,13 +19,13 @@ namespace BabyLife.Api.Babies
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<PostBabyDTO> GetBabies()
+        public IEnumerable<Baby> GetBabies()
         {
             var result = unitOfWork.Babies.GetAll().Select(x =>
-           new PostBabyDTO()
+           new Baby()
            {
                Name = x.Name,
-               GenderType = x.GenderType.ToString(),
+               GenderType = x.GenderType,
                BloodType = x.BloodType,
                Allergies = x.Allergies,
                Notes = x.Notes,
@@ -38,27 +38,38 @@ namespace BabyLife.Api.Babies
             return result;
         }
 
-        public PostBabyDTO GetBaby(int id)
+        public IEnumerable<Baby> GetUserBabies(string userId)
         {
-            var result = unitOfWork.Babies.GetAllLazyLoad(b => b.Id == id, b => b.User).AsNoTracking().First();
+            var babies = unitOfWork.Babies.GetAll();
 
-            var baby = new PostBabyDTO()
+            var userBabies = babies.Where(baby => baby.UserId == userId);
+
+            return userBabies;
+        }
+
+        public Baby GetBaby(int id, string userId)
+        {
+            var result = unitOfWork.Babies.GetByID(id);
+
+            var baby = new Baby()
             {
+                Id = id,
                 Name = result.Name,
-                GenderType = result.GenderType.ToString(),
+                GenderType = result.GenderType,
                 BloodType = result.BloodType,
                 Allergies = result.Allergies,
                 Notes = result.Notes,
-                User = new User()
+                User = new User
                 {
-                    Id = result.UserId
-                }
+                    Id = userId
+                },
+                UserId = userId
             };
 
             return baby;
         }
 
-        public async Task<Baby> CreateBaby(PostBabyDTO baby)
+        public async Task<Baby> CreateBaby(PostBabyDTO baby, string userId)
         {
             if (baby == null)
             {
@@ -67,7 +78,7 @@ namespace BabyLife.Api.Babies
 
             var users = unitOfWork.Users.GetAll();
             var user = users.FirstOrDefault(
-                user => user.Email == baby.User.Email);
+                user => user.Id == userId);
 
             var newBaby = new Baby()
             {
@@ -80,7 +91,7 @@ namespace BabyLife.Api.Babies
 
             if (user != null)
             {
-                newBaby.UserId = baby.User.Id;
+                newBaby.UserId = user.Id;
                 newBaby.User = user;
 
                 unitOfWork.Babies.Create(newBaby);
@@ -92,7 +103,7 @@ namespace BabyLife.Api.Babies
             return null;
         }
 
-        public async Task<Baby> UpdateBaby(int id, PostBabyDTO baby)
+        public async Task<Baby> UpdateBaby(Baby baby, string userId)
         {
             if (baby == null)
             {
@@ -101,11 +112,11 @@ namespace BabyLife.Api.Babies
 
             var users = unitOfWork.Users.GetAll();
             var user = users.FirstOrDefault(
-                user => user.Email == baby.User.Email);
+                user => user.Id == userId);
 
             var babies = unitOfWork.Babies.GetAll();
             var editBaby = babies.FirstOrDefault(
-                baby => baby.Id == id);
+                currentBaby => currentBaby.Id == baby.Id);
 
             if (editBaby != null)
             {
@@ -113,12 +124,12 @@ namespace BabyLife.Api.Babies
                 editBaby.BloodType = baby.BloodType;
                 editBaby.Allergies = baby.Allergies;
                 editBaby.Notes = baby.Notes;
-                editBaby.GenderType = (GenderType)Enum.Parse(typeof(GenderType), baby.GenderType);
+                editBaby.GenderType = baby.GenderType;
             }
 
             if (user != null)
             {
-                editBaby.UserId = baby.User.Id;
+                editBaby.UserId = user.Id;
                 editBaby.User = user;
 
                 unitOfWork.Babies.Update(editBaby);

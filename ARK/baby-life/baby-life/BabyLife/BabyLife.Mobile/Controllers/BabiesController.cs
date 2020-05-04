@@ -23,7 +23,7 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(PostBabyDTO[]), StatusCodes.Status200OK)]
-        public IEnumerable<PostBabyDTO> GetBabies()
+        public IEnumerable<Baby> GetBabies()
         {
             var result = babiesService.GetBabies();
 
@@ -32,9 +32,9 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PostBabyDTO), StatusCodes.Status200OK)]
-        public IActionResult GetBaby([FromRoute] int id)
+        public IActionResult GetBaby([FromRoute] int id, string userId)
         {
-            var result = babiesService.GetBaby(id);
+            var result = babiesService.GetBaby(id, userId);
 
             if (result == null)
             {
@@ -46,9 +46,9 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostBaby([FromBody] PostBabyDTO postBabyDTO)
+        public async Task<IActionResult> PostBaby([FromBody] PostBabyDTO postBabyDTO, string userId)
         {
-            var result = await babiesService.CreateBaby(postBabyDTO);
+            var result = await babiesService.CreateBaby(postBabyDTO, userId);
 
             if (result == null)
             {
@@ -59,9 +59,9 @@ namespace BabyLife.Mobile.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaby([FromRoute] int id, [FromBody] PostBabyDTO postBabyDTO)
+        public async Task<IActionResult> PutBaby([FromBody] Baby baby, string userId)
         {
-            var result = await babiesService.UpdateBaby(id, postBabyDTO);
+            var result = await babiesService.UpdateBaby(baby, userId);
 
             if (result == null)
             {

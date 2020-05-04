@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyLife.DAL.Migrations
 {
     [DbContext(typeof(BabyLifeDbContext))]
-    [Migration("20200420204125_initial")]
-    partial class initial
+    [Migration("20200504105632_MigrateDB")]
+    partial class MigrateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,23 +37,200 @@ namespace BabyLife.DAL.Migrations
                     b.Property<int>("GenderType")
                         .HasColumnType("int");
 
+                    b.Property<int>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Longtitude")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Babies");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Bathing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BabyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("WaterTemperature")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BabyId");
+
+                    b.ToTable("Bathings");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Device", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActionRange")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Indicator")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Longtitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxVolume")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxWeight")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Devices");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.DiaperChange", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BabyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeDiaper")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BabyId");
+
+                    b.ToTable("DiaperChanges");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Feeding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BabyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountMilk")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeMilk")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BabyId");
+
+                    b.HasIndex("DeviceId");
+
+                    b.ToTable("Feedings");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Reminder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Infa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReminderTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReminderType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reminders");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Sleeping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BabyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BabyId");
+
+                    b.ToTable("Sleepings");
                 });
 
             modelBuilder.Entity("BabyLife.Core.Entities.User", b =>
@@ -67,14 +244,8 @@ namespace BabyLife.DAL.Migrations
                     b.Property<DateTime>("Birthdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -109,6 +280,9 @@ namespace BabyLife.DAL.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShareCode")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -198,14 +372,9 @@ namespace BabyLife.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserClaims");
                 });
@@ -270,7 +439,56 @@ namespace BabyLife.DAL.Migrations
                 {
                     b.HasOne("BabyLife.Core.Entities.User", "User")
                         .WithMany("Babies")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Bathing", b =>
+                {
+                    b.HasOne("BabyLife.Core.Entities.Baby", "Baby")
+                        .WithMany("Bathings")
+                        .HasForeignKey("BabyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.DiaperChange", b =>
+                {
+                    b.HasOne("BabyLife.Core.Entities.Baby", "Baby")
+                        .WithMany("DiaperChanges")
+                        .HasForeignKey("BabyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Feeding", b =>
+                {
+                    b.HasOne("BabyLife.Core.Entities.Baby", "Baby")
+                        .WithMany("Feedings")
+                        .HasForeignKey("BabyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BabyLife.Core.Entities.Device", "Device")
+                        .WithMany("Feedings")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Reminder", b =>
+                {
+                    b.HasOne("BabyLife.Core.Entities.User", "User")
+                        .WithMany("Reminders")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("BabyLife.Core.Entities.Sleeping", b =>
+                {
+                    b.HasOne("BabyLife.Core.Entities.Baby", "Baby")
+                        .WithMany("Sleepings")
+                        .HasForeignKey("BabyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -289,10 +507,6 @@ namespace BabyLife.DAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BabyLife.Core.Entities.User", null)
-                        .WithMany("Claims")
-                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>

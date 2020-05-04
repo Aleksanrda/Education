@@ -1,0 +1,17 @@
+﻿@page
+@model BabyLife.Web.CreateBabyModel
+@{
+    ViewData["Title"] = "CreateBaby";
+}
+
+<h1>CreateBaby</h1>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div><label>Имя</label><br /><input asp-for="NewBaby.Name" type="text" /></div>
+    <div><label>Стать</label><br /><input asp-for="NewBaby.GenderType" type="text" /></div>
+    <div><label>Група крови</label><br /><input asp-for="NewBaby.BloodType" type="text" /></div>
+    <div><label>Алергии</label><br /><input asp-for="NewBaby.Allergies" type="text" /></div>
+    <div><label>Особености</label><br /><input asp-for="NewBaby.Notes" type="text" /></div>
+    <input type="submit" value="Отправить" />
+</form>
+

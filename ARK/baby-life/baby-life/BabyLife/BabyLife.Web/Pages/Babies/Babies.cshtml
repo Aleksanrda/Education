@@ -5,5 +5,25 @@
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
 
-<h1>BabyProfile</h1>
+<h2>@ViewData["Title"]</h2>
 
+
+<p><a asp-page="/UserBabies/CreateBaby">Добавить ребенка</a></p>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        @foreach (var baby in Model.Babies)
+        {
+        <tr>
+            <td>@baby.Name</td>
+            <td>
+                <form asp-page="/UserBabies/DeleteBaby" asp-route-id="@baby.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/UserBabies/UpdateBaby" asp-route-id="@baby.Id">Кабинет</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/UserBabies/DeleteBaby" asp-route-id="@baby.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>

@@ -1,0 +1,50 @@
+﻿@page
+@model BabyLife.Web.UpdateBabyModel
+@{
+    ViewData["Title"] = "UpdateBaby";
+}
+
+<h1>UpdateBaby</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditBaby.Id" type="hidden" />
+    <div>
+        <label>Имя</label>
+        <div>
+            <input asp-for="EditBaby.Name" />
+            <span asp-validation-for="EditBaby.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Стать</label>
+        <div>
+            <input asp-for="EditBaby.GenderType" />
+            <span asp-validation-for="EditBaby.GenderType"></span>
+        </div>
+    </div>
+    <div>
+        <label>Група крови</label>
+        <div>
+            <input asp-for="EditBaby.BloodType" />
+            <span asp-validation-for="EditBaby.BloodType"></span>
+        </div>
+    </div>
+    <div>
+        <label>Алергии</label>
+        <div>
+            <input asp-for="EditBaby.Allergies" />
+            <span asp-validation-for="EditBaby.Allergies"></span>
+        </div>
+    </div>
+    <div>
+        <label>Особености</label>
+        <div>
+            <input asp-for="EditBaby.Notes" />
+            <span asp-validation-for="EditBaby.Notes"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

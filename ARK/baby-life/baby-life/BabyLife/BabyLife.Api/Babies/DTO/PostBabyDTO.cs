@@ -23,7 +23,13 @@ namespace BabyLife.Api.Babies.DTO
         [Required]
         public string Notes { get; set; }
 
-        [Required]
-        public User User { get; set; }
+        //[Required]
+        public int Longtitude { get; set; }
+
+        //[Required]
+        public int Latitude { get; set; }
+
+        ////[Required]
+        //public User User { get; set; }
     }
 }

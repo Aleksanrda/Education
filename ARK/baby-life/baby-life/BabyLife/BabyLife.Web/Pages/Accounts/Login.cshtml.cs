@@ -21,7 +21,6 @@ namespace BabyLife.Web
     {
         private readonly IAccountsService accountsService;
         private readonly IStringLocalizer<LoginModel> localizer;
-        private readonly IStringLocalizer<SharedResource> sharedLocalizer;
 
         [BindProperty]
         public LoginViewModel LoginUser { get; set; }
@@ -41,7 +40,7 @@ namespace BabyLife.Web
 
                 if (result != null)
                 {
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("/Babies/Home");
                 }
                 else
                 {
