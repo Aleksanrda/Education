@@ -1,0 +1,36 @@
+﻿@page
+@model BabyLife.Web.UpdateReminderModel
+@{
+    ViewData["Title"] = "UpdateReminder";
+}
+
+<h1>UpdateReminder</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditReminder.Id" type="hidden" />
+    <div>
+        <label>Reminder Type</label>
+        <div>
+            <input asp-for="EditReminder.ReminderType" />
+            <span asp-validation-for="EditReminder.ReminderType"></span>
+        </div>
+    </div>
+    <div>
+        <label>Reminder Time</label>
+        <div>
+            <input asp-for="EditReminder.ReminderTime" />
+            <span asp-validation-for="EditReminder.ReminderTime"></span>
+        </div>
+    </div>
+    <div>
+        <label>Infa</label>
+        <div>
+            <input asp-for="EditReminder.Infa" />
+            <span asp-validation-for="EditReminder.Infa"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

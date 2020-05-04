@@ -1,0 +1,15 @@
+﻿@page
+@model BabyLife.Web.CreateReminderModel
+@{
+    ViewData["Title"] = "CreateReminder";
+}
+
+<h1>CreateReminder</h1>
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div><label>Type reminder</label><br /><input asp-for="NewReminder.ReminderType" type="text" /></div>
+    <div><label>Reminder Time</label><br /><input asp-for="NewReminder.ReminderTime" type="datetime-local" /></div>
+    <div><label>Infa</label><br /><input asp-for="NewReminder.Infa" type="text" /></div>
+    <input type="submit" value="Отправить" />
+</form>

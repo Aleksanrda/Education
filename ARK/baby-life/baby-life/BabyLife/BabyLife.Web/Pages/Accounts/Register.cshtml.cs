@@ -38,7 +38,7 @@ namespace BabyLife.Web
 
                 if (result != null)
                 {
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("/Babies/Home");
                 }
                 else
                 {

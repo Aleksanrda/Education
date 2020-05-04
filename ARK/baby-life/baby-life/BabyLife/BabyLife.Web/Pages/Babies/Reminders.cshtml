@@ -1,0 +1,30 @@
+﻿@page
+@model BabyLife.Web.RemindersModel
+@{
+    ViewData["Title"] = "Reminders";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<p><a asp-page="/UserReminders/CreateReminder">Добавить напоминание</a></p>
+<table class="table">
+    <tr>
+        <th>Information</th>
+        @foreach (var reminder in Model.Reminders)
+        {
+        <tr>
+            <td>@reminder.Infa</td>
+            <td>
+                <form asp-page="/UserReminders/DeleteReminders" asp-route-id="@reminder.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/UserReminders/UpdateReminder" asp-route-id="@reminder.Id">Details</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/UserReminders/DeleteReminders" asp-route-id="@reminder.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>
+

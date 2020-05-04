@@ -27,34 +27,49 @@ namespace BabyLife.Api.Reminders
                ReminderType = x.ReminderType.ToString(),
                ReminderTime = x.ReminderTime,
                Infa = x.Infa,
-               User = new User()
-               {
-                   Id = x.UserId
-               }
            }).ToList();
 
             return result;
         }
 
-        public PostReminderDTO GetReminder(int id)
+        public IEnumerable<Reminder> GetUserReminders(string userId)
+        {
+            var reminders = unitOfWork.Reminders.GetAll();
+
+            var day = DateTime.UtcNow;
+
+            var reminderYear = day.Year;
+            var userReminders = reminders.Where(reminder => reminder.UserId == userId
+            && reminder.ReminderTime.Year >= day.Year
+            && reminder.ReminderTime.Month >= day.Month
+            && reminder.ReminderTime.Day >= day.Day);
+
+            var userRemindersActual = userReminders.Where(t => t.ReminderTime.Day >= day.Day);
+
+            return userRemindersActual;
+        }
+
+        public Reminder GetReminder(int id, string userId)
         {
             var result = unitOfWork.Reminders.GetAllLazyLoad(r => r.Id == id, r => r.User).AsNoTracking().First();
 
-            var reminder = new PostReminderDTO()
+            var reminder = new Reminder()
             {
-                ReminderType = result.ReminderType.ToString(),
+                Id = id,
+                ReminderType = result.ReminderType,
                 ReminderTime = result.ReminderTime,
                 Infa = result.Infa,
-                User = new User()
+                User = new User
                 {
-                    Id = result.UserId
-                }
+                    Id = userId
+                },
+                UserId = userId
             };
 
             return reminder;
         }
 
-        public async Task<Reminder> CreateReminder(PostReminderDTO reminderDTO)
+        public async Task<Reminder> CreateReminder(PostReminderDTO reminderDTO, string userId)
         {
             if (reminderDTO == null)
             {
@@ -63,7 +78,7 @@ namespace BabyLife.Api.Reminders
 
             var users = unitOfWork.Users.GetAll();
             var user = users.FirstOrDefault(
-                user => user.Email == reminderDTO.User.Email);
+                user => user.Id == userId);
 
             var reminder = new Reminder()
             {
@@ -74,7 +89,7 @@ namespace BabyLife.Api.Reminders
 
             if (user != null)
             {
-                reminder.UserId = reminderDTO.User.Id;
+                reminder.UserId = user.Id;
                 reminder.User = user;
 
                 unitOfWork.Reminders.Create(reminder);
@@ -86,31 +101,31 @@ namespace BabyLife.Api.Reminders
             return null;
         }
 
-        public async Task<Reminder> UpdateReminder(int id, PostReminderDTO reminderDTO)
+        public async Task<Reminder> UpdateReminder(Reminder updateReminder, string userId)
         {
-            if (reminderDTO == null)
+            if (updateReminder == null)
             {
-                throw new ArgumentNullException(nameof(reminderDTO));
+                throw new ArgumentNullException(nameof(updateReminder));
             }
 
             var users = unitOfWork.Users.GetAll();
             var user = users.FirstOrDefault(
-                user => user.Email == reminderDTO.User.Email);
+                user => user.Email == user.Email);
 
             var reminders = unitOfWork.Reminders.GetAll();
             var reminder = reminders.FirstOrDefault(
-                reminder => reminder.Id == id);
+                reminder => reminder.Id == updateReminder.Id);
 
             if (reminder != null)
             {
-                reminder.ReminderType = (ReminderType)Enum.Parse(typeof(ReminderType), reminderDTO.ReminderType);
-                reminder.ReminderTime = reminderDTO.ReminderTime;
-                reminder.Infa = reminderDTO.Infa;
+                reminder.ReminderType =  updateReminder.ReminderType;
+                reminder.ReminderTime = updateReminder.ReminderTime;
+                reminder.Infa = updateReminder.Infa;
             }
 
             if (user != null)
             {
-                reminder.UserId = reminderDTO.User.Id;
+                reminder.UserId = user.Id;
                 reminder.User = user;
 
                 unitOfWork.Reminders.Update(reminder);

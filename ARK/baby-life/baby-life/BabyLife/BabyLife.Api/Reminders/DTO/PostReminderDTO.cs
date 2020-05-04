@@ -17,7 +17,7 @@ namespace BabyLife.Api.Reminders.DTO
         [Required]
         public string Infa { get; set; }
 
-        [Required]
-        public User User { get; set; }
+        //[Required]
+        //public User User { get; set; }
     }
 }

@@ -34,9 +34,9 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PostReminderDTO), StatusCodes.Status200OK)]
-        public IActionResult GetReminder([FromRoute] int id)
+        public IActionResult GetReminder([FromRoute] int id, string userId)
         {
-            var result = remindersService.GetReminder(id);
+            var result = remindersService.GetReminder(id, userId);
 
             if (result == null)
             {
@@ -48,9 +48,9 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostReminder([FromBody] PostReminderDTO postReminderDTO)
+        public async Task<IActionResult> PostReminder([FromBody] PostReminderDTO postReminderDTO, string userId)
         {
-            var result = await remindersService.CreateReminder(postReminderDTO);
+            var result = await remindersService.CreateReminder(postReminderDTO, userId);
 
             if (result == null)
             {
@@ -61,9 +61,9 @@ namespace BabyLife.Mobile.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaby([FromRoute] int id, [FromBody] PostReminderDTO postReminderDTO)
+        public async Task<IActionResult> PutBaby([FromRoute] int id, [FromBody] Reminder postReminder, string userId)
         {
-            var result = await remindersService.UpdateReminder(id, postReminderDTO);
+            var result = await remindersService.UpdateReminder(postReminder, userId);
 
             if (result == null)
             {

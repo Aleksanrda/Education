@@ -11,11 +11,13 @@ namespace BabyLife.Api.Reminders
     {
         IEnumerable<PostReminderDTO> GetReminders();
 
-        PostReminderDTO GetReminder(int id);
+        IEnumerable<Reminder> GetUserReminders(string userId);
 
-        Task<Reminder> CreateReminder(PostReminderDTO reminderDTO);
+        Reminder GetReminder(int id, string userId);
 
-        Task<Reminder> UpdateReminder(int id, PostReminderDTO reminderDTO);
+        Task<Reminder> CreateReminder(PostReminderDTO reminderDTO, string userId);
+
+        Task<Reminder> UpdateReminder(Reminder updateReminder, string userId);
 
         Task<string> DeleteReminder(int id);
     }
