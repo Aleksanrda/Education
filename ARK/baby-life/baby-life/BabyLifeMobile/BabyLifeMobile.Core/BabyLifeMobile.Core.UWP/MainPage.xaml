@@ -1,0 +1,22 @@
+﻿<forms:WindowsPage
+    x:Class="BabyLifeMobile.Core.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:forms="using:Xamarin.Forms.Platform.UWP"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BabyLifeMobile.Core.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="MainGrid"
+          Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <TextBox x:Name="FrameContentTitle"
+                 TextChanging="Navigate"
+                 Text="{Binding MainNavigationViewModel.ViewType, Converter={StaticResource EnumToStringConverter}, Source={StaticResource ViewModelLocator}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Frame x:Name="MainFrame"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"/>
+    </Grid>
+</forms:WindowsPage>

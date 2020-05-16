@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.Web", "BabyLife.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabyLife.Mobile", "BabyLife.Mobile\BabyLife.Mobile.csproj", "{5F2FC98D-820E-44A4-B986-B70F075F943B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTwilio", "TestTwilio\TestTwilio.csproj", "{4D131E3C-1416-4837-A896-A42D3CCC69F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTwilio", "TestTwilio\TestTwilio.csproj", "{4D131E3C-1416-4837-A896-A42D3CCC69F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

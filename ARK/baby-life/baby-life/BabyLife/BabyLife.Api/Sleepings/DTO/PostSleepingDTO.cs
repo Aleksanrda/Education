@@ -19,8 +19,5 @@ namespace BabyLife.Api.Sleepings.DTO
 
         [Required]
         public string Notes { get; set; }
-
-        [Required]
-        public Baby Baby { get; set; }
     }
 }

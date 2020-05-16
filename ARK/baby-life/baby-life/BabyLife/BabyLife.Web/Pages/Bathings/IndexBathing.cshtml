@@ -1,0 +1,29 @@
+﻿@page
+@model BabyLife.Web.IndexBathingModel
+@{
+    ViewData["Title"] = "IndexBathing";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h1>IndexBathing</h1>
+
+<table class="table">
+    <tr><td><a class="btn btn-sm btn-primary" asp-page="/Bathings/CreateBathing" asp-route-id="@Model.Id">Добавить bathing</a></td></tr>
+    <tr>
+        <th>Name</th>
+        @foreach (var bathing in Model.Bathings) 
+        {
+
+        <tr>
+            <td>@bathing.Name</td>
+            <td>
+                <form asp-page="/Bathings/DeleteBathing" asp-route-id="@bathing.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/Bathings/UpdateBathing" asp-route-id="@bathing.Id">Кабинет</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/Bathings/DeleteBathing" asp-route-id="@bathing.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>

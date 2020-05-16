@@ -14,10 +14,10 @@ namespace BabyLife.Api.Devices
 
         Task<Device> CreateDevice(Device device);
 
-        Task<Device> UpdateDevice(int id, Device device);
+        Task<Device> UpdateDevice(Device device);
 
         Task<string> DeleteDevice(int id);
 
-        bool IsFeedingBaby(Feeding feeding);
+        bool IsFeedingBaby(Feeding feeding, int babyId);
     }
 }

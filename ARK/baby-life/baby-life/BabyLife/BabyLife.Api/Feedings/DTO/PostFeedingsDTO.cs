@@ -18,9 +18,6 @@ namespace BabyLife.Api.Feedings.DTO
         public DateTime TimeMilk { get; set; }
 
         [Required]
-        public Device Device { get; set; }
-
-        [Required]
-        public Baby Baby { get; set; }
+        public int DeviceId { get; set; }
     }
 }

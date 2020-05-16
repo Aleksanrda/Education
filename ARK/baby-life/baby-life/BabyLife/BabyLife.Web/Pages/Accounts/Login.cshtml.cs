@@ -5,6 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BabyLife.Api.Accounts;
 using BabyLife.Api.Accounts.AccountsModel;
+using BabyLife.Api.Roles;
+using BabyLife.Api.Roles.RolesModel;
+using BabyLife.Api.Users;
 using BabyLife.Core.Entities;
 using BabyLife.Core.Repositories;
 using Microsoft.AspNetCore.Authentication;
@@ -21,15 +24,24 @@ namespace BabyLife.Web
     {
         private readonly IAccountsService accountsService;
         private readonly IStringLocalizer<LoginModel> localizer;
+        private readonly UserManager<User> userManager;
+        private readonly IUsersService usersService;
+        private readonly IRolesService rolesService;
 
         [BindProperty]
         public LoginViewModel LoginUser { get; set; }
 
+        public ChangeRoleViewModel RequestUser { get; set; }
+
         public LoginModel(IAccountsService accountsService,
-            IStringLocalizer<LoginModel> localizer)
+            IStringLocalizer<LoginModel> localizer, IRolesService rolesService,
+            UserManager<User> userManager, IUsersService usersService)
         {
             this.accountsService = accountsService;
             this.localizer = localizer;
+            this.userManager = userManager;
+            this.usersService = usersService;
+            this.rolesService = rolesService;
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -40,7 +52,21 @@ namespace BabyLife.Web
 
                 if (result != null)
                 {
-                    return RedirectToPage("/Babies/Home");
+                    var userId = userManager.GetUserId(User);
+                    RequestUser = await rolesService.EditRole(userId);
+
+                    if (RequestUser.UserRoles.Contains("Admin"))
+                    {
+                        return RedirectToPage("/Users/Index");
+                    }
+                    else if (RequestUser.UserRoles.Contains("Careroles"))
+                    {
+                        return RedirectToPage("/Roles/RolesIndex");
+                    }
+                    else
+                    {
+                        return RedirectToPage("/Babies/Home");
+                    }
                 }
                 else
                 {

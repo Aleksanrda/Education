@@ -1,0 +1,39 @@
+﻿@page
+@model BabyLife.Web.UpdateDiaperChangeModel
+@{
+    ViewData["Title"] = "UpdateDiaperChange";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+<br />
+<br />
+<h1>UpdateDiaperChange</h1>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditDiaperChange.Id" type="hidden" />
+    <div>
+        <label>Title</label>
+        <div>
+            <input asp-for="EditDiaperChange.Name" />
+            <span asp-validation-for="EditDiaperChange.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>StartTime</label>
+        <div>
+            <input asp-for="EditDiaperChange.TimeDiaper" />
+            <span asp-validation-for="EditDiaperChange.TimeDiaper"></span>
+        </div>
+    </div>
+    <div>
+        <label>EndTime</label>
+        <div>
+            <input asp-for="EditDiaperChange.Reason" />
+            <span asp-validation-for="EditDiaperChange.Reason"></span>
+        </div>
+    </div>
+    <input asp-for="EditDiaperChange.Baby.Id" type="hidden" />
+    <input asp-for="EditDiaperChange.BabyId" type="hidden" />
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

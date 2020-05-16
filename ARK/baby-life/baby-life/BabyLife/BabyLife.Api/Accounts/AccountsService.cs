@@ -6,17 +6,23 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BabyLife.Api.Accounts
 {
+    public delegate void EventDelegate(string email);
+
     public class AccountsService : IAccountsService
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly IUnitOfWork unitOfWork;
+
+        public event EventDelegate MyEvent;
 
         public AccountsService(UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -40,12 +46,15 @@ namespace BabyLife.Api.Accounts
 
             if (result.Succeeded)
             {
+                MyEvent?.Invoke(model.Email);
                 await signInManager.SignInAsync(user, false);
                 return user;
             }
 
             return null;
         }
+
+
 
         public async Task<LoginViewModel> Login(LoginViewModel model)
         {

@@ -46,9 +46,9 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostSleeping([FromBody] PostSleepingDTO postSleepingDTO)
+        public async Task<IActionResult> PostSleeping([FromBody] PostSleepingDTO postSleepingDTO, int babyId)
         {
-            var result = await sleepingsService.CreateSleeping(postSleepingDTO);
+            var result = await sleepingsService.CreateSleeping(postSleepingDTO,babyId);
 
             if (result == null)
             {
@@ -59,9 +59,9 @@ namespace BabyLife.Mobile.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSleeping([FromRoute] int id, [FromBody] PostSleepingDTO postSleepingDTO)
+        public async Task<IActionResult> PutSleeping([FromRoute] Sleeping editSleeping)
         {
-            var result = await sleepingsService.UpdateSleeping(id, postSleepingDTO);
+            var result = await sleepingsService.UpdateSleeping(editSleeping);
 
             if (result == null)
             {

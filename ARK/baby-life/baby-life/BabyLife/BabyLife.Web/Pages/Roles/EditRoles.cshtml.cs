@@ -6,11 +6,14 @@ using BabyLife.Api.Roles;
 using BabyLife.Api.Roles.RolesModel;
 using BabyLife.Api.Users;
 using BabyLife.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BabyLife.Web
 {
+   [Authorize(Roles = "Careroles")]
+
     public class EditRolesModel : PageModel
     {
         private readonly IRolesService rolesService;

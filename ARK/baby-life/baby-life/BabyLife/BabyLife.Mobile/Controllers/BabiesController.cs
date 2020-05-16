@@ -30,6 +30,15 @@ namespace BabyLife.Mobile.Controllers
             return result;
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(PostBabyDTO[]), StatusCodes.Status200OK)]
+        public IEnumerable<Baby> GetUserBabies(string userId)
+        {
+            var result = babiesService.GetUserBabies(userId);
+
+            return result;
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PostBabyDTO), StatusCodes.Status200OK)]
         public IActionResult GetBaby([FromRoute] int id, string userId)

@@ -46,22 +46,22 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostBathing([FromBody] PostBathingDTO postBathingDTO)
+        public async Task<IActionResult> PostBathing([FromBody] PostBathingDTO bathingDTO, int babyId)
         {
-            var result = await bathingsService.CreateBathing(postBathingDTO);
+            var result = await bathingsService.CreateBathing(bathingDTO, babyId);
 
             if (result == null)
             {
                 return NotFound();
             }
 
-            return CreatedAtAction("GetBathing", new { id = result.Id }, postBathingDTO);
+            return CreatedAtAction("GetBathing", new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBathing([FromRoute] int id, [FromBody] PostBathingDTO postBathingDTO)
+        public async Task<IActionResult> PutBathing([FromBody] Bathing editBathing)
         {
-            var result = await bathingsService.UpdateBathing(id, postBathingDTO);
+            var result = await bathingsService.UpdateBathing(editBathing);
 
             if (result == null)
             {

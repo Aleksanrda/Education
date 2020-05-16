@@ -1,0 +1,15 @@
+﻿@page
+@model BabyLife.Web.Pages.Devices.CreateDeviceModel
+@{
+    ViewData["Title"] = "Create Device";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div><label>Name</label><br /><input asp-for="NewDevice.Name" type="text" /></div>
+    <div><label>Max Volume:</label><br /><input asp-for="NewDevice.MaxVolume" type="number" /></div>
+    <div><label>MaxWeight:</label><br /><input asp-for="NewDevice.MaxWeight" type="number" /></div>
+    <input type="submit" value="Sent" />
+</form>

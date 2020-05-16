@@ -1,0 +1,18 @@
+﻿@page
+@model BabyLife.Web.CreateSleepingModel
+@{
+    ViewData["Title"] = "CreateSleeping";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+<br/>
+<br/>
+<h1>CreateSleeping</h1>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <input asp-for="BabyId" type="hidden" />
+    <div><label>Название</label><br /><input asp-for="NewSleeping.Name" type="text" /></div>
+    <div><label>Начало сна</label><br /><input asp-for="NewSleeping.StartTime" type="datetime-local" /></div>
+    <div><label>Конец сна</label><br /><input asp-for="NewSleeping.EndTime" type="datetime-local" /></div>
+    <div><label>Записи</label><br /><input asp-for="NewSleeping.Notes" type="text" /></div>
+    <input type="submit" value="Отправить" />
+</form>

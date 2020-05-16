@@ -14,9 +14,5 @@ namespace BabyLife.Api.Bathings.DTO
         public DateTime EndTime { get; set; }
 
         public int WaterTemperature { get; set; }
-
-        public int BabyId { get; set; }
-
-        public Baby Baby { get; set; }
     }
 }

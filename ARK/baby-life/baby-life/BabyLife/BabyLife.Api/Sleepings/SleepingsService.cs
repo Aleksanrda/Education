@@ -28,26 +28,33 @@ namespace BabyLife.Api.Sleepings
                StartTime = x.StartTime,
                EndTime = x.EndTime,
                Notes = x.Notes,
-               Baby = new Baby()
-               {
-                   Id = x.BabyId
-               }
            }).ToList();
 
             return result;
         }
 
-        public PostSleepingDTO GetSleeping(int id)
+        public List<Sleeping> GetBabySleepings(int babyId)
+        {
+            var sleepings = unitOfWork.Sleepings.GetAll();
+
+            var babySleepings = sleepings.Where(sleeping => sleeping.BabyId == babyId).ToList();
+
+            return babySleepings;
+        }
+
+        public Sleeping GetSleeping(int id)
         {
             var result = unitOfWork.Sleepings.GetAllLazyLoad(s => s.Id == id, s => s.Baby).AsNoTracking().First();
 
-            var sleeping = new PostSleepingDTO()
+            var sleeping = new Sleeping()
             {
+                Id = result.Id,
                 Name = result.Name,
                 StartTime = result.StartTime,
                 EndTime = result.EndTime,
                 Notes = result.Notes,
-                Baby = new Baby()
+                BabyId = result.BabyId,
+                Baby = new Baby
                 {
                     Id = result.BabyId
                 }
@@ -56,7 +63,7 @@ namespace BabyLife.Api.Sleepings
             return sleeping;
         }
 
-        public async Task<Sleeping> CreateSleeping(PostSleepingDTO sleepingDTO)
+        public async Task<Sleeping> CreateSleeping(PostSleepingDTO sleepingDTO, int babyId)
         {
             if (sleepingDTO == null)
             {
@@ -65,7 +72,7 @@ namespace BabyLife.Api.Sleepings
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == sleepingDTO.Baby.Id);
+                baby => baby.Id == babyId);
 
             var sleeping = new Sleeping()
             {
@@ -77,7 +84,7 @@ namespace BabyLife.Api.Sleepings
 
             if (baby != null)
             {
-                sleeping.BabyId = sleepingDTO.Baby.Id;
+                sleeping.BabyId = babyId;
                 sleeping.Baby = baby;
 
                 unitOfWork.Sleepings.Create(sleeping);
@@ -89,32 +96,32 @@ namespace BabyLife.Api.Sleepings
             return null;
         }
 
-        public async Task<Sleeping> UpdateSleeping(int id, PostSleepingDTO sleepingDTO)
+        public async Task<Sleeping> UpdateSleeping(Sleeping editSleeping)
         {
-            if (sleepingDTO == null)
+            if (editSleeping == null)
             {
-                throw new ArgumentNullException(nameof(sleepingDTO));
+                throw new ArgumentNullException(nameof(editSleeping));
             }
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == sleepingDTO.Baby.Id);
+                baby => baby.Id == editSleeping.Baby.Id);
 
             var sleepings = unitOfWork.Sleepings.GetAll();
             var sleeping = sleepings.FirstOrDefault(
-                sleeping => sleeping.Id == id);
+                sleeping => sleeping.Id == editSleeping.Id);
 
             if (sleeping != null)
             {
-                sleeping.Name = sleepingDTO.Name;
-                sleeping.StartTime = sleepingDTO.StartTime;
-                sleeping.EndTime = sleepingDTO.EndTime;
-                sleeping.Notes = sleepingDTO.Notes;
+                sleeping.Name = editSleeping.Name;
+                sleeping.StartTime = editSleeping.StartTime;
+                sleeping.EndTime = editSleeping.EndTime;
+                sleeping.Notes = editSleeping.Notes;
             }
 
             if (baby != null)
             {
-                sleeping.BabyId = sleepingDTO.Baby.Id;
+                sleeping.BabyId = editSleeping.Baby.Id;
                 sleeping.Baby = baby;
 
                 unitOfWork.Sleepings.Update(sleeping);

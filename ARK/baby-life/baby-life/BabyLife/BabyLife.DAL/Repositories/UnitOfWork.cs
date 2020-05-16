@@ -100,5 +100,10 @@ namespace BabyLife.DAL.Repositories
         {
             await _babyLifeDbContext.SaveChangesAsync();
         }
+
+        public void SaveChanges()
+        {
+            _babyLifeDbContext.SaveChanges();
+        }
     }
 }

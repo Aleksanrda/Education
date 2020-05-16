@@ -11,11 +11,13 @@ namespace BabyLife.Api.DiaperChanges
     {
         IEnumerable<PostDiaperChanges> GetDiaperChanges();
 
-        PostDiaperChanges GetDiaperChange(int id);
+        List<DiaperChange> GetBabyDiaperChanges(int babyId);
 
-        Task<DiaperChange> CreateDiaperChange(PostDiaperChanges diaperChangesDTO);
+        DiaperChange GetDiaperChange(int id);
 
-        Task<DiaperChange> UpdateDiaperChange(int id, PostDiaperChanges diaperChangesDTO);
+        Task<DiaperChange> CreateDiaperChange(PostDiaperChanges diaperChangesDTO, int babyId);
+
+        Task<DiaperChange> UpdateDiaperChange(DiaperChange editDiaperChange);
 
         Task<string> DeleteDiaperChange(int id);
     }

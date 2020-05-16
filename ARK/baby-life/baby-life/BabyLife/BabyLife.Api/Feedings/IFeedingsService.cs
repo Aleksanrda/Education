@@ -11,11 +11,13 @@ namespace BabyLife.Api.Feedings
     {
         IEnumerable<PostFeedingsDTO> GetFeedings();
 
-        PostFeedingsDTO GetFeeding(int id);
+        List<Feeding> GetBabyFeedings(int babyId);
 
-        Task<Feeding> CreateFeeding(PostFeedingsDTO feedingDTO);
+        Feeding GetFeeding(int id);
 
-        Task<Feeding> UpdateFeeding(int id, PostFeedingsDTO feedingDTO);
+        Task<Feeding> CreateFeeding(PostFeedingsDTO feedingDTO, int babyId);
+
+        Task<Feeding> UpdateFeeding(Feeding feeding);
 
         Task<string> DeleteFeeding(int id);
     }

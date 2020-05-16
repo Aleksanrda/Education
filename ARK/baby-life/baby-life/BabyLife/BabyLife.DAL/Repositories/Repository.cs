@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BabyLife.DAL.Repositories
 {
@@ -61,6 +62,11 @@ namespace BabyLife.DAL.Repositories
         public TEntity GetByID(object id)
         {
             return babyLifeDbSet.Find(id);
+        }
+
+        public async Task<TEntity> GetByIDAsync(object id)
+        {
+            return await babyLifeDbSet.FindAsync(id);
         }
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)

@@ -1,0 +1,47 @@
+﻿@page
+@model BabyLife.Web.UpdateBathingModel
+@{
+    ViewData["Title"] = "UpdateBathing";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+<br/>
+<br/>
+<h1>UpdateBathing</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditBathing.Id" type="hidden" />
+    <div>
+        <label>Title</label>
+        <div>
+            <input asp-for="EditBathing.Name" />
+            <span asp-validation-for="EditBathing.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>StartTime</label>
+        <div>
+            <input asp-for="EditBathing.StartTime" />
+            <span asp-validation-for="EditBathing.StartTime"></span>
+        </div>
+    </div>
+    <div>
+        <label>EndTime</label>
+        <div>
+            <input asp-for="EditBathing.EndTime" />
+            <span asp-validation-for="EditBathing.EndTime"></span>
+        </div>
+    </div>
+    <div>
+        <label>WaterTemperature</label>
+        <div>
+            <input asp-for="EditBathing.WaterTemperature" />
+            <span asp-validation-for="EditBathing.WaterTemperature"></span>
+        </div>
+    </div>
+    <input asp-for="EditBathing.Baby.Id" type="hidden" />
+    <input asp-for="EditBathing.BabyId" type="hidden" />
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

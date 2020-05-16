@@ -47,6 +47,14 @@ namespace BabyLife.Api.Babies
             return userBabies;
         }
 
+        public Baby GetBaby(int id)
+        {
+            var baby = unitOfWork.Babies.GetByID(id);
+
+            return baby;
+        }
+
+
         public Baby GetBaby(int id, string userId)
         {
             var result = unitOfWork.Babies.GetByID(id);

@@ -1,0 +1,49 @@
+﻿@page
+@model BabyLife.Web.Pages.Feedings.UpdateFeedingModel
+@{
+    ViewData["Title"] = "UpdateFeeding";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<br/>
+<br/>
+<h1>Update Feeding</h1>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditFeeding.Id" type="hidden" />
+    <div>
+        <label>Title</label>
+        <div>
+            <input asp-for="EditFeeding.Name" />
+            <span asp-validation-for="EditFeeding.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Count Milk</label>
+        <div>
+            <input asp-for="EditFeeding.CountMilk" />
+            <span asp-validation-for="EditFeeding.CountMilk"></span>
+        </div>
+    </div>
+    <div>
+        <label>Time Milk</label>
+        <div>
+            <input asp-for="EditFeeding.TimeMilk" />
+            <span asp-validation-for="EditFeeding.TimeMilk"></span>
+        </div>
+    </div>
+    <div>
+        <label>Device Id</label>
+        <div>
+            <input asp-for="EditFeeding.DeviceId" />
+            <span asp-validation-for="EditFeeding.DeviceId"></span>
+        </div>
+    </div>
+    <input asp-for="EditFeeding.Device.Id" type="hidden" />
+    <input asp-for="EditFeeding.Baby.Id" type="hidden" />
+    <input asp-for="EditFeeding.BabyId" type="hidden" />
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
+</form>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BabyMobile"
+             x:Class="BabyMobile.MainPage"
+             Title="BabyLife">
+
+    <!--<Grid x:Name="MainGrid"
+          Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <Text x:Name="FrameContentTitle"
+                 TextChanging="Navigate"
+                 Text="{Binding MainNavigationViewModel.ViewType, Converter={StaticResource EnumToStringConverter}, Source={StaticResource ViewModelLocator}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Frame x:Name="MainFrame"
+               HorizontalOptions="Stretch"
+               VerticalOptions="Stretch"/>
+    </Grid>-->
+
+    <Label Text="Babies"
+           VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+    
+</ContentPage>

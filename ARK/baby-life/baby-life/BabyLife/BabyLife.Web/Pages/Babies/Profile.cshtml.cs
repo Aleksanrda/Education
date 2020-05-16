@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BabyLife.Api.Users;
+using BabyLife.Api.Users.UsersModels;
+using BabyLife.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,19 +13,41 @@ namespace BabyLife.Web
 {
     public class ProfileModel : PageModel
     {
-        public async Task OnGet()
+        private readonly IUsersService usersService;
+        private readonly UserManager<User> userManager;
+
+        [BindProperty]
+        public EditUserViewModel EditUser { get; set; }
+
+        public ProfileModel(IUsersService usersService,
+            UserManager<User> userManager)
         {
-            string[] data = new string[] {
-            "Hello",
-            "How are you"
-            };
+            this.usersService = usersService;
+            this.userManager = userManager;
+        }
 
-            Response.Headers.Add("Content-Type", "text/event-stream");
+        public async Task<IActionResult> OnGetAsync()
+        {
+            var userId = userManager.GetUserId(User);
+            var result = await usersService.EditUser(userId);
+            EditUser = result;
 
-            for (int i =0; i < data.Length; i++)
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
             {
-                await Task.Delay(TimeSpan.FromSeconds(4));
+                var result = await usersService.EditUser(EditUser);
+
+                if (result == "Ok")
+                {
+                    return RedirectToPage("/Babies/Profile");
+                }
             }
+
+            return Page();
         }
     }
 }

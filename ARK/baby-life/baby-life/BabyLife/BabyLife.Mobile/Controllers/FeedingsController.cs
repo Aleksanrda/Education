@@ -44,24 +44,24 @@ namespace BabyLife.Mobile.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostFeeding([FromBody] PostFeedingsDTO postFeedingDTO)
+        public async Task<IActionResult> PostFeeding([FromRoute] int id, [FromBody] PostFeedingsDTO feedingDTO)
         {
-            var result = await feedingsService.CreateFeeding(postFeedingDTO);
+            var result = await feedingsService.CreateFeeding(feedingDTO, id);
 
             if (result == null)
             {
                 return NotFound();
             }
 
-            return CreatedAtAction("GetFeeding", new { id = result.Id }, postFeedingDTO);
+            return CreatedAtAction("GetFeeding", new { id = result.Id }, feedingDTO);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeeding([FromRoute] int id, [FromBody] PostFeedingsDTO postFeedingDTO)
+        public async Task<IActionResult> PutFeeding([FromRoute] int id, [FromBody] Feeding postFeedingDTO)
         {
-            var result = await feedingsService.UpdateFeeding(id, postFeedingDTO);
+            var result = await feedingsService.UpdateFeeding(postFeedingDTO);
 
             if (result == null)
             {

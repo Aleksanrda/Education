@@ -74,6 +74,8 @@ namespace BabyLife.Web
                                 smtp.Send(mail);
                             }
                         }
+
+                        unitOfWork.Reminders.Delete(reminders[i]);
                     }
                 }
             }

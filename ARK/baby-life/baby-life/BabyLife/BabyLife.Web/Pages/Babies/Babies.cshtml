@@ -6,7 +6,8 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-
+<br />
+<br />
 
 <p><a asp-page="/UserBabies/CreateBaby">Добавить ребенка</a></p>
 <table class="table">
@@ -19,6 +20,10 @@
             <td>
                 <form asp-page="/UserBabies/DeleteBaby" asp-route-id="@baby.Id" method="post">
                     <a class="btn btn-sm btn-primary" asp-page="/UserBabies/UpdateBaby" asp-route-id="@baby.Id">Кабинет</a>
+                    <a class="btn btn-sm btn-primary" asp-page="/Sleepings/IndexSleeping" asp-route-id="@baby.Id">Sleepings</a>
+                    <a class="btn btn-sm btn-primary" asp-page="/DiaperChanges/IndexDiaperChange" asp-route-id="@baby.Id">DiaperChanges</a>
+                    <a class="btn btn-sm btn-primary" asp-page="/Bathings/IndexBathing" asp-route-id="@baby.Id">Bathings</a>
+                    <a class="btn btn-sm btn-primary" asp-page="/Feedings/IndexFeeding" asp-route-id="@baby.Id">Feedings</a>
                     <button type="submit" class="btn btn-sm btn-danger" asp-page="/UserBabies/DeleteBaby" asp-route-id="@baby.Id">
                         Удалить
                     </button>

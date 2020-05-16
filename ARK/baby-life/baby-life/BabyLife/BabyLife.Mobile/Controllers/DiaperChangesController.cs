@@ -46,22 +46,22 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostDiaperChange([FromBody] PostDiaperChanges postDiaperChangesDTO)
+        public async Task<IActionResult> PostDiaperChange([FromBody] PostDiaperChanges diaperChangesDTO, [FromRoute] int babyId)
         {
-            var result = await diaperChangesService.CreateDiaperChange(postDiaperChangesDTO);
+            var result = await diaperChangesService.CreateDiaperChange(diaperChangesDTO, babyId);
 
             if (result == null)
             {
                 return NotFound();
             }
 
-            return CreatedAtAction("GetDiaperChange", new { id = result.Id }, postDiaperChangesDTO);
+            return CreatedAtAction("GetDiaperChange", new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiaperChange([FromRoute] int id, [FromBody] PostDiaperChanges postDiaperChangesDTO)
+        public async Task<IActionResult> PutDiaperChange([FromBody] DiaperChange editDiaperChange)
         {
-            var result = await diaperChangesService.UpdateDiaperChange(id, postDiaperChangesDTO);
+            var result = await diaperChangesService.UpdateDiaperChange(editDiaperChange);
 
             if (result == null)
             {

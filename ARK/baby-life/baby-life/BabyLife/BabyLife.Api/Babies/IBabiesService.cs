@@ -13,11 +13,13 @@ namespace BabyLife.Api.Babies
 
         IEnumerable<Baby> GetUserBabies(string userId);
 
+        Baby GetBaby(int id);
+
         Baby GetBaby(int id, string userId);
 
         Task<Baby> CreateBaby(PostBabyDTO baby, string userId);
 
-        Task<Baby> UpdateBaby(Baby baby, string userEmail);
+        Task<Baby> UpdateBaby(Baby baby, string userId);
 
         Task<string> DeleteBaby(int id);
     }

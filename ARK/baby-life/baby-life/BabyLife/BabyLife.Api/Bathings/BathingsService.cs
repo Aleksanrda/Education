@@ -28,25 +28,32 @@ namespace BabyLife.Api.Bathings
                StartTime = x.StartTime,
                EndTime = x.EndTime,
                WaterTemperature = x.WaterTemperature,
-               Baby = new Baby()
-               {
-                   Id = x.BabyId
-               }
            }).ToList();
 
             return result;
         }
 
-        public PostBathingDTO GetBathing(int id)
+        public List<Bathing> GetBabyBathings(int babyId)
+        {
+            var bathings = unitOfWork.Bathings.GetAll();
+
+            var babyBathings = bathings.Where(bathing => bathing.BabyId == babyId).ToList();
+
+            return babyBathings;
+        }
+
+        public Bathing GetBathing(int id)
         {
             var result = unitOfWork.Bathings.GetAllLazyLoad(b => b.Id == id, b => b.Baby).AsNoTracking().First();
 
-            var bathing = new PostBathingDTO()
+            var bathing = new Bathing()
             {
+                Id = id,
                 Name = result.Name,
                 StartTime = result.StartTime,
                 EndTime = result.EndTime,
                 WaterTemperature = result.WaterTemperature,
+                BabyId = result.BabyId,
                 Baby = new Baby()
                 {
                     Id = result.BabyId
@@ -56,7 +63,7 @@ namespace BabyLife.Api.Bathings
             return bathing;
         }
 
-        public async Task<Bathing> CreateBathing(PostBathingDTO bathingDTO)
+        public async Task<Bathing> CreateBathing(PostBathingDTO bathingDTO, int babyId)
         {
             if (bathingDTO == null)
             {
@@ -65,7 +72,7 @@ namespace BabyLife.Api.Bathings
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == bathingDTO.Baby.Id);
+                baby => baby.Id == babyId);
 
             var bathing = new Bathing()
             {
@@ -77,7 +84,7 @@ namespace BabyLife.Api.Bathings
 
             if (baby != null)
             {
-                bathing.BabyId = bathingDTO.Baby.Id;
+                bathing.BabyId = babyId;
                 bathing.Baby = baby;
 
                 unitOfWork.Bathings.Create(bathing);
@@ -89,32 +96,32 @@ namespace BabyLife.Api.Bathings
             return null;
         }
 
-        public async Task<Bathing> UpdateBathing(int id, PostBathingDTO bathingDTO)
+        public async Task<Bathing> UpdateBathing(Bathing editBathing)
         {
-            if (bathingDTO == null)
+            if (editBathing == null)
             {
-                throw new ArgumentNullException(nameof(bathingDTO));
+                throw new ArgumentNullException(nameof(editBathing));
             }
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == bathingDTO.Baby.Id);
+                baby => baby.Id == editBathing.BabyId);
 
             var bathings = unitOfWork.Bathings.GetAll();
             var bathing = bathings.FirstOrDefault(
-                bathing => bathing.Id == id);
+                bathing => bathing.Id == editBathing.Id);
 
             if (bathing != null)
             {
-                bathing.Name = bathingDTO.Name;
-                bathing.StartTime = bathingDTO.StartTime;
-                bathing.EndTime = bathingDTO.EndTime;
-                bathing.WaterTemperature = bathingDTO.WaterTemperature;
+                bathing.Name = editBathing.Name;
+                bathing.StartTime = editBathing.StartTime;
+                bathing.EndTime = editBathing.EndTime;
+                bathing.WaterTemperature = editBathing.WaterTemperature;
             }
 
             if (baby != null)
             {
-                bathing.BabyId = bathingDTO.Baby.Id;
+                bathing.BabyId = editBathing.BabyId;
                 bathing.Baby = baby;
 
                 unitOfWork.Bathings.Update(bathing);
@@ -132,7 +139,7 @@ namespace BabyLife.Api.Bathings
 
             if (bathing != null)
             {
-                unitOfWork.Sleepings.Delete(bathing);
+                unitOfWork.Bathings.Delete(bathing);
                 await unitOfWork.SaveChangesAsync();
                 return "Ok";
             }

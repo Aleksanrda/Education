@@ -42,7 +42,8 @@ namespace BabyLife.Api.Devices
             var newDevice = new Device()
             {
                 Name = device.Name,
-                Indicator = device.Indicator,
+                MaxVolume = device.MaxVolume,
+                MaxWeight = device.MaxWeight
             };
 
             if (newDevice != null)
@@ -56,7 +57,7 @@ namespace BabyLife.Api.Devices
             return null;
         }
 
-        public async Task<Device> UpdateDevice(int id, Device device)
+        public async Task<Device> UpdateDevice(Device device)
         {
             if (device == null)
             {
@@ -65,12 +66,16 @@ namespace BabyLife.Api.Devices
 
             var devices = unitOfWork.Devices.GetAll();
             var editDevice = devices.FirstOrDefault(
-                device => device.Id == id);
+                device => device.Id == device.Id);
 
             if (editDevice != null)
             {
                 editDevice.Name = device.Name;
+                editDevice.MaxVolume = device.MaxVolume;
+                editDevice.MaxWeight = device.MaxWeight;
                 editDevice.Indicator = device.Indicator;
+                editDevice.Latitude = device.Latitude;
+                editDevice.Longtitude = device.Longtitude;
                 unitOfWork.Devices.Update(editDevice);
                 await unitOfWork.SaveChangesAsync();
                 return editDevice;
@@ -108,9 +113,9 @@ namespace BabyLife.Api.Devices
             return angle * Math.PI / 180.0;
         }
 
-        public bool IsFeedingBaby(Feeding feeding)
+        public bool IsFeedingBaby(Feeding feeding, int babyId)
         {
-            var baby = unitOfWork.Babies.GetByID(feeding.BabyId);
+            var baby = unitOfWork.Babies.GetByID(babyId);
             var device = unitOfWork.Devices.GetByID(feeding.DeviceId);
 
             var distance = GetDistance(baby.Longtitude, baby.Latitude, device.Longtitude, device.Latitude);

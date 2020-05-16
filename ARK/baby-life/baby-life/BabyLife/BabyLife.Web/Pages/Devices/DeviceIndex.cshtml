@@ -2,8 +2,46 @@
 @model BabyLife.Web.DeviceIndexModel
 @{
     ViewData["Title"] = "DeviceIndex";
-    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
 
-<h1>DeviceIndex</h1>
+<h2>@ViewData["Title"]</h2>
+<br />
+<br />
+<br />
+<p><a asp-page="/Devices/CreateDevice">Add device</a></p>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Indicator</th>
+        <th>ActionRange</th>
+        <th>Latitude</th>
+        <th>Longtitude</th>
+        <th>MaxVolume</th>
+        <th>MaxWeight</th>
+    </tr>
+    @foreach (var device in Model.Devices)
+    {
+        <tr>
+            <td>@device.Id</td>
+            <td>@device.Name</td>
+            <td>@device.Indicator</td>
+            <td>@device.ActionRange</td>
+            <td>@device.Latitude</td>
+            <td>@device.Longtitude</td>
+            <td>@device.MaxVolume</td>
+            <td>@device.MaxWeight</td>
+            <td>
+                <form asp-page="/Devices/DeleteDevice" asp-route-id="@device.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/Devices/UpdateDevice" asp-route-id="@device.Id">Edit</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/Devices/DeleteDevice" asp-route-id="@device.Id">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
 

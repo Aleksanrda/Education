@@ -29,19 +29,19 @@ namespace BabyLife.Mobile.Controllers
             return result;
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
-        public IActionResult GetDevice([FromRoute] int id)
-        {
-            var result = devicesService.GetDevice(id);
+        //[HttpGet("{id}")]
+        //[ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+        //public IActionResult GetDevice([FromRoute] int id)
+        //{
+        //    var result = devicesService.GetDevice(id);
 
-            if (result == null)
-            {
-                return NotFound();
-            }
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
@@ -60,7 +60,7 @@ namespace BabyLife.Mobile.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDevice([FromRoute] int id, [FromBody] Device device)
         {
-            var result = await devicesService.UpdateDevice(id, device);
+            var result = await devicesService.UpdateDevice(device);
 
             if (result == null)
             {
@@ -77,6 +77,20 @@ namespace BabyLife.Mobile.Controllers
             var result = await devicesService.DeleteDevice(id);
 
             if (result == "Error")
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(bool[]), StatusCodes.Status200OK)]
+        public IActionResult GetIsFeedingBaby([FromRoute] int id, [FromBody] Feeding feeding)
+        {
+            var result = devicesService.IsFeedingBaby(feeding, id);
+
+            if (!result)
             {
                 return NotFound();
             }

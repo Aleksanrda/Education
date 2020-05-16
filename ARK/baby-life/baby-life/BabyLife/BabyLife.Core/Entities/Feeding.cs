@@ -6,7 +6,6 @@ namespace BabyLife.Core.Entities
 {
     public class Feeding : Entity
     {
-
         public string Name { get; set; }
 
         public int CountMilk { get; set; }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BabyLife.Api.Accounts;
@@ -34,6 +36,7 @@ namespace BabyLife.Web
         {
             if (ModelState.IsValid)
             {
+                accountsService.MyEvent += Notify;
                 var result = await accountsService.Register(Model);
 
                 if (result != null)
@@ -47,6 +50,25 @@ namespace BabyLife.Web
             }
 
             return Page();
+        }
+
+        static private void Notify(string email)
+        {
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("oleksandra.kryvko@nure.ua");
+                mail.To.Add(email);
+                mail.Subject = "BabyLife";
+                mail.Body = "You are registered successfully";
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential("oleksandra.kryvko@nure.ua", "23Dfnhei5");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
+            }
         }
     }
 }

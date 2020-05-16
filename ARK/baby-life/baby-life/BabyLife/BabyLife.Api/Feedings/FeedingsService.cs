@@ -27,42 +27,47 @@ namespace BabyLife.Api.Feedings
                Name = x.Name,
                CountMilk = x.CountMilk,
                TimeMilk = x.TimeMilk,
-               Device = new Device()
-               {
-                   Id = x.DeviceId
-               },
-               Baby = new Baby()
-               {
-                   Id = x.BabyId
-               }
+               DeviceId = x.DeviceId
            }).ToList();
 
             return result;
         }
 
-        public PostFeedingsDTO GetFeeding(int id)
+        public List<Feeding> GetBabyFeedings(int babyId)
+        {
+            var feedings = unitOfWork.Feedings.GetAll();
+
+            var babyFeedings= feedings.Where(feeding => feeding.BabyId == babyId).ToList();
+
+            return babyFeedings;
+        }
+
+        public Feeding GetFeeding(int id)
         {
             var result = unitOfWork.Feedings.GetAllLazyLoad(f => f.Id == id, f => f.Baby, f => f.Device).AsNoTracking().First();
 
-            var feeding = new PostFeedingsDTO()
+            var feeding = new Feeding()
             {
+                Id = id,
                 Name = result.Name,
                 CountMilk = result.CountMilk,
                 TimeMilk = result.TimeMilk,
+                BabyId = result.BabyId,
+                Baby = new Baby()
+                {
+                    Id = result.BabyId
+                },
+                DeviceId = result.DeviceId,
                 Device = new Device()
                 {
                     Id = result.DeviceId
                 },
-                Baby = new Baby()
-                {
-                    Id = result.BabyId
-                }
             };
 
             return feeding;
         }
 
-        public async Task<Feeding> CreateFeeding(PostFeedingsDTO feedingDTO)
+        public async Task<Feeding> CreateFeeding(PostFeedingsDTO feedingDTO, int babyId)
         {
             if (feedingDTO == null)
             {
@@ -71,11 +76,11 @@ namespace BabyLife.Api.Feedings
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == feedingDTO.Baby.Id);
+                baby => baby.Id == babyId);
 
             var devices = unitOfWork.Devices.GetAll();
             var device = devices.FirstOrDefault(
-                device => device.Id == feedingDTO.Device.Id);
+                device => device.Id == feedingDTO.DeviceId);
 
             var feeding = new Feeding()
             {
@@ -86,10 +91,10 @@ namespace BabyLife.Api.Feedings
 
             if (baby != null && device != null)
             {
-                feeding.DeviceId = feedingDTO.Device.Id;
+                feeding.DeviceId = feedingDTO.DeviceId;
                 feeding.Device = device;
 
-                feeding.BabyId = feedingDTO.Baby.Id;
+                feeding.BabyId = babyId;
                 feeding.Baby = baby;
 
                 unitOfWork.Feedings.Create(feeding);
@@ -101,38 +106,38 @@ namespace BabyLife.Api.Feedings
             return null;
         }
 
-        public async Task<Feeding> UpdateFeeding(int id, PostFeedingsDTO feedingDTO)
+        public async Task<Feeding> UpdateFeeding(Feeding editFeeding)
         {
-            if (feedingDTO == null)
+            if (editFeeding == null)
             {
-                throw new ArgumentNullException(nameof(feedingDTO));
+                throw new ArgumentNullException(nameof(editFeeding));
             }
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == feedingDTO.Baby.Id);
+                baby => baby.Id == editFeeding.Baby.Id);
 
             var devices = unitOfWork.Devices.GetAll();
             var device = devices.FirstOrDefault(
-                device => device.Id == feedingDTO.Device.Id);
+                device => device.Id == editFeeding.DeviceId);
 
             var feedings = unitOfWork.Feedings.GetAll();
             var feeding = feedings.FirstOrDefault(
-                feeding => feeding.Id == id);
+                feeding => feeding.Id == editFeeding.Id);
 
             if (feeding != null)
             {
-                feeding.Name = feedingDTO.Name;
-                feeding.CountMilk = feedingDTO.CountMilk;
-                feeding.TimeMilk = feedingDTO.TimeMilk;
+                feeding.Name = editFeeding.Name;
+                feeding.CountMilk = editFeeding.CountMilk;
+                feeding.TimeMilk = editFeeding.TimeMilk;
             }
 
             if (baby != null && device != null)
             {
-                feeding.DeviceId = feedingDTO.Device.Id;
+                feeding.DeviceId = editFeeding.Device.Id;
                 feeding.Device = device;
 
-                feeding.BabyId = feedingDTO.Baby.Id;
+                feeding.BabyId = editFeeding.Baby.Id;
                 feeding.Baby = baby;
 
                 unitOfWork.Feedings.Update(feeding);
@@ -146,7 +151,7 @@ namespace BabyLife.Api.Feedings
 
         public async Task<string> DeleteFeeding(int id)
         {
-            var feeding = unitOfWork.Devices.GetByID(id);
+            var feeding = unitOfWork.Feedings.GetByID(id);
 
             if (feeding != null)
             {

@@ -39,14 +39,14 @@ namespace BabyLife.Api.Reminders
             var day = DateTime.UtcNow;
 
             var reminderYear = day.Year;
-            var userReminders = reminders.Where(reminder => reminder.UserId == userId
-            && reminder.ReminderTime.Year >= day.Year
-            && reminder.ReminderTime.Month >= day.Month
-            && reminder.ReminderTime.Day >= day.Day);
+            var userReminders = reminders.Where(reminder => reminder.UserId == userId);
+            //&& reminder.ReminderTime.Year >= day.Year
+            //&& reminder.ReminderTime.Month >= day.Month
+            //&& reminder.ReminderTime.Day >= day.Day);
 
-            var userRemindersActual = userReminders.Where(t => t.ReminderTime.Day >= day.Day);
+            //var userRemindersActual = userReminders.Where(t => t.ReminderTime.Day >= day.Day);
 
-            return userRemindersActual;
+            return userReminders;
         }
 
         public Reminder GetReminder(int id, string userId)

@@ -27,23 +27,31 @@ namespace BabyLife.Api.DiaperChanges
                Name = x.Name,
                TimeDiaper = x.TimeDiaper,
                Reason = x.Reason,
-               Baby = new Baby()
-               {
-                   Id = x.BabyId
-               }
            }).ToList();
 
             return result;
         }
 
-        public PostDiaperChanges GetDiaperChange(int id)
+        public List<DiaperChange> GetBabyDiaperChanges(int babyId)
+        {
+            var diaperChanges = unitOfWork.DiaperChanges.GetAll();
+
+            var babyDiaperChanges = diaperChanges.Where(diaperChange => diaperChange.BabyId == babyId).ToList();
+
+            return babyDiaperChanges;
+        }
+
+        public DiaperChange GetDiaperChange(int id)
         {
             var result = unitOfWork.DiaperChanges.GetAllLazyLoad(s => s.Id == id, s => s.Baby).AsNoTracking().First();
             
-            var diaperChange = new PostDiaperChanges()
+            var diaperChange = new DiaperChange()
             {
+                Id = result.Id,
+                Name = result.Name,
                 TimeDiaper = result.TimeDiaper,
                 Reason = result.Reason,
+                BabyId = result.BabyId,
                 Baby = new Baby()
                 {
                     Id = result.BabyId
@@ -53,7 +61,7 @@ namespace BabyLife.Api.DiaperChanges
             return diaperChange;
         }
 
-        public async Task<DiaperChange> CreateDiaperChange(PostDiaperChanges diaperChangesDTO)
+        public async Task<DiaperChange> CreateDiaperChange(PostDiaperChanges diaperChangesDTO, int babyId)
         {
             if (diaperChangesDTO == null)
             {
@@ -62,17 +70,18 @@ namespace BabyLife.Api.DiaperChanges
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == diaperChangesDTO.Baby.Id);
+                baby => baby.Id == babyId);
 
             var diaperChange = new DiaperChange()
             {
+                Name = diaperChangesDTO.Name,
                 TimeDiaper = diaperChangesDTO.TimeDiaper,
                 Reason = diaperChangesDTO.Reason,
             };
 
             if (baby != null)
             {
-                diaperChange.BabyId = diaperChangesDTO.Baby.Id;
+                diaperChange.BabyId = babyId;
                 diaperChange.Baby = baby;
 
                 unitOfWork.DiaperChanges.Create(diaperChange);
@@ -84,30 +93,31 @@ namespace BabyLife.Api.DiaperChanges
             return null;
         }
 
-        public async Task<DiaperChange> UpdateDiaperChange(int id, PostDiaperChanges diaperChangesDTO)
+        public async Task<DiaperChange> UpdateDiaperChange(DiaperChange editDiaperChange)
         {
-            if (diaperChangesDTO == null)
+            if (editDiaperChange == null)
             {
-                throw new ArgumentNullException(nameof(diaperChangesDTO));
+                throw new ArgumentNullException(nameof(editDiaperChange));
             }
 
             var babies = unitOfWork.Babies.GetAll();
             var baby = babies.FirstOrDefault(
-                baby => baby.Id == diaperChangesDTO.Baby.Id);
+                baby => baby.Id == editDiaperChange.BabyId);
 
             var diaperChanges = unitOfWork.DiaperChanges.GetAll();
             var diaperChange = diaperChanges.FirstOrDefault(
-                sleeping => sleeping.Id == id);
+                sleeping => sleeping.Id == editDiaperChange.Id);
 
             if (diaperChange != null)
             {
-                diaperChange.TimeDiaper = diaperChangesDTO.TimeDiaper;
-                diaperChange.Reason = diaperChangesDTO.Reason;
+                diaperChange.Name = editDiaperChange.Name;
+                diaperChange.TimeDiaper = editDiaperChange.TimeDiaper;
+                diaperChange.Reason = editDiaperChange.Reason;
             }
 
             if (baby != null)
             {
-                diaperChange.BabyId = diaperChangesDTO.Baby.Id;
+                diaperChange.BabyId = editDiaperChange.BabyId;
                 diaperChange.Baby = baby;
 
                 unitOfWork.DiaperChanges.Update(diaperChange);

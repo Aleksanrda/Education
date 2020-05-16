@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using BabyLife.Api.Users;
 using BabyLife.Api.Users.UsersModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BabyLife.Web
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : PageModel
     {
         private readonly IUsersService usersService;

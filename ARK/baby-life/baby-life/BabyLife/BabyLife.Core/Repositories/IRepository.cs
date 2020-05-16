@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BabyLife.Core.Repositories
 {
@@ -22,6 +23,8 @@ namespace BabyLife.Core.Repositories
         void Delete(object id);
 
         TEntity GetByID(object id);
+
+        Task<TEntity> GetByIDAsync(object id);
 
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
 

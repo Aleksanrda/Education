@@ -11,11 +11,13 @@ namespace BabyLife.Api.Sleepings
     {
         IEnumerable<PostSleepingDTO> GetSleepings();
 
-        PostSleepingDTO GetSleeping(int id);
+        List<Sleeping> GetBabySleepings(int babyId);
 
-        Task<Sleeping> CreateSleeping(PostSleepingDTO sleepingDTO);
+        Sleeping GetSleeping(int id);
 
-        Task<Sleeping> UpdateSleeping(int id, PostSleepingDTO sleepingDTO);
+        Task<Sleeping> CreateSleeping(PostSleepingDTO sleepingDTO, int babyId);
+
+        Task<Sleeping> UpdateSleeping(Sleeping editSleeping);
 
         Task<string> DeleteSleeping(int id);
     }

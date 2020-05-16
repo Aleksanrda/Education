@@ -16,11 +16,5 @@ namespace BabyLife.Api.DiaperChanges.DTO
 
         [Required]
         public string Reason { get; set; }
-
-        [Required]
-        public int BabyId { get; set; }
-
-        [Required]
-        public Baby Baby { get; set; }
     }
 }

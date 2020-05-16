@@ -9,6 +9,7 @@ using BabyLife.Api.Accounts;
 using BabyLife.Api.Accounts.AccountsModel;
 using BabyLife.Core.Entities;
 using BabyLife.Mobile.Options;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

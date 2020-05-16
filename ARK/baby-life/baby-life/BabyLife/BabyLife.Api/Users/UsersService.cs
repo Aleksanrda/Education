@@ -69,7 +69,8 @@ namespace BabyLife.Api.Users
             {
                 Id = user.Id,
                 Email = user.Email,
-                Year = user.Birthdate
+                Year = user.Birthdate,
+                ShareCode = user.ShareCode
             };
 
             return model;
@@ -89,6 +90,7 @@ namespace BabyLife.Api.Users
                 user.Email = model.Email;
                 user.UserName = model.Email;
                 user.Birthdate = model.Year;
+                user.ShareCode = model.ShareCode;
 
                 var result = await userManager.UpdateAsync(user);
 

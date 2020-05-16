@@ -26,7 +26,7 @@ namespace BabyLife.Web
             {
                 await accountsService.Logout();
 
-                return RedirectToPage("/Login");
+                return RedirectToPage("/Accounts/Login");
             }
 
             string url = Url.Page("Login");

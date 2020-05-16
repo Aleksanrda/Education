@@ -25,5 +25,7 @@ namespace BabyLife.Core.Repositories
         IRepository<Device> Devices { get; }
 
         Task SaveChangesAsync();
+
+        void SaveChanges();
     }
 }

@@ -1,0 +1,29 @@
+﻿@page
+@model BabyLife.Web.IndexDiaperChangeModel
+@{
+    ViewData["Title"] = "IndexDiaperChange";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h1>IndexDiaperChange</h1>
+
+<table class="table">
+    <tr><td><a class="btn btn-sm btn-primary" asp-page="/DiaperChanges/CreateDiaperChange" asp-route-id="@Model.Id">Добавить diaperchange</a></td></tr>
+    <tr>
+        <th>Name</th>
+        @foreach (var diaperChange in Model.DiaperChanges)
+        {
+
+        <tr>
+            <td>@diaperChange.Name</td>
+            <td>
+                <form asp-page="/DiaperChanges/DeleteDiaperChange" asp-route-id="@diaperChange.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/DiaperChanges/UpdateDiaperChange" asp-route-id="@diaperChange.Id">Кабинет</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/DiaperChanges/DeleteDiaperChange" asp-route-id="@diaperChange.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>

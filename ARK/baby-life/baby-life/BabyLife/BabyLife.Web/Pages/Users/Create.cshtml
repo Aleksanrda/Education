@@ -8,7 +8,7 @@
 <div asp-validation-summary="All"></div>
 <form method="POST">
     <div><label>Имя</label><br /><input asp-for="NewUser.Email" type="text"/></div>
-    <div><label>Возраст:</label><br /><input asp-for="NewUser.Year" type="datetime"/></div>
+    <div><label>Возраст:</label><br /><input asp-for="NewUser.Year" type="datetime-local"/></div>
     <div><label>Пароль:</label><br /><input asp-for="NewUser.Password" type="password"/></div>
     <input type="submit" value="Отправить" />
 </form>

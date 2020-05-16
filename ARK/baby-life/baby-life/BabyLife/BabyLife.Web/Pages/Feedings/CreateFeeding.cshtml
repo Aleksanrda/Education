@@ -1,0 +1,19 @@
+﻿@page
+@model BabyLife.Web.Pages.Feedings.CreateFeedingModel
+@{
+    ViewData["Title"] = "CreateFeeding";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+<br/>
+<br/>
+<h1>Create Feeding</h1>
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <input asp-for="BabyId" type="hidden" />
+    <div><label>Name</label><br /><input asp-for="NewFeeding.Name" type="text" /></div>
+    <div><label>Count Milk</label><br /><input asp-for="NewFeeding.CountMilk" type="number" /></div>
+    <div><label>Time milk</label><br /><input asp-for="NewFeeding.TimeMilk" type="datetime-local" /></div>
+    <div><label>Device id</label><br /><input asp-for="NewFeeding.DeviceId" type="number" /></div>
+    <input type="submit" value="Sent" />
+</form>

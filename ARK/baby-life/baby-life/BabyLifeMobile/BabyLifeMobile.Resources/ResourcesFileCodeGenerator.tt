@@ -1,0 +1,133 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="System.Xml.Linq.dll" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+
+namespace BabyLifeMobile.Resources
+{
+	using System.Globalization;
+	using BabyLifeMobile.Resources.Core;
+	using System;
+	using BabyLifeMobile.Core.Models;
+<#  
+    string stringsDir = Path.GetDirectoryName(this.Host.TemplateFile);
+	string reswFileDirectory = Path.Combine(stringsDir, @"en-US");
+	var files = Directory.GetFiles(reswFileDirectory);
+	var fileNames = new String[files.Length];
+	int iterator = 0;
+    foreach (var filePath in files)
+    {
+        var resourceClassName = Path.GetFileNameWithoutExtension(filePath);
+        var fileName = Path.GetFileName(filePath);
+		fileNames[iterator] = resourceClassName;
+		#>
+
+	/// <summary>
+    /// Provides access to resources from <#= fileName #> file.
+    /// </summary>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1053:StaticHolderTypesShouldNotHaveConstructors", Justification = "Yet it will be unstatic.")]
+	public class <#= resourceClassName #>
+	{
+		/// <summary>
+        /// Contains logic for accessing contsnt of resource file.
+        /// </summary>
+		private static ResourceProvider resourceProvider = new ResourceProvider("BabyLifeMobile.Resources/<#= resourceClassName #>");
+		
+		/// <summary>
+        /// Overrides the current thread's CurrentUICulture property for all
+        /// resource lookups using this strongly typed resource class.
+        /// </summary>
+        public static CultureInfo Culture
+        {
+            get
+            {
+                return resourceProvider.OverridedCulture;
+            }
+            set
+            {
+                resourceProvider.OverridedCulture = value;
+            }
+        }
+
+<#
+		var doc = XDocument.Load(filePath);
+		var data = doc.Element("root").Elements("data").Select(i => new { Name = i.Attribute("name").Value, Value = i.Element("value").Value }).ToArray();
+		foreach (var tuple in data.OrderBy(i=> i.Name))
+		{
+#>
+		/// <summary>
+        /// Gets a localized string similar to "<#= tuple.Value.Replace("\n", " ").Replace("\r", " ") #>"
+        /// </summary>
+		public static string <#= tuple.Name.Replace(".","") #>
+        {
+            get
+            {
+                return resourceProvider.GetString("<#=tuple.Name.Replace(".","/")#>");
+            }
+        }
+
+<# } #>
+	}
+
+<#		iterator++;
+	} #>
+
+	public sealed class LocalizedStrings : ObservableObject
+    {
+		/// <summary>
+        /// Initialize a new instance of <see cref="LocalizedStrings"/> class.
+        /// </summary>
+        public LocalizedStrings()
+        {
+            this.RefreshLanguageSettings();
+        }
+
+		public static event EventHandler LocalizedStringsRefreshedEvent;
+
+		public void OnLocalizedStringsRefreshedEvent()
+        {
+            // Make a temporary copy of the event to avoid possibility of 
+            // a race condition if the last subscriber unsubscribes 
+            // immediately after the null check and before the event is raised.
+            EventHandler handler = LocalizedStringsRefreshedEvent;
+
+            // Event will be null if there are no subscribers 
+            if (handler != null)
+            {
+                // Use the () operator to raise the event.
+                handler(this, new EventArgs());
+            }
+        }
+
+		<#
+		foreach (var fileName in fileNames)
+		{
+		#>
+        /// <summary>
+		/// Gets resources that are common across application.
+		/// </summary>
+		public <#= fileName #> <#= fileName #> { get; private set; }
+
+	<# } #>
+
+		public void RefreshLanguageSettings()
+        {
+			<#
+			foreach (var fileName in fileNames)
+			{
+			#>
+            this.<#= fileName #> = new <#= fileName #>();
+			this.OnPropertyChanged("<#= fileName #>");
+		<# } #>
+
+
+			OnLocalizedStringsRefreshedEvent();
+		}
+	}
+}

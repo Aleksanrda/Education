@@ -1,0 +1,39 @@
+﻿@page
+@model BabyLife.Web.Pages.Devices.UpdateDeviceModel
+@{
+    ViewData["Title"] = "UpdateDevice";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h1>UpdateDevice</h1>
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="EditDevice.Id" type="hidden" />
+    <div>
+        <label>Name</label>
+        <div>
+            <input asp-for="EditDevice.Name" />
+            <span asp-validation-for="EditDevice.Name"></span>
+        </div>
+    </div>
+    <div>
+        <label>Max Volume</label>
+        <div>
+            <input asp-for="EditDevice.MaxVolume" type="number" />
+            <span asp-validation-for="EditDevice.MaxVolume"></span>
+        </div>
+    </div>
+    <div>
+        <label>Max Weight</label>
+        <div>
+            <input asp-for="EditDevice.MaxWeight" type="number" />
+            <span asp-validation-for="EditDevice.MaxWeight"></span>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Update" />
+    </div>
+</form>

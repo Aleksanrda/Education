@@ -33,6 +33,7 @@ namespace BabyLife.Mobile
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc();
             services.AddControllers();
             services.AddDbContext<BabyLifeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("BabyLife.DAL")));
 
@@ -61,6 +62,8 @@ namespace BabyLife.Mobile
 
             services.RegisterBabyLifeServices(Configuration);
 
+            //services.AddCors();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -75,12 +78,12 @@ namespace BabyLife.Mobile
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

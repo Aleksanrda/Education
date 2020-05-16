@@ -1,0 +1,30 @@
+﻿@page
+@model BabyLife.Web.Pages.Feedings.IndexFeedingModel
+@{
+    ViewData["Title"] = "IndexFeeding";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+<h1>Feeding service</h1>
+
+<table class="table">
+    <tr><td><a class="btn btn-sm btn-primary" asp-page="/Feedings/CreateFeeding" asp-route-id="@Model.Id">Add feeding</a></td></tr>
+    <tr>
+        <th>Name</th>
+        @foreach (var feeding in Model.Feedings)
+        {
+
+        <tr>
+            <td>@feeding.Name</td>
+            <td>
+                <form asp-page="/Feedings/DeleteFeeding" asp-route-id="@feeding.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-page="/Feedings/UpdateFeeding" asp-route-id="@feeding.Id">Кабинет</a>
+                    <button type="submit" class="btn btn-sm btn-danger" asp-page="/Feedings/DeleteFeeding" asp-route-id="@feeding.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </table>
+

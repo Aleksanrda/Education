@@ -17,5 +17,7 @@ namespace BabyLife.Api.Accounts
         Task<User> LoginCarePerson(LoginCarePersonViewModel loginCarePerson);
 
         Task Logout();
+
+        event EventDelegate MyEvent;
     }
 }

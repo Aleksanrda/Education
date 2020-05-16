@@ -1,0 +1,19 @@
+﻿@page
+@model BabyLife.Web.CreateBathingModel
+@{
+    ViewData["Title"] = "CreateBathing";
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+<br/>
+<br/>
+<h1>CreateBathing</h1>
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <input asp-for="BabyId" type="hidden" />
+    <div><label>Название</label><br /><input asp-for="NewBathing.Name" type="text" /></div>
+    <div><label>Начало bathing</label><br /><input asp-for="NewBathing.StartTime" type="datetime-local" /></div>
+    <div><label>Конец bathing</label><br /><input asp-for="NewBathing.EndTime" type="datetime-local" /></div>
+    <div><label>Temperature</label><br /><input asp-for="NewBathing.WaterTemperature" type="number" /></div>
+    <input type="submit" value="Отправить" />
+</form>

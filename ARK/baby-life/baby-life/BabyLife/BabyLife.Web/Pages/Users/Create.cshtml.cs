@@ -6,11 +6,14 @@ using BabyLife.Api.Users;
 using BabyLife.Api.Users.UsersModels;
 using BabyLife.Core.Entities;
 using BabyLife.Core.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BabyLife.Web
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : PageModel
     {
         private readonly IUsersService usersService;

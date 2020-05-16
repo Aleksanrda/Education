@@ -11,11 +11,13 @@ namespace BabyLife.Api.Bathings
     {
         IEnumerable<PostBathingDTO> GetBathings();
 
-        PostBathingDTO GetBathing(int id);
+        List<Bathing> GetBabyBathings(int babyId);
 
-        Task<Bathing> CreateBathing(PostBathingDTO bathingDTO);
+        Bathing GetBathing(int id);
 
-        Task<Bathing> UpdateBathing(int id, PostBathingDTO bathingDTO);
+        Task<Bathing> CreateBathing(PostBathingDTO bathingDTO, int babyId);
+
+        Task<Bathing> UpdateBathing(Bathing editBathing);
 
         Task<string> DeleteBathing(int id);
     }
