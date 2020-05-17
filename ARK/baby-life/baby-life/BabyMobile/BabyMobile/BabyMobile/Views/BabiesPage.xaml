@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BabyMobile.Views.BabiesPage">
+    <ContentPage.BindingContext>
+        <vm:BabyViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Entry Text="{Binding Babies}"></Entry>
+
+        <Button Command="{Binding GetBabiesCommand}"
+                Text="Get babies"/>
+
+        <ListView ItemsSource="{Binding Babies}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Name}"></Label>
+                            <Label Text="{Binding GenderType}"></Label>
+                            <Label Text="{Binding BloodType}"></Label>
+                            <Label Text="{Binding Notes}"></Label>
+                            <Label Text="{Binding Longtitude}"></Label>
+                            <Label Text="{Binding Latitude}"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

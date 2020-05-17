@@ -1,4 +1,5 @@
-﻿using BabyMobile.Models.Enums;
+﻿using BabyMobile.Models;
+using BabyMobile.Models.Enums;
 using BabyMobile.ViewModels;
 using CommonServiceLocator;
 using System;
@@ -17,36 +18,28 @@ namespace BabyMobile.Views
     {
         public LoginPage()
         {
-            InitializeComponent();
-
-            ToolbarItem login = new ToolbarItem
-            {
-                Text = "Login",
-                Order = ToolbarItemOrder.Primary,
-                Priority = 0
-            };
-
-            ToolbarItem loginCarePerson = new ToolbarItem
-            {
-                Text = "Login for care person",
-                Order = ToolbarItemOrder.Secondary,
-                Priority = 1
-            };
-
-            ToolbarItem register = new ToolbarItem
-            {
-                Text = "Register",
-                Order = ToolbarItemOrder.Secondary,
-                Priority = 2
-            };
-
-            ToolbarItems.Add(login);
-            ToolbarItems.Add(loginCarePerson);
-            ToolbarItems.Add(register);
+            InitializeComponent();            
         }
 
-        public async Task Button_Clicked_Login()
+        public async void Button_Clicked_Login(object sender, EventArgs e)
         {
+            AuthModel authModel = new AuthModel()
+            {
+                Email = emailEntry.Text,
+                Password = passwordEntry.Text,
+            };
+
+            await Login(authModel);
+        }
+
+        public async Task Login(AuthModel authModel)
+        {
+            AuthViewModel authViewModel = new AuthViewModel();
+            authViewModel.Email = authModel.Email;
+            authViewModel.Password = authModel.Password;
+
+            await authViewModel.LoginUser(authModel);
+
             var viewModel = ServiceLocator.Current.GetInstance<MainNavigationViewModel>();
             var typeValue = viewModel.ViewType;
             Type type = typeof(LoginPage);
@@ -65,6 +58,16 @@ namespace BabyMobile.Views
                     await Navigation.PushAsync(new MainPage());
                     break;
             }
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new RegisterPage()));
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new LoginCarePersonPage()));
         }
     }
 }

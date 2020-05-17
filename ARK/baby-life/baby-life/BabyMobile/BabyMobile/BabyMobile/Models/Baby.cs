@@ -6,6 +6,8 @@ namespace BabyMobile.Models
 {
     public class Baby
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string GenderType { get; set; }

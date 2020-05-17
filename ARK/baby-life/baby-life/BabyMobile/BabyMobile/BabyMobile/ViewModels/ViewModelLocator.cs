@@ -11,14 +11,14 @@ namespace BabyMobile.ViewModels
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            //SimpleIoc.Default.Register<AuthorizationViewModel>();
+            SimpleIoc.Default.Register<AuthViewModel>();
             SimpleIoc.Default.Register<RegisterViewModel>();
             SimpleIoc.Default.Register<MainNavigationViewModel>();
             SimpleIoc.Default.Register<UserViewModel>();
             //SimpleIoc.Default.Register<DeviceViewModel>();
         }
 
-        //public AuthorizationViewModel AuthorizationViewModel => SimpleIoc.Default.GetInstance<AuthorizationViewModel>();
+        public AuthViewModel AuthViewModel => SimpleIoc.Default.GetInstance<AuthViewModel>();
         public MainNavigationViewModel MainNavigationViewModel => SimpleIoc.Default.GetInstance<MainNavigationViewModel>();
         public RegisterViewModel RegistrationViewModel => SimpleIoc.Default.GetInstance<RegisterViewModel>();
         public UserViewModel UserViewModel => SimpleIoc.Default.GetInstance<UserViewModel>();

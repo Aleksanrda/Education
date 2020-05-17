@@ -2,33 +2,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:vmp="clr-namespace:BabyMobile.Views"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BabyMobile.Views.RegisterPage">
-    
+
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
     </ContentPage.BindingContext>
 
     <StackLayout Orientation="Vertical">
-        
+
         <Label Text="Welcome to BabyLife!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-        
-        <Entry Text="{Binding Email}" Placeholder="email"></Entry>
-        <Entry Text="{Binding Year}" Placeholder="birthday"></Entry>
-        <Entry Text="{Binding Password}" Placeholder="password" IsPassword="True"></Entry>
-        <Entry Text="{Binding PasswordConfirm}" Placeholder="confirm password" IsPassword="True"></Entry>
 
-        <Button Command="{Binding RegisterCommand}"
-                Text="Register"/>
+        <Entry x:Name="emailEntry" Text="{Binding Email}"
+               Placeholder="email"/>
+        <DatePicker x:Name="yearEntry"
+                    Date="{Binding Year}"/>
+        <Entry x:Name="passwordEntry" 
+               Text="{Binding Password}"
+               IsPassword="True"
+               Placeholder="password"/>
+        <Entry x:Name="confirmPasswordEntry" 
+               Placeholder="confirm password"
+               IsPassword="True"/>
+
+        <Button Text="Register" 
+                Clicked="Button_Clicked"/>
 
         <Label Text="{Binding Message}"/>
 
         <Button Text="Go to Login Page"
-                Clicked="Button_Clicked"/>
+                Clicked="Button_Clicked_1"/>
 
     </StackLayout>
 </ContentPage>

@@ -2,7 +2,6 @@
 using BabyMobile.Models.Enums;
 using BabyMobile.Provider;
 using BabyMobile.Services;
-using BabyMobile.Views;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
@@ -11,56 +10,24 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
 using constants = BabyMobile.Models.Constants;
 
 namespace BabyMobile.ViewModels
 {
-    public class AuthViewModel : BaseViewModel
+    public class AuthCarePersonViewModel : BaseViewModel
     {
-        private bool isUserAuthorized;
-
         private ApiServices _apiServices = new ApiServices();
 
-        public string Email { get; set; }
+        private bool isUserAuthorized;
 
-        public string Password { get; set; }
+        public int ShareCode { get; set; }
 
         public RelayCommand LogoutCommand { get; private set; }
 
-        public AuthViewModel()
+        public AuthCarePersonViewModel()
         {
             this.LogoutCommand = new RelayCommand(this.LogOutExecute, isUserAuthorized);
         }
-
-        //public ICommand LoginCommand
-        //{
-        //    get
-        //    {
-        //        return new Command(async() =>
-        //        {
-        //            var responseResult = await _apiServices.LoginAsync(Email, Password);
-
-        //            try
-        //            {
-        //                var token = JsonConvert.DeserializeObject<JwtToken>(responseResult);
-        //                ServiceLocator.Current.GetInstance<UserViewModel>().JwtToken = token;
-        //                this.IsUserAuthorized = true;
-        //            }
-        //            catch
-        //            {
-        //                this.IsUserAuthorized = false;
-        //            }
-        //            if (this.isUserAuthorized)
-        //            {
-        //               // LoginPage loginPage = new LoginPage();
-        //                ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.MainPage;
-        //                //await loginPage.Button_Clicked_Login();
-        //            }
-        //        });
-        //    }
-        //}
 
         public bool IsUserAuthorized
         {
@@ -91,9 +58,9 @@ namespace BabyMobile.ViewModels
             }
         }
 
-        public async Task LoginUser(AuthModel authModel)
+        public async Task LoginCareUser(AuthCarePersonModel authCarePersonModel)
         {
-            var responseResult = await _apiServices.LoginAsync(authModel.Email, authModel.Password);
+            var responseResult = await _apiServices.LoginCarePersonAsync(authCarePersonModel.ShareCode);
 
             try
             {

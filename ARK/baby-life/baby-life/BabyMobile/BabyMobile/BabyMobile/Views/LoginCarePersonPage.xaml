@@ -1,15 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:local="clr-namespace:BabyMobile.Converters"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BabyMobile.Views.LoginCarePersonPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
+    <ContentPage.BindingContext>
+        <vm:AuthCarePersonViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NullableIntConverter x:Key="NullableIntConverter" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+
+        <Label Text="Welcome to BabyLife!" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+
+        <Entry x:Name="shareCodeEntry" 
+               Text="{Binding ShareCode, Converter={StaticResource NullableIntConverter}}"
+               Placeholder="share code"
+               IsPassword="True">
+        </Entry>
+
+        <Button Text="Login as care person" 
+                Clicked="Button_Clicked_Login"/>
+
+        <Button Text="Go to Login Page"
+                Clicked="Button_Clicked_1"></Button>
+
+        <Button Text="Go to Register Page"
+                Clicked="Button_Clicked"></Button>
+
+    </StackLayout>
 </ContentPage>

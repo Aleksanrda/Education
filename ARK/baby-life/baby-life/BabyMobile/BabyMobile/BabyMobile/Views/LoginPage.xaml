@@ -16,13 +16,20 @@
         <Label Text="Welcome to BabyLife!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-            
-        <Entry Text="{Binding Email}"></Entry>
-        <Entry Text="{Binding Password}"
+
+        <Entry x:Name="emailEntry" Text="{Binding Email}"></Entry>
+        <Entry x:Name="passwordEntry" Text="{Binding Password}"
                IsPassword="True"></Entry>
 
-        <Button Command="{Binding LoginCommand}"
-                Text="Login"></Button>
+        <Button Text="Login" 
+                Clicked="Button_Clicked_Login"/>
+            
+        <Button Text="Go to Register Page"
+                Clicked="Button_Clicked"></Button>
+
+        <Button Text="Go to Careperson Login Page"
+                Clicked="Button_Clicked_1"></Button>
+            
     </StackLayout>
 
 </ContentPage>

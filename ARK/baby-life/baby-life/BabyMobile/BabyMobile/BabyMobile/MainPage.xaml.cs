@@ -21,39 +21,51 @@ namespace BabyMobile
         {
             InitializeComponent();
 
+            ToolbarItem profile = new ToolbarItem
+            {
+                Text = "Profile",
+                Order = ToolbarItemOrder.Primary,
+                Priority = 1
+            };
+
             ToolbarItem babies = new ToolbarItem
             {
                 Text = "Babies",
-                Order = ToolbarItemOrder.Primary,
-                Priority = 0
+                Order = ToolbarItemOrder.Secondary,
+                Priority = 2
             };
 
             ToolbarItem reminders = new ToolbarItem
             {
                 Text = "Reminders",
                 Order = ToolbarItemOrder.Secondary,
-                Priority = 1
+                Priority = 3
             };
 
             ToolbarItem devices = new ToolbarItem
             {
                 Text = "Devices",
                 Order = ToolbarItemOrder.Secondary,
-                Priority = 2
+                Priority = 4
             };
 
             ToolbarItem feedings = new ToolbarItem
             {
                 Text = "Feedings",
                 Order = ToolbarItemOrder.Secondary,
-                Priority = 3
+                Priority = 5
             };
 
             ToolbarItem logout = new ToolbarItem
             {
                 Text = "Logout",
                 Order = ToolbarItemOrder.Secondary,
-                Priority = 3
+                Priority = 6
+            };
+
+            babies.Clicked += async (s, e) =>
+            {
+                await Navigation.PushModalAsync(new NavigationPage(new BabiesPage()));
             };
 
             logout.Clicked += async (s, e) =>

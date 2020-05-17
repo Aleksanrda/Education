@@ -58,7 +58,7 @@ namespace BabyLife.Mobile
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthOptions.Key)),
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
-                }); ;
+                }); 
 
             services.RegisterBabyLifeServices(Configuration);
 

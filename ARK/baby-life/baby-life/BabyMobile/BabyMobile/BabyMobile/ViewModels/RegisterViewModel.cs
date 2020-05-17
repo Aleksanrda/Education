@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using constants = BabyMobile.Models.Constants;
@@ -31,38 +32,38 @@ namespace BabyMobile.ViewModels
 
         public string Message { get; set; }
 
-        public ICommand RegisterCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    var response = await _apiServices.RegisterAsync(Email, Password, PasswordConfirm);
+        //public ICommand RegisterCommand
+        //{
+        //    get
+        //    {
+        //        return new Command(async () =>
+        //        {
+        //            var response = await _apiServices.RegisterAsync(Email, Password, PasswordConfirm);
 
-                    try
-                    {
-                        var token = JsonConvert.DeserializeObject<JwtToken>(response);
-                        ServiceLocator.Current.GetInstance<UserViewModel>().JwtToken = token;
-                        this.IsErrorOccured = false;
-                    }
-                    catch
-                    {
-                        this.IsErrorOccured = true;
-                    }
+        //            try
+        //            {
+        //                var token = JsonConvert.DeserializeObject<JwtToken>(response);
+        //                ServiceLocator.Current.GetInstance<UserViewModel>().JwtToken = token;
+        //                this.IsErrorOccured = false;
+        //            }
+        //            catch
+        //            {
+        //                this.IsErrorOccured = true;
+        //            }
 
-                    if (this.IsErrorOccured)
-                    {
-                        ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.LoginPage;
-                    }
-                    else
-                    {
-                        RegisterPage registerPage = new RegisterPage();
-                        ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.MainPage;
-                        await registerPage.Button_Clicked_Register();
-                    }
-                });
-            }
-        }
+        //            if (this.IsErrorOccured)
+        //            {
+        //                ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.LoginPage;
+        //            }
+        //            else
+        //            {
+        //                RegisterPage registerPage = new RegisterPage();
+        //                ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.MainPage;
+        //                await registerPage.Button_Clicked_Register();
+        //            }
+        //        });
+        //    }
+        //}
 
         public bool IsErrorOccured
         {
@@ -77,6 +78,33 @@ namespace BabyMobile.ViewModels
                     this.isErrorOccured = value;
                     this.OnPropertyChanged();
                 }
+            }
+        }
+
+        public async Task RegisterUser(RegisterModel registerModel)
+        {
+            var response = await _apiServices.RegisterAsync(registerModel.Email, registerModel.Password, registerModel.PasswordConfirm);
+
+            try
+            {
+                var token = JsonConvert.DeserializeObject<JwtToken>(response);
+                ServiceLocator.Current.GetInstance<UserViewModel>().JwtToken = token;
+                this.IsErrorOccured = false;
+            }
+            catch
+            {
+                this.IsErrorOccured = true;
+            }
+
+            if (this.IsErrorOccured)
+            {
+                ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.LoginPage;
+            }
+            else
+            {
+                RegisterPage registerPage = new RegisterPage();
+                ServiceLocator.Current.GetInstance<MainNavigationViewModel>().ViewType = ViewType.MainPage;
+                //await registerPage.Button_Clicked_Register();
             }
         }
     }

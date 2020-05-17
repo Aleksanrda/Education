@@ -6,6 +6,6 @@ namespace BabyMobile.Models.Constants
 {
     public class Constants
     {
-        public const string ServerHostURL = "https://a73cfc45.ngrok.io/";
+        public const string ServerHostURL = "https://88346a15.ngrok.io/";
     }
 }
