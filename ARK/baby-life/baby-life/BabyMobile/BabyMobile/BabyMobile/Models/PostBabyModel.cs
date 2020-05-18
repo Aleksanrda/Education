@@ -4,10 +4,8 @@ using System.Text;
 
 namespace BabyMobile.Models
 {
-    public class Baby
+    public class PostBabyModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string GenderType { get; set; }

@@ -1,5 +1,4 @@
-﻿using Android.Util;
-using BabyMobile.Models;
+﻿using BabyMobile.Models;
 using BabyMobile.Services;
 using CommonServiceLocator;
 using System;
@@ -12,33 +11,35 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class BabyViewModel : INotifyPropertyChanged
+    public class ReminderViewModel : INotifyPropertyChanged
     {
         ApiServices _apiServices = new ApiServices();
-        private List<Baby> _babies;
 
-        public List<Baby> Babies 
+        private List<Reminder> _reminders;
+
+        public List<Reminder> Reminders
         {
-            get { return _babies;  } 
+            get { return _reminders; }
             set
-            { 
-                _babies = value;
+            {
+                _reminders = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
-        public ICommand GetBabiesCommand
+        public ICommand GetRemindersCommand
         {
             get
             {
-                return new Command(async() =>
+                return new Command(async () =>
                 {
                     var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://6a2e3bcd.ngrok.io/", "api/Babies/userBabies", userId);
-                    Babies = await _apiServices.GetBabiesAsync(httpGetUserBabiesUrl);
+                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://6a2e3bcd.ngrok.io/", "api/Reminders/userReminders", userId);
+                    Reminders = await _apiServices.GetRemindersAsync(httpGetUserBabiesUrl);
                 });
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

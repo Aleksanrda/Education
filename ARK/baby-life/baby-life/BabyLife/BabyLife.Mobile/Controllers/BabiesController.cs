@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BabyLife.Api.Babies;
 using BabyLife.Api.Babies.DTO;
 using BabyLife.Core.Entities;
+using BabyLife.Mobile.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,24 +54,43 @@ namespace BabyLife.Mobile.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("{userId}")]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostBaby([FromBody] PostBabyDTO postBabyDTO, string userId)
+        public async Task<IActionResult> PostBaby([FromRoute] string userId, [FromBody] PostBabyDTO baby)
         {
-            var result = await babiesService.CreateBaby(postBabyDTO, userId);
+            //var postBabyDTO = new PostBabyDTO()
+            //{
+            //    Name = baby.Name,
+            //    GenderType = baby.Name,
+            //    BloodType = baby.BloodType,
+            //    Allergies = baby.Allergies,
+            //    Notes = baby.Notes
+            //};
+
+            var result = await babiesService.CreateBaby(baby, userId);
 
             if (result == null)
             {
                 return NotFound();
             }
 
-            return CreatedAtAction("GetBaby", new { id = result.Id }, postBabyDTO);
+            return CreatedAtAction("GetBaby", new { id = result.Id }, baby);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaby([FromBody] Baby baby, string userId)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> PutBaby([FromRoute] string userId, [FromBody] PutBaby baby)
         {
-            var result = await babiesService.UpdateBaby(baby, userId);
+            var putBaby = new Baby()
+            {
+                Id = baby.Id,
+                Name = baby.Name,
+                GenderType = (GenderType)Enum.Parse(typeof(GenderType), baby.GenderType),
+                BloodType = baby.BloodType,
+                Allergies = baby.Allergies,
+                Notes = baby.Notes
+            };
+
+            var result = await babiesService.UpdateBaby(putBaby, userId);
 
             if (result == null)
             {
@@ -86,7 +106,7 @@ namespace BabyLife.Mobile.Controllers
         {
             var result = await babiesService.DeleteBaby(id);
 
-            if(result == "Error")
+            if (result == "Error")
             {
                 return NotFound();
             }

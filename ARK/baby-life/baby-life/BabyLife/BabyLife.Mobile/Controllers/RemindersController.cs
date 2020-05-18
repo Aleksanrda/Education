@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BabyLife.Api.Reminders;
 using BabyLife.Api.Reminders.DTO;
 using BabyLife.Core.Entities;
+using BabyLife.Mobile.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,15 @@ namespace BabyLife.Mobile.Controllers
             return result;
         }
 
+        [HttpGet("userReminders/{userId}")]
+        [ProducesResponseType(typeof(PostReminderDTO[]), StatusCodes.Status200OK)]
+        public IEnumerable<Reminder> GetUserReminders([FromRoute] string userId)
+        {
+            var result = remindersService.GetUserReminders(userId);
+
+            return result;
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PostReminderDTO), StatusCodes.Status200OK)]
         public IActionResult GetReminder([FromRoute] int id, string userId)
@@ -46,9 +56,9 @@ namespace BabyLife.Mobile.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("{userId}")]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostReminder([FromBody] PostReminderDTO postReminderDTO, string userId)
+        public async Task<IActionResult> PostReminder([FromRoute] string userId, [FromBody] PostReminderDTO postReminderDTO)
         {
             var result = await remindersService.CreateReminder(postReminderDTO, userId);
 
@@ -60,10 +70,18 @@ namespace BabyLife.Mobile.Controllers
             return CreatedAtAction("GetReminder", new { id = result.Id }, postReminderDTO);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBaby([FromRoute] int id, [FromBody] Reminder postReminder, string userId)
+        [HttpPut("{userId}")]
+        public async Task<IActionResult> PutReminder([FromRoute] string userId, [FromBody] PutReminder putReminder)
         {
-            var result = await remindersService.UpdateReminder(postReminder, userId);
+            var reminder = new Reminder()
+            {
+                Id = putReminder.Id,
+                ReminderType = (ReminderType)Enum.Parse(typeof(ReminderType), putReminder.ReminderType),
+                ReminderTime = putReminder.ReminderTime,
+                Infa = putReminder.Infa,
+            };
+
+            var result = await remindersService.UpdateReminder(reminder, userId);
 
             if (result == null)
             {
@@ -75,10 +93,10 @@ namespace BabyLife.Mobile.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(Reminder), StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteBaby([FromRoute] int id)
+        public async Task<IActionResult> DeleteReminder([FromRoute] int id)
         {
             var result = await remindersService.DeleteReminder(id);
-
+            
             if (result == "Error")
             {
                 return NotFound();

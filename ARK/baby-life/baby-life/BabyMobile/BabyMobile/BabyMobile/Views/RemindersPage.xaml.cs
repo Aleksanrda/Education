@@ -1,23 +1,19 @@
-﻿using BabyMobile.Models.Enums;
-using BabyMobile.ViewModels;
-using BabyMobile.Views;
-using CommonServiceLocator;
+﻿using BabyMobile.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace BabyMobile
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace BabyMobile.Views
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class RemindersPage : ContentPage
     {
-        public MainPage()
+        public RemindersPage()
         {
             InitializeComponent();
 
@@ -73,32 +69,23 @@ namespace BabyMobile
                 await Navigation.PushModalAsync(new NavigationPage(new RemindersPage()));
             };
 
-            logout.Clicked += async (s, e) =>
-            {
-                var viewModel = ServiceLocator.Current.GetInstance<MainNavigationViewModel>();
-                var typeValue = viewModel.ViewType;
-                Type type = typeof(LoginPage);
-                switch (typeValue)
-                {
-                    case ViewType.LoginPage:
-                        type = typeof(LoginPage);
-                        await Navigation.PushAsync(new LoginPage());
-                        break;
-                    case ViewType.RegisterPage:
-                        type = typeof(RegisterPage);
-                        break;
-                    case ViewType.MainPage:
-                        type = typeof(MainPage);
-                        break;
-                }
-            };
-
             ToolbarItems.Add(profile);
             ToolbarItems.Add(babies);
             ToolbarItems.Add(reminders);
             ToolbarItems.Add(devices);
             ToolbarItems.Add(feedings);
             ToolbarItems.Add(logout);
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new AddNewReminder()));
+        }
+
+        private async void RemindersListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var reminder = e.Item as Reminder;
+            await Navigation.PushModalAsync(new NavigationPage(new EditReminderPage(reminder)));
         }
     }
 }
