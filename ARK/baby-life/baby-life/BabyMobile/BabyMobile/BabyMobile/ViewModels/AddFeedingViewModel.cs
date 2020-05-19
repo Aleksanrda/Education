@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class AddReminderViewModel : INotifyPropertyChanged
+    public class AddFeedingViewModel : INotifyPropertyChanged
     {
         ApiServices apiServices = new ApiServices();
 
@@ -27,11 +27,13 @@ namespace BabyMobile.ViewModels
             }
         }
 
-        public string ReminderType { get; set; }
+        public string Name { get; set; }
 
-        public DateTime ReminderTime { get; set; }
+        public int CountMilk { get; set; }
 
-        public string Infa { get; set; }
+        public DateTime TimeMilk { get; set; }
+
+        public int DeviceId { get; set; }
 
         public ICommand AddCommand
         {
@@ -39,25 +41,28 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var reminder = new Reminder()
+                    var feeding = new Feeding()
                     {
-                        ReminderType = ReminderType,
-                        ReminderTime = ReminderTime,
-                        Infa = Infa,
+                        Name = Name,
+                        CountMilk = CountMilk,
+                        TimeMilk = TimeMilk,
+                        DeviceId = DeviceId,
                     };
 
-                    var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", userId);
+                   // var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
+                    var babyId = ServiceLocator.Current.GetInstance<BabyFeedingViewModel>().BabyFeedingModel.Id;
 
-                    var isSuccess = await apiServices.PostReminderAsync(reminder, httpGetUserBabiesUrl);
+                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Feedings", babyId);
+
+                    var isSuccess = await apiServices.PostFeedingAsync(feeding, httpGetUserBabiesUrl);
 
                     if (isSuccess)
                     {
-                        Message = "You added baby successfully";
+                        Message = "You added feeding successfully";
                     }
                     else
                     {
-                        Message = "Try again";
+                        Message = "Try add feeding later again";
                     }
                 });
             }

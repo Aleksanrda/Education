@@ -1,4 +1,5 @@
-﻿using BabyLife.Core.Entities;
+﻿using BabyLife.Api.Devices.DTO;
+using BabyLife.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace BabyLife.Api.Devices
 
         Device GetDevice(int id);
 
-        Task<Device> CreateDevice(Device device);
+        Task<Device> CreateDevice(PostDeviceDTO device); 
 
         Task<Device> UpdateDevice(Device device);
 

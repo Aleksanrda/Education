@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace BabyLife.Mobile.Models
+namespace BabyMobile.Models
 {
-    public class UserModel
+    public class Profile
     {
         public string UserId { get; set; }
 

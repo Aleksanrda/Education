@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BabyMobile.Views.AddNewDevicePage">
+
+    <ContentPage.BindingContext>
+        <vm:AddDeviceViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Entry Text="{Binding Name}"
+               Placeholder="Name"></Entry>
+        <Entry Text="{Binding MaxVolume}"
+               Placeholder="Max volume"></Entry>
+        <Entry Text="{Binding MaxWeight}"
+               Placeholder="Max weight"></Entry>
+
+        <Button Command="{Binding AddCommand}"
+                Text="Add New Device"/>
+
+        <Label Text="{Binding Message}"/>
+
+        <Button Text="Go to Devices Page" Clicked="Button_Clicked"/>
+    </StackLayout>
+    
+</ContentPage>

@@ -17,9 +17,9 @@ namespace BabyMobile.Views
         {
             InitializeComponent();
 
-            ToolbarItem profile = new ToolbarItem
+            ToolbarItem menu = new ToolbarItem
             {
-                Text = "Profile",
+                Text = "Menu",
                 Order = ToolbarItemOrder.Primary,
                 Priority = 1
             };
@@ -45,18 +45,18 @@ namespace BabyMobile.Views
                 Priority = 4
             };
 
-            ToolbarItem feedings = new ToolbarItem
-            {
-                Text = "Feedings",
-                Order = ToolbarItemOrder.Secondary,
-                Priority = 5
-            };
-
             ToolbarItem logout = new ToolbarItem
             {
                 Text = "Logout",
                 Order = ToolbarItemOrder.Secondary,
                 Priority = 6
+            };
+
+            ToolbarItem profile = new ToolbarItem
+            {
+                Text = "Profile",
+                Order = ToolbarItemOrder.Secondary,
+                Priority = 7
             };
 
             babies.Clicked += async (s, e) =>
@@ -69,12 +69,27 @@ namespace BabyMobile.Views
                 await Navigation.PushModalAsync(new NavigationPage(new RemindersPage()));
             };
 
-            ToolbarItems.Add(profile);
+            devices.Clicked += async (s, e) =>
+            {
+                await Navigation.PushModalAsync(new NavigationPage(new DevicesPage()));
+            };
+
+            logout.Clicked += async (s, e) =>
+            {
+                await Navigation.PushModalAsync(new NavigationPage(new LoginPage()));
+            };
+
+            profile.Clicked += async (s, e) =>
+            {
+                await Navigation.PushModalAsync(new NavigationPage(new ProfilePage()));
+            };
+
+            ToolbarItems.Add(menu);
             ToolbarItems.Add(babies);
             ToolbarItems.Add(reminders);
             ToolbarItems.Add(devices);
-            ToolbarItems.Add(feedings);
             ToolbarItems.Add(logout);
+            ToolbarItems.Add(profile);
         }
 
         private async void Button_Clicked(object sender, EventArgs e)

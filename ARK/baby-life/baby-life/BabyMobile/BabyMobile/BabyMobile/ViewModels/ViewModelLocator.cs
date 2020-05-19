@@ -15,6 +15,7 @@ namespace BabyMobile.ViewModels
             SimpleIoc.Default.Register<RegisterViewModel>();
             SimpleIoc.Default.Register<MainNavigationViewModel>();
             SimpleIoc.Default.Register<UserViewModel>();
+            SimpleIoc.Default.Register<BabyFeedingViewModel>();
             //SimpleIoc.Default.Register<DeviceViewModel>();
         }
 
@@ -22,6 +23,8 @@ namespace BabyMobile.ViewModels
         public MainNavigationViewModel MainNavigationViewModel => SimpleIoc.Default.GetInstance<MainNavigationViewModel>();
         public RegisterViewModel RegistrationViewModel => SimpleIoc.Default.GetInstance<RegisterViewModel>();
         public UserViewModel UserViewModel => SimpleIoc.Default.GetInstance<UserViewModel>();
+
+        public BabyFeedingViewModel BabyFeedingViewModel => SimpleIoc.Default.GetInstance<BabyFeedingViewModel>();
 
         //public DeviceViewModel DeviceViewModel => SimpleIoc.Default.GetInstance<DeviceViewModel>();
     }

@@ -36,7 +36,7 @@ namespace BabyMobile.Services
             var content = new ByteArrayContent(messageBytes);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.PostAsync("https://6a2e3bcd.ngrok.io/api/Account/register", content);
+            var response = await client.PostAsync("https://06b9d5c2.ngrok.io/api/Account/register", content);
 
             var resultResponse = await response.Content.ReadAsStringAsync();
 
@@ -62,7 +62,7 @@ namespace BabyMobile.Services
             var content = new ByteArrayContent(messageBytes);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.PostAsync("https://6a2e3bcd.ngrok.io/api/Account/login", content);
+            var response = await client.PostAsync("https://06b9d5c2.ngrok.io/api/Account/login", content);
 
             var resultResponse = await response.Content.ReadAsStringAsync();
 
@@ -78,7 +78,7 @@ namespace BabyMobile.Services
 
             var model = new AuthCarePersonModel
             {
-               ShareCode = shareCode
+                ShareCode = shareCode
             };
 
             var json = JsonConvert.SerializeObject(model);
@@ -87,7 +87,7 @@ namespace BabyMobile.Services
             var content = new ByteArrayContent(messageBytes);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.PostAsync("https://6a2e3bcd.ngrok.io/api/Account/loginCarePerson", content);
+            var response = await client.PostAsync("https://06b9d5c2.ngrok.io/api/Account/loginCarePerson", content);
 
             var resultResponse = await response.Content.ReadAsStringAsync();
 
@@ -227,6 +227,183 @@ namespace BabyMobile.Services
         }
 
         public async Task<bool> DeleteReminderAsync(string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var response = await client.DeleteAsync(URL);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<Device>> GetDevicesAsync(string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+            //var httpDeleteUrl = string.Format("{0}{1}/{2}", constants.Constants.ServerHostURL, DevicesHttpUrl, this.SelectedDevice.DeviceId);
+
+            var devices = await client.GetAsync(URL);
+
+            var responseJson = await devices.Content.ReadAsStringAsync();
+            var devicesList = JsonConvert.DeserializeObject<List<Device>>(responseJson);
+
+            return devicesList;
+        }
+
+        public async Task<bool> PostDeviceAsync(Device device, string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var model = new PostDeviceModel()
+            {
+                Name = device.Name,
+                MaxVolume = device.MaxVolume,
+                MaxWeight = device.MaxWeight,
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(json);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PostAsync(URL, content);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<HttpResponseMessage> PutDeviceAsync(Device device, string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var json = JsonConvert.SerializeObject(device);
+
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(json);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PutAsync(URL, content);
+
+            return response;
+        }
+
+        public async Task<bool> DeleteDeviceAsync(string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var response = await client.DeleteAsync(URL);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<Profile> GetUserAsync(string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+            //var httpDeleteUrl = string.Format("{0}{1}/{2}", constants.Constants.ServerHostURL, DevicesHttpUrl, this.SelectedDevice.DeviceId);
+
+            var user = await client.GetAsync(URL);
+
+            var responseJson = await user.Content.ReadAsStringAsync();
+            var userResult = JsonConvert.DeserializeObject<Profile>(responseJson);
+
+            return userResult;
+        }
+
+        public async Task<HttpResponseMessage> PutProfileAsync(Profile profile, string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var json = JsonConvert.SerializeObject(profile);
+
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(json);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PutAsync(URL, content);
+
+            return response;
+        }
+
+        public async Task<List<Feeding>> GetBabyFeedingsAsync(string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+            //var httpDeleteUrl = string.Format("{0}{1}/{2}", constants.Constants.ServerHostURL, DevicesHttpUrl, this.SelectedDevice.DeviceId);
+
+            var feedings = await client.GetAsync(URL);
+
+            var responseJson = await feedings.Content.ReadAsStringAsync();
+            var feedingsList = JsonConvert.DeserializeObject<List<Feeding>>(responseJson);
+
+            return feedingsList;
+        }
+
+        public async Task<bool> PostFeedingAsync(Feeding feeding, string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var model = new PostFeedingModel()
+            {
+                Name = feeding.Name,
+                CountMilk = feeding.CountMilk,
+                TimeMilk = feeding.TimeMilk,
+                DeviceId = feeding.DeviceId,
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(json);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PostAsync(URL, content);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<HttpResponseMessage> PutFeedingAsync(Feeding feeding, string URL)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json-patch+json");
+
+            var json = JsonConvert.SerializeObject(feeding);
+
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(json);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PutAsync(URL, content);
+
+            return response;
+        }
+
+        public async Task<bool> DeleteFeedingAsync(string URL)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Clear();

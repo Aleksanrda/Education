@@ -1,6 +1,4 @@
-﻿using BabyMobile.Models;
-using BabyMobile.Services;
-using CommonServiceLocator;
+﻿using BabyMobile.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +9,7 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class AddReminderViewModel : INotifyPropertyChanged
+    public class AddDeviceViewModel : INotifyPropertyChanged
     {
         ApiServices apiServices = new ApiServices();
 
@@ -27,11 +25,11 @@ namespace BabyMobile.ViewModels
             }
         }
 
-        public string ReminderType { get; set; }
+        public string Name { get; set; }
 
-        public DateTime ReminderTime { get; set; }
+        public int MaxVolume { get; set; }
 
-        public string Infa { get; set; }
+        public int MaxWeight { get; set; }
 
         public ICommand AddCommand
         {
@@ -39,21 +37,20 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var reminder = new Reminder()
+                    var device = new BabyMobile.Models.Device()
                     {
-                        ReminderType = ReminderType,
-                        ReminderTime = ReminderTime,
-                        Infa = Infa,
+                        Name = Name,
+                        MaxVolume = MaxVolume,
+                        MaxWeight = MaxWeight,
                     };
 
-                    var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", userId);
+                    var httpAddDeviceUrl = string.Format("{0}{1}", "https://06b9d5c2.ngrok.io/", "api/Device");
 
-                    var isSuccess = await apiServices.PostReminderAsync(reminder, httpGetUserBabiesUrl);
+                    var isSuccess = await apiServices.PostDeviceAsync(device, httpAddDeviceUrl);
 
                     if (isSuccess)
                     {
-                        Message = "You added baby successfully";
+                        Message = "You added device successfully";
                     }
                     else
                     {

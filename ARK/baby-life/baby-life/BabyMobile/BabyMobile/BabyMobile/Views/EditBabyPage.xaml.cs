@@ -33,5 +33,16 @@ namespace BabyMobile.Views
         {
             await Navigation.PushModalAsync(new NavigationPage(new BabiesPage()));
         }
+
+        private async void AddNewFeedingButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new AddFeedingPage()));
+        }
+
+        private async void FeedingsListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var feeding = e.Item as Feeding;
+            await Navigation.PushModalAsync(new NavigationPage(new EditFeedingPage(feeding)));
+        }
     }
 }

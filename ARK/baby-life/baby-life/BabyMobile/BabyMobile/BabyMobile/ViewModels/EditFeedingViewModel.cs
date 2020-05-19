@@ -11,12 +11,14 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class EditReminderViewModel : INotifyPropertyChanged
+    public class EditFeedingViewModel : INotifyPropertyChanged
     {
         ApiServices apiServices = new ApiServices();
 
         private string _deleteMessage;
         private string _message;
+
+        public Feeding Feeding { get; set; }
 
         public string Message
         {
@@ -38,7 +40,12 @@ namespace BabyMobile.ViewModels
             }
         }
 
-        public Reminder Reminder { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public ICommand EditCommand
         {
@@ -46,18 +53,18 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpPutReminderUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", userId);
+                    var babyId = ServiceLocator.Current.GetInstance<BabyFeedingViewModel>().BabyFeedingModel.Id;
+                    var httpPutFeedingUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Feedings", babyId);
 
-                    var response = await apiServices.PutReminderAsync(Reminder, httpPutReminderUrl);
+                    var response = await apiServices.PutFeedingAsync(Feeding, httpPutFeedingUrl);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        Message = "You edited reminder successfully";
+                        Message = "You edited feeding successfully";
                     }
                     else
                     {
-                        Message = "Try edited reminder again";
+                        Message = "Try edited feeding again later";
                     }
                 });
             }
@@ -69,28 +76,21 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var reminderId = Reminder.Id;
-                    var httpPutReminderUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", reminderId);
+                    var feedingId = Feeding.Id;
+                    var httpDeleteFeedingUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Feedings", feedingId);
 
-                    var isSuccess = await apiServices.DeleteReminderAsync(httpPutReminderUrl);
+                    var isSuccess = await apiServices.DeleteFeedingAsync(httpDeleteFeedingUrl);
 
                     if (isSuccess == true)
                     {
-                        DeleteMessage = "You successfully deleted reminder";
+                        DeleteMessage = "You successfully deleted feeding";
                     }
                     else
                     {
-                        DeleteMessage = "Try to delete reminder later, please!";
+                        DeleteMessage = "Try to delete feeding later, please!";
                     }
                 });
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

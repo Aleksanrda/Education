@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BabyLife.Api.Devices.DTO
+namespace BabyMobile.Models
 {
-    public class PostDeviceDTO
+    public class PostDeviceModel
     {
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public int MaxVolume { get; set; }
 
-        [Required]
         public int MaxWeight { get; set; }
     }
 }

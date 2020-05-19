@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BabyMobile.Views.ProfilePage">
+    
+    <ContentPage.BindingContext>
+        <vm:ProfileViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <!--<Entry Text="{Binding Babies}"></Entry>-->
+
+        <Button Command="{Binding GetUserCommand}"
+                Text="Get my data"/>
+
+        <Entry Text="{Binding Profile.Birthday}"></Entry>
+        <Entry Text="{Binding Profile.Email}"></Entry>
+        <Entry Text="{Binding Profile.ShareCode}"></Entry>
+
+        <Button Command="{Binding EditCommand}"
+                Text="Edit Profile"></Button>
+        
+        <Label Text="{Binding Message}"/>
+        
+    </StackLayout>
+
+</ContentPage>

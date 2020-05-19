@@ -1,5 +1,4 @@
-﻿using Android.Util;
-using BabyMobile.Models;
+﻿using BabyMobile;
 using BabyMobile.Services;
 using CommonServiceLocator;
 using System;
@@ -12,30 +11,29 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class BabyViewModel : INotifyPropertyChanged
+    public class DeviceViewModel : INotifyPropertyChanged
     {
         ApiServices _apiServices = new ApiServices();
-        private List<Baby> _babies;
+        private List<BabyMobile.Models.Device> _devices;
 
-        public List<Baby> Babies 
+        public List<BabyMobile.Models.Device> Devices
         {
-            get { return _babies;  } 
+            get { return _devices; }
             set
-            { 
-                _babies = value;
+            {
+                _devices = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
-        public ICommand GetBabiesCommand
+        public ICommand GetDevicesCommand
         {
             get
             {
-                return new Command(async() =>
+                return new Command(async () =>
                 {
-                    var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Babies/userBabies", userId);
-                    Babies = await _apiServices.GetBabiesAsync(httpGetUserBabiesUrl);
+                    var httpGetUserDevicesUrl = string.Format("{0}{1}", "https://06b9d5c2.ngrok.io/", "api/Device");
+                    Devices = await _apiServices.GetDevicesAsync(httpGetUserDevicesUrl);
                 });
             }
         }

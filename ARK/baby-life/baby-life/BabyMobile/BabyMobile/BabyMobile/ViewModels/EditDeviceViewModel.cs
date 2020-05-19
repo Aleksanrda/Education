@@ -1,6 +1,5 @@
 ﻿using BabyMobile.Models;
 using BabyMobile.Services;
-using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +10,7 @@ using Xamarin.Forms;
 
 namespace BabyMobile.ViewModels
 {
-    public class EditReminderViewModel : INotifyPropertyChanged
+    public class EditDeviceViewModel : INotifyPropertyChanged
     {
         ApiServices apiServices = new ApiServices();
 
@@ -38,7 +37,14 @@ namespace BabyMobile.ViewModels
             }
         }
 
-        public Reminder Reminder { get; set; }
+        public BabyMobile.Models.Device Device { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public ICommand EditCommand
         {
@@ -46,18 +52,17 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpPutReminderUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", userId);
+                    var httpPutDeviceUrl = string.Format("{0}{1}", "https://06b9d5c2.ngrok.io/", "api/Device");
 
-                    var response = await apiServices.PutReminderAsync(Reminder, httpPutReminderUrl);
+                    var response = await apiServices.PutDeviceAsync(Device, httpPutDeviceUrl);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        Message = "You edited reminder successfully";
+                        Message = "You edited device successfully";
                     }
                     else
                     {
-                        Message = "Try edited reminder again";
+                        Message = "Try edited device again";
                     }
                 });
             }
@@ -69,28 +74,22 @@ namespace BabyMobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var reminderId = Reminder.Id;
-                    var httpPutReminderUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders", reminderId);
+                    var deviceId = Device.Id;
+                    var httpDeleteDeviceUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Device", deviceId);
 
-                    var isSuccess = await apiServices.DeleteReminderAsync(httpPutReminderUrl);
+                    var isSuccess = await apiServices.DeleteDeviceAsync(httpDeleteDeviceUrl);
 
                     if (isSuccess == true)
                     {
-                        DeleteMessage = "You successfully deleted reminder";
+                        DeleteMessage = "You successfully deleted device";
                     }
                     else
                     {
-                        DeleteMessage = "Try to delete reminder later, please!";
+                        DeleteMessage = "Try to delete device later, please!";
                     }
                 });
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

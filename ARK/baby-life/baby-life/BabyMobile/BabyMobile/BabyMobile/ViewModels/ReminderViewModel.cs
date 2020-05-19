@@ -34,7 +34,7 @@ namespace BabyMobile.ViewModels
                 return new Command(async () =>
                 {
                     var userId = ServiceLocator.Current.GetInstance<UserViewModel>().User.UserId;
-                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://6a2e3bcd.ngrok.io/", "api/Reminders/userReminders", userId);
+                    var httpGetUserBabiesUrl = string.Format("{0}{1}/{2}", "https://06b9d5c2.ngrok.io/", "api/Reminders/userReminders", userId);
                     Reminders = await _apiServices.GetRemindersAsync(httpGetUserBabiesUrl);
                 });
             }

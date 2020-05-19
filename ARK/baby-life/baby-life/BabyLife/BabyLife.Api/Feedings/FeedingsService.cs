@@ -127,6 +127,7 @@ namespace BabyLife.Api.Feedings
 
             if (feeding != null)
             {
+                feeding.Id = editFeeding.Id;
                 feeding.Name = editFeeding.Name;
                 feeding.CountMilk = editFeeding.CountMilk;
                 feeding.TimeMilk = editFeeding.TimeMilk;
@@ -134,7 +135,7 @@ namespace BabyLife.Api.Feedings
 
             if (baby != null && device != null)
             {
-                feeding.DeviceId = editFeeding.Device.Id;
+                feeding.DeviceId = device.Id;
                 feeding.Device = device;
 
                 feeding.BabyId = editFeeding.Baby.Id;

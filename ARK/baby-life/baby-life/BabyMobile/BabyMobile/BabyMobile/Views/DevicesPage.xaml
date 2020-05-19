@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BabyMobile.ViewModels"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BabyMobile.Views.DevicesPage">
+    
+    <ContentPage.BindingContext>
+        <vm:DeviceViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Button Command="{Binding GetDevicesCommand}"
+                Text="Get devices"/>
+
+        <Button Text="New Device"
+                Clicked="Button_Clicked"></Button>
+
+        <ListView ItemsSource="{Binding Devices}"
+                  HasUnevenRows="True"
+                  ItemTapped="DevicesListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Name}"></Label>
+                            <Label Text="{Binding Indicator}"></Label>
+                            <Label Text="{Binding ActionRange}"></Label>
+                            <Label Text="{Binding MaxVolume}"></Label>
+                            <Label Text="{Binding MaxWeight}"></Label>
+                            <Label Text="{Binding Longtitude}"></Label>
+                            <Label Text="{Binding Latitude}"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

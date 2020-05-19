@@ -1,4 +1,6 @@
-﻿using BabyMobile.Models;
+﻿using BabyMobile.Models.Enums;
+using BabyMobile.ViewModels;
+using CommonServiceLocator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,9 @@ using Xamarin.Forms.Xaml;
 namespace BabyMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RemindersPage : ContentPage
+    public partial class ProfilePage : ContentPage
     {
-        public RemindersPage()
+        public ProfilePage()
         {
             InitializeComponent();
 
@@ -90,17 +92,6 @@ namespace BabyMobile.Views
             ToolbarItems.Add(devices);
             ToolbarItems.Add(logout);
             ToolbarItems.Add(profile);
-    }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new AddNewReminder()));
-        }
-
-        private async void RemindersListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            var reminder = e.Item as Reminder;
-            await Navigation.PushModalAsync(new NavigationPage(new EditReminderPage(reminder)));
         }
     }
 }

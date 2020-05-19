@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BabyLife.Api.Devices;
+using BabyLife.Api.Devices.DTO;
 using BabyLife.Core.Entities;
+using BabyLife.Mobile.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,23 +31,23 @@ namespace BabyLife.Mobile.Controllers
             return result;
         }
 
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
-        //public IActionResult GetDevice([FromRoute] int id)
-        //{
-        //    var result = devicesService.GetDevice(id);
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+        public IActionResult GetDevice([FromRoute] int id)
+        {
+            var result = devicesService.GetDevice(id);
 
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (result == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
         [HttpPost]
         [ProducesResponseType(typeof(object), StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostDevice([FromBody] Device device)
+        public async Task<IActionResult> PostDevice([FromBody] PostDeviceDTO device)
         {
             var result = await devicesService.CreateDevice(device);
 
@@ -57,10 +59,22 @@ namespace BabyLife.Mobile.Controllers
             return CreatedAtAction("GetDevice", new { id = result.Id }, device);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDevice([FromRoute] int id, [FromBody] Device device)
+        [HttpPut]
+        public async Task<IActionResult> PutDevice([FromBody] PutDevice device)
         {
-            var result = await devicesService.UpdateDevice(device);
+            var putDevice = new Device()
+            {
+                Id = device.Id,
+                Name = device.Name,
+                MaxVolume = device.MaxVolume,
+                MaxWeight = device.MaxWeight,
+                Indicator = device.Indicator,
+                ActionRange = device.ActionRange,
+                Longtitude = device.Longtitude,
+                Latitude = device.Latitude
+            };
+
+            var result = await devicesService.UpdateDevice(putDevice);
 
             if (result == null)
             {
@@ -84,18 +98,18 @@ namespace BabyLife.Mobile.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(bool[]), StatusCodes.Status200OK)]
-        public IActionResult GetIsFeedingBaby([FromRoute] int id, [FromBody] Feeding feeding)
-        {
-            var result = devicesService.IsFeedingBaby(feeding, id);
+        //[HttpGet("{id}")]
+        //[ProducesResponseType(typeof(bool[]), StatusCodes.Status200OK)]
+        //public IActionResult GetIsFeedingBaby([FromRoute] int id, [FromBody] Feeding feeding)
+        //{
+        //    var result = devicesService.IsFeedingBaby(feeding, id);
 
-            if (!result)
-            {
-                return NotFound();
-            }
+        //    if (!result)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

@@ -32,7 +32,7 @@ namespace BabyLife.Api.Devices
             return result;
         }
 
-        public async Task<Device> CreateDevice(Device device)
+        public async Task<Device> CreateDevice(PostDeviceDTO device)
         {
             if (device == null)
             {
